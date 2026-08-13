@@ -459,8 +459,8 @@
     </div>
     <div class="sample-banner" id="sampleBanner" hidden>
       <div>
-        <strong id="sampleCount">0</strong> of these are sample clothes StyleSync started you with — not yours.
-        <span style="color:var(--muted)">Clearing them leaves everything you added untouched.</span>
+        <strong id="sampleCount">0</strong> of these aren't yours — the starter closet, imported test data, and any demo pieces you tried out.
+        <span style="color:var(--muted)">Clearing them keeps every photo you uploaded yourself.</span>
       </div>
       <button id="clearSamplesBtn">Remove sample clothes</button>
     </div>
@@ -1317,9 +1317,20 @@ function renderCloset() {
    exact way to separate "clothes StyleSync invented" from "clothes you actually own" —
    safer than guessing by name or date. */
 var SEED_IDS = SEED.map(function(s){ return s.id; });
-// Imported catalogue items count as "not yours" too — they're test data, same as the
-// seed closet, so one control clears both rather than leaving ZARA items stranded.
-function isSampleItem(i){ return SEED_IDS.indexOf(i.id) >= 0 || i.isTestData === true; }
+// SAMPLES is declared further down the file, so read it at call time rather than
+// hoisting a copy up here — at this point in the script it is still undefined.
+function sampleNames(){
+  return (typeof SAMPLES === 'undefined' ? [] : SAMPLES).map(function(s){ return s.name; });
+}
+// Three kinds of clothes are "not yours": the seed closet, imported catalogue items,
+// and anything picked from the "try a sample photo" row. The last kind predates the
+// isTestData flag, so also match a demo name with no photo attached — a real upload
+// always carries its own image, so this can't sweep away something the user added.
+function isSampleItem(i){
+  if (SEED_IDS.indexOf(i.id) >= 0) return true;
+  if (i.isTestData === true) return true;
+  return !i.img && sampleNames().indexOf(i.name) >= 0;
+}
 function updateSampleBanner(){
   var banner = document.getElementById('sampleBanner');
   if (!banner) return;
@@ -1535,7 +1546,11 @@ function renderAddStep1(){
   ['dragleave','drop'].forEach(function(ev){ dz.addEventListener(ev,function(e){ e.preventDefault(); dz.style.borderColor=''; }); });
   dz.addEventListener('drop', function(e){ var f=e.dataTransfer.files && e.dataTransfer.files[0]; if(f) handlePhoto(f); });
   document.querySelectorAll('#samplePick button').forEach(function(b){
-    b.addEventListener('click', function(){ scanThenTag(SAMPLES[+b.dataset.s]); });
+    // Mark it as demo data. Without this the item is indistinguishable from a real
+    // upload, so "Remove sample clothes" silently leaves it behind in the closet.
+    b.addEventListener('click', function(){
+      scanThenTag(Object.assign({}, SAMPLES[+b.dataset.s], { isTestData: true }));
+    });
   });
 }
 // Downscale before upload: a phone photo is several MB, and the model doesn't need
