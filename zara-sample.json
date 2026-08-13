@@ -34,7 +34,13 @@
         "collectedAt": "2026-08-13",
         "category": "tops"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-001-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/fc79/6257/65dc420a9698/1a71c6f28da3/06236025303-p/06236025303-p.jpg?ts=1775657512409&w=1608",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-002",
@@ -650,7 +656,13 @@
         "collectedAt": "2026-08-13",
         "category": "tops"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-021-flatlay.jpg",
+      "imageProvenance": {
+        "type": "official-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/ea9e/0286/fb5a476fa876/9feb94c20137/07822071251-e1/07822071251-e1.jpg?ts=1782999533115&w=774",
+        "detailFidelity": "official image"
+      }
     },
     {
       "id": "zara-022",
@@ -681,7 +693,13 @@
         "collectedAt": "2026-08-13",
         "category": "tops"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-022-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/7047/2c31/ea3645a4a378/85e0fc9a1cd4/02335150600-a1/02335150600-a1.jpg?ts=1780058844333&w=1098",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-023",
@@ -742,7 +760,13 @@
         "collectedAt": "2026-08-13",
         "category": "dresses"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-024-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/5c1c/5451/acd94bf89e98/7de857db98b9/07858109400-a3/07858109400-a3.jpg?ts=1786544807615&w=1608",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-025",
@@ -955,7 +979,13 @@
         "collectedAt": "2026-08-13",
         "category": "dresses"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-031-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/b4d5/8283/b1fd4fc1b7cb/4f7fffd4af4e/07953524087-h1/07953524087-h1.jpg?ts=1786018626645&w=1608",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-032",
@@ -985,7 +1015,13 @@
         "collectedAt": "2026-08-13",
         "category": "new-in"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-032-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/e177/6d3a/817144fcb9ce/2c1191749616/02278560737-p/02278560737-p.jpg?ts=1786373363412&w=1098",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-033",
@@ -1414,7 +1450,13 @@
         "collectedAt": "2026-08-13",
         "category": "dresses"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-046-flatlay.jpg",
+      "imageProvenance": {
+        "type": "official-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/9154/a6e9/40dc4c4d893a/3569aaa01dc7/07501543046-e1/07501543046-e1.jpg?ts=1786448868900&w=774",
+        "detailFidelity": "official image"
+      }
     },
     {
       "id": "zara-047",
@@ -1444,7 +1486,13 @@
         "collectedAt": "2026-08-13",
         "category": "dresses"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-047-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/fab3/b182/32b543c088e0/902ab96f17a0/07957576700-a2/07957576700-a2.jpg?ts=1786018632199&w=774",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-048",
@@ -1475,7 +1523,13 @@
         "collectedAt": "2026-08-13",
         "category": "dresses"
       },
-      "isTestData": true
+      "isTestData": true,
+      "flatlayUrl": "./assets/flatlay/zara-048-flatlay.png",
+      "imageProvenance": {
+        "type": "ai-generated-flatlay",
+        "sourceImageUrl": "https://static.zara.net/assets/public/6886/278a/fe0f4f9ca387/445b25ec9e79/05029174046-p/05029174046-p.jpg?ts=1786450881059&w=774",
+        "detailFidelity": "best-effort prototype"
+      }
     },
     {
       "id": "zara-049",
@@ -2035,8 +2089,8 @@
     {
       "id": "zara-067",
       "name": "Medium shot of baggy, low-rise black pants with a gathered hem and fitted cuffs, paired with white flats.",
-      "cat": "shoes",
-      "sub": "loafers",
+      "cat": "bottom",
+      "sub": "trousers",
       "color": "#8892a6",
       "colorName": "Unknown",
       "pattern": "solid",
@@ -2312,8 +2366,8 @@
     {
       "id": "zara-076",
       "name": "METALLIC LEATHER SLINGBACKS",
-      "cat": "top",
-      "sub": "shirt",
+      "cat": "shoes",
+      "sub": "heels",
       "color": "#8892a6",
       "colorName": "Silver",
       "pattern": "solid",
@@ -2739,8 +2793,8 @@
     {
       "id": "zara-090",
       "name": "Model wearing an unbuttoned dark patterned shirt, olive green pants, and a brown belt. AR text visible on the left against a light background.",
-      "cat": "bottom",
-      "sub": "trousers",
+      "cat": "top",
+      "sub": "shirt",
       "color": "#8892a6",
       "colorName": "Unknown",
       "pattern": "solid",
@@ -2864,7 +2918,7 @@
       "id": "zara-094",
       "name": "Outfit consisting of a brown jacket, a beige sweater, and dark beige wide-leg pants with a black floral print and front pockets.",
       "cat": "bottom",
-      "sub": "trousers",
+      "sub": "jeans",
       "color": "#8892a6",
       "colorName": "Unknown",
       "pattern": "printed",
@@ -3047,8 +3101,8 @@
     {
       "id": "zara-100",
       "name": "Asymmetric yellow top set with a crew neck and flowy long sleeves, and wide-leg pants with a dark print and front pockets.",
-      "cat": "bottom",
-      "sub": "trousers",
+      "cat": "top",
+      "sub": "tee",
       "color": "#8892a6",
       "colorName": "Unknown",
       "pattern": "printed",

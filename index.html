@@ -233,7 +233,7 @@
   .item { background: var(--card-bg); border: 1px solid var(--line); border-radius: 13px; overflow: hidden; transition: transform .15s, border-color .15s; position: relative; }
   .item:hover { transform: translateY(-3px); border-color: var(--accent); }
   .item .art { aspect-ratio: 1; background: var(--card-2); display: flex; align-items: center; justify-content: center; padding: 16px; }
-  .item .art svg { width: 78%; height: 78%; }
+  .no-photo { width: 100%; height: 100%; align-items: center; justify-content: center; color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px; text-align: center; }
   .item .meta { padding: 12px 13px 14px; }
   .item .meta .nm { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.25; }
   .item .meta .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
@@ -453,16 +453,7 @@
         <span class="chip" data-f="shoes">Shoes</span>
         <span class="chip" data-f="accessory">Accessories</span>
       </div>
-      <button class="add-btn" id="importZaraBtn" style="background:transparent;color:var(--text-dim);border:1px solid var(--line)">🏷 Import ZARA test data</button>
-      <button class="add-btn" id="addBulkBtn" style="background:transparent;color:var(--text-dim);border:1px solid var(--line)">📸 Add several</button>
       <button class="add-btn" id="addItemBtn">＋ Add item</button>
-    </div>
-    <div class="sample-banner" id="sampleBanner" hidden>
-      <div>
-        <strong id="sampleCount">0</strong> of these aren't yours — the starter closet, imported test data, and any demo pieces you tried out.
-        <span style="color:var(--muted)">Clearing them keeps every photo you uploaded yourself.</span>
-      </div>
-      <button id="clearSamplesBtn">Remove sample clothes</button>
     </div>
     <div class="closet" id="closet"></div>
   </section>
@@ -543,76 +534,76 @@
    model constrained to the same wardrobe item IDs (see proposal).
    ============================================================ */
 
-/* ---------- GARMENT ART (inline SVG per subtype) ---------- */
-function garment(sub, fill, pattern) {
-  var stroke = "rgba(0,0,0,0.28)";
-  var pat = "";
-  var pid = "p" + Math.random().toString(36).slice(2, 8);
-  if (pattern === "striped") {
-    pat = '<defs><pattern id="'+pid+'" width="7" height="7" patternTransform="rotate(0)" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="'+fill+'"/><rect width="7" height="3.5" fill="rgba(255,255,255,0.55)"/></pattern></defs>';
-    fill = "url(#"+pid+")";
-  } else if (pattern === "checked") {
-    pat = '<defs><pattern id="'+pid+'" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="'+fill+'"/><rect width="4.5" height="9" fill="rgba(255,255,255,0.35)"/><rect width="9" height="4.5" fill="rgba(255,255,255,0.22)"/></pattern></defs>';
-    fill = "url(#"+pid+")";
-  }
-  var body = {
-    tee: '<path d="M32 20 L20 30 L26 40 L32 35 L32 92 L68 92 L68 35 L74 40 L80 30 L68 20 C64 26 56 27 50 27 C44 27 36 26 32 20Z"/>',
-    shirt: '<path d="M32 20 L20 30 L26 40 L32 35 L32 92 L68 92 L68 35 L74 40 L80 30 L68 20 L58 24 L50 34 L42 24Z"/><line x1="50" y1="34" x2="50" y2="90" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
-    sweater: '<path d="M30 22 L18 34 L24 48 L31 44 L31 94 L69 94 L69 44 L76 48 L82 34 L70 22 C64 28 56 29 50 29 C44 29 36 28 30 22Z"/><line x1="31" y1="88" x2="69" y2="88" stroke="'+stroke+'" stroke-width="1.5" fill="none"/>',
-    blazer: '<path d="M31 20 L20 32 L27 44 L32 40 L32 94 L68 94 L68 40 L73 44 L80 32 L69 20 L57 25 L50 40 L43 25Z"/><path d="M43 25 L38 52 M57 25 L62 52" stroke="'+stroke+'" stroke-width="1.3" fill="none"/><circle cx="47" cy="60" r="1.4" fill="'+stroke+'"/><circle cx="47" cy="70" r="1.4" fill="'+stroke+'"/>',
-    coat: '<path d="M30 20 L19 32 L26 48 L31 44 L31 104 L69 104 L69 44 L74 48 L81 32 L70 20 L57 26 L50 40 L43 26Z"/><line x1="50" y1="40" x2="50" y2="102" stroke="'+stroke+'" stroke-width="1.3" fill="none"/><circle cx="50" cy="56" r="1.5" fill="'+stroke+'"/><circle cx="50" cy="70" r="1.5" fill="'+stroke+'"/><circle cx="50" cy="84" r="1.5" fill="'+stroke+'"/>',
-    jacket: '<path d="M31 20 L20 30 L27 44 L32 40 L32 88 L68 88 L68 40 L73 44 L80 30 L69 20 L57 25 L50 36 L43 25Z"/><line x1="50" y1="36" x2="50" y2="86" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
-    // sun shell (防晒衣): hooded, drawn lighter than a jacket to read as thin
-    sunshirt: '<path d="M31 22 L20 32 L26 46 L32 42 L32 90 L68 90 L68 42 L74 46 L80 32 L69 22 C64 30 56 32 50 32 C44 32 36 30 31 22Z"/><path d="M40 22 C44 30 56 30 60 22" stroke="'+stroke+'" stroke-width="1.1" fill="none"/><line x1="50" y1="32" x2="50" y2="88" stroke="'+stroke+'" stroke-width="1" stroke-dasharray="3 2" fill="none"/>',
-    trousers: '<path d="M34 22 L66 22 L64 100 L54 100 L50 50 L46 100 L36 100Z"/><line x1="34" y1="30" x2="66" y2="30" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
-    jeans: '<path d="M34 22 L66 22 L64 100 L54 100 L50 50 L46 100 L36 100Z"/><line x1="34" y1="30" x2="66" y2="30" stroke="'+stroke+'" stroke-width="1.4" fill="none"/><path d="M40 40 L44 44 M60 40 L56 44" stroke="'+stroke+'" stroke-width="0.9" fill="none"/>',
-    chinos: '<path d="M35 22 L65 22 L63 100 L54 100 L50 50 L46 100 L37 100Z"/><line x1="35" y1="30" x2="65" y2="30" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
-    skirt: '<path d="M36 26 L64 26 L74 96 L26 96Z"/><line x1="36" y1="34" x2="64" y2="34" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
-    dress: '<path d="M36 22 L30 32 L36 40 L38 46 L28 98 L72 98 L62 46 L64 40 L70 32 L64 22 C60 27 54 28 50 28 C46 28 40 27 36 22Z"/><line x1="38" y1="46" x2="62" y2="46" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
-    sneakers: '<path d="M20 66 L20 78 C20 82 24 84 28 84 L74 84 C80 84 82 80 80 76 L64 58 C60 54 54 56 52 60 L48 66 L30 66 C24 66 20 62 20 66Z"/><line x1="30" y1="70" x2="46" y2="70" stroke="'+stroke+'" stroke-width="1.3"/><path d="M52 60 L56 68 M58 62 L62 70" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
-    loafers: '<path d="M22 68 C22 64 26 62 32 62 L58 62 C68 62 78 68 80 76 C81 80 78 84 72 84 L28 84 C24 84 22 80 22 76Z"/><path d="M34 66 C40 62 52 62 58 66" stroke="'+stroke+'" stroke-width="1.3" fill="none"/>',
-    // heeled shoe — the ZARA sample uses this sub, and without a shape it fell back to a tee
-    heels: '<path d="M28 54 C28 50 32 48 38 48 L56 48 C66 48 74 56 76 66 L78 78 C78 82 74 84 70 84 L68 84 L66 72 L44 68 L34 66 C30 65 28 62 28 58Z"/><path d="M66 72 L70 84" stroke="'+stroke+'" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M34 56 C42 52 54 52 60 58" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
-    boots: '<path d="M34 40 L52 40 L54 66 L74 74 C80 76 80 84 74 84 L36 84 C32 84 30 80 30 74 L32 44Z"/><line x1="34" y1="48" x2="52" y2="48" stroke="'+stroke+'" stroke-width="1.2"/>'
-  };
-  var shape = body[sub] || body.tee;
-  return '<svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">'+pat+'<g fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.4" stroke-linejoin="round">'+shape+'</g></svg>';
-}
-
-/* ---------- SAMPLE WARDROBE ----------
-   formality 1(very casual)..5(formal) ; warmth 1(hot-weather)..5(cold-weather)
-   colorRole: neutral | color | bold ; style tags drive profile match          */
+/* ---------- LOCAL WARDROBE ----------
+   The initial closet is stored directly in this file so it also works when index.html
+   is opened from disk. Every entry uses a project-local photo. */
 var SEED = [
-  {id:'w1', name:'White oxford shirt', cat:'top', sub:'shirt', color:'#f2f2ec', colorName:'White', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['classic','minimal','preppy']},
-  {id:'w2', name:'Light-blue oxford shirt', cat:'top', sub:'shirt', color:'#cfe0f2', colorName:'Light blue', pattern:'solid', colorRole:'color', formality:3, warmth:2, style:['classic','preppy']},
-  {id:'w3', name:'White crew tee', cat:'top', sub:'tee', color:'#f2f2ec', colorName:'White', pattern:'solid', colorRole:'neutral', formality:2, warmth:1, style:['minimal','classic']},
-  {id:'w4', name:'Navy crew tee', cat:'top', sub:'tee', color:'#28324a', colorName:'Navy', pattern:'solid', colorRole:'neutral', formality:2, warmth:1, style:['minimal']},
-  {id:'w5', name:'Striped long-sleeve', cat:'top', sub:'tee', color:'#2b3a55', colorName:'Navy/white', pattern:'striped', colorRole:'color', formality:2, warmth:2, style:['classic','preppy']},
-  {id:'w6', name:'Charcoal merino sweater', cat:'top', sub:'sweater', color:'#3a3d45', colorName:'Charcoal', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['classic','minimal','cozy']},
-  {id:'w7', name:'Cream cable-knit', cat:'top', sub:'sweater', color:'#ece0c9', colorName:'Cream', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['cozy','classic']},
-  {id:'w8', name:'Dark indigo jeans', cat:'bottom', sub:'jeans', color:'#2a3550', colorName:'Indigo', pattern:'solid', colorRole:'neutral', formality:2, warmth:3, style:['minimal','classic','street']},
-  {id:'w9', name:'Black tailored trousers', cat:'bottom', sub:'trousers', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:4, warmth:2, style:['classic','minimal','edgy']},
-  {id:'w10', name:'Beige chinos', cat:'bottom', sub:'chinos', color:'#cbb48f', colorName:'Beige', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['preppy','classic']},
-  {id:'w11', name:'Olive utility trousers', cat:'bottom', sub:'trousers', color:'#5a5a3c', colorName:'Olive', pattern:'solid', colorRole:'earth', formality:2, warmth:3, style:['street','cozy']},
-  {id:'w12', name:'Black A-line skirt', cat:'bottom', sub:'skirt', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['classic','edgy']},
-  {id:'w13', name:'Navy wrap dress', cat:'dress', sub:'dress', color:'#28324a', colorName:'Navy', pattern:'solid', colorRole:'color', formality:4, warmth:2, style:['classic','minimal']},
-  {id:'w14', name:'Camel wool coat', cat:'outerwear', sub:'coat', color:'#b08d57', colorName:'Camel', pattern:'solid', colorRole:'earth', formality:4, warmth:5, style:['classic','minimal']},
-  {id:'w15', name:'Denim jacket', cat:'outerwear', sub:'jacket', color:'#4a6a8a', colorName:'Denim blue', pattern:'solid', colorRole:'color', formality:2, warmth:3, style:['street','classic']},
-  {id:'w16', name:'Black blazer', cat:'outerwear', sub:'blazer', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:4, warmth:2, style:['classic','edgy','minimal']},
-  {id:'w17', name:'White leather sneakers', cat:'shoes', sub:'sneakers', color:'#f0f0ea', colorName:'White', pattern:'solid', colorRole:'neutral', formality:2, warmth:3, style:['minimal','street','classic']},
-  {id:'w18', name:'Brown leather loafers', cat:'shoes', sub:'loafers', color:'#6b4a2b', colorName:'Brown', pattern:'solid', colorRole:'earth', formality:4, warmth:3, style:['classic','preppy']},
-  {id:'w19', name:'Black Chelsea boots', cat:'shoes', sub:'boots', color:'#17181c', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['edgy','classic','street']}
+  {id:'local-top-gold',name:'Gold draped halter top',cat:'top',sub:'tee',color:'#c8ad6b',colorName:'Gold',pattern:'solid',colorRole:'color',formality:4,warmth:1,season:['spring','summer'],style:['modern','evening'],img:'./assets/flatlay/zara-001-flatlay.png'},
+  {id:'local-top-ivory',name:'Ivory satin halter top',cat:'top',sub:'tee',color:'#e6dfcf',colorName:'Ivory',pattern:'solid',colorRole:'neutral',formality:4,warmth:1,season:['spring','summer'],style:['minimal','evening'],img:'./assets/flatlay/zara-021-flatlay.jpg'},
+  {id:'local-top-red',name:'Red wide-strap tank top',cat:'top',sub:'tee',color:'#d91f32',colorName:'Red',pattern:'solid',colorRole:'bold',formality:2,warmth:1,season:['spring','summer'],style:['casual','minimal'],img:'./assets/flatlay/zara-022-flatlay.png'},
+  {id:'local-dress-blue',name:'Blue scarf-detail maxi dress',cat:'dress',sub:'dress',color:'#2555a8',colorName:'Blue',pattern:'solid',colorRole:'color',formality:4,warmth:2,season:['spring','summer','fall'],style:['classic','evening'],img:'./assets/flatlay/zara-024-flatlay.png'},
+  {id:'local-dress-gingham',name:'Brown gingham midi dress',cat:'dress',sub:'dress',color:'#765343',colorName:'Brown / Ecru',pattern:'checked',colorRole:'earth',formality:3,warmth:2,season:['spring','summer','fall'],style:['classic','casual'],img:'./assets/flatlay/zara-031-flatlay.png'},
+  {id:'local-dress-denim',name:'Dark denim halter midi dress',cat:'dress',sub:'dress',color:'#28221f',colorName:'Dark brown',pattern:'solid',colorRole:'neutral',formality:3,warmth:2,season:['spring','summer','fall'],style:['modern','casual'],img:'./assets/flatlay/zara-047-flatlay.png'},
+  {id:'local-dress-cream',name:'Cream belted pleated midi dress',cat:'dress',sub:'dress',color:'#eadfcd',colorName:'Cream',pattern:'solid',colorRole:'neutral',formality:4,warmth:2,season:['spring','summer'],style:['classic','romantic'],img:'./assets/flatlay/zara-048-flatlay.png'},
+  {id:'local-bottom-black',name:'Black wool trousers',cat:'bottom',sub:'trousers',color:'#222222',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:3,warmth:4,season:['fall','winter','spring'],style:['classic','minimal'],img:'./assets/demo/open-006-trousers.jpg'},
+  {id:'local-layer-olive',name:'Olive field jacket',cat:'outerwear',sub:'jacket',color:'#62644e',colorName:'Olive',pattern:'solid',colorRole:'earth',formality:2,warmth:3,season:['fall','winter','spring'],style:['utility','street'],img:'./assets/demo/open-001-jacket.jpg'},
+  {id:'local-layer-black',name:'Black leather coat',cat:'outerwear',sub:'coat',color:'#242424',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:4,warmth:5,season:['fall','winter'],style:['classic','edgy'],img:'./assets/demo/open-004-coat.jpg'},
+  {id:'local-shoes-blue',name:'Blue running sneakers',cat:'shoes',sub:'sneakers',color:'#466b83',colorName:'Blue',pattern:'solid',colorRole:'color',formality:2,warmth:2,season:['spring','summer','fall'],style:['sporty','street'],img:'./assets/demo/open-003-sneakers.jpg'},
+  {id:'local-shoes-black',name:'Black slingback heels',cat:'shoes',sub:'heels',color:'#181818',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:5,warmth:1,season:['spring','summer','fall'],style:['classic','evening'],img:'./assets/demo/demo-black-heels.png'},
+  {id:'local-pants-taupe',name:'Taupe satin harem pants',cat:'bottom',sub:'trousers',color:'#9c8f82',colorName:'Taupe',pattern:'solid',colorRole:'neutral',formality:3,warmth:2,season:['spring','summer','fall'],style:['modern','evening'],img:'./assets/flatlay/zara-032-flatlay.png'},
+  {id:'local-sport-tee-blue',name:'Blue performance training tee',cat:'top',sub:'tee',color:'#0755c9',colorName:'Cobalt blue',pattern:'solid',colorRole:'color',formality:1,warmth:1,season:['spring','summer','fall'],style:['sporty','minimal'],img:'./assets/demo/sport-blue-performance-tee.png'},
+  {id:'local-sport-joggers-charcoal',name:'Charcoal athletic joggers',cat:'bottom',sub:'trousers',color:'#292a2e',colorName:'Charcoal',pattern:'solid',colorRole:'neutral',formality:1,warmth:2,season:['spring','summer','fall'],style:['sporty','street'],img:'./assets/demo/sport-charcoal-joggers.png'},
+  {id:'local-sport-jacket-sage',name:'Sage training jacket',cat:'outerwear',sub:'jacket',color:'#aeb5a0',colorName:'Sage green',pattern:'solid',colorRole:'earth',formality:1,warmth:2,season:['spring','fall'],style:['sporty','minimal'],img:'./assets/demo/sport-sage-training-jacket.png'},
+  {id:'local-sport-shoes-white',name:'White running sneakers',cat:'shoes',sub:'sneakers',color:'#f2f1ed',colorName:'White',pattern:'solid',colorRole:'neutral',formality:1,warmth:2,season:['spring','summer','fall','winter'],style:['sporty','minimal'],img:'./assets/demo/sport-white-running-shoes.png'},
+  {id:'local-shoes-brown-loafers',name:'Dark brown penny loafers',cat:'shoes',sub:'loafers',color:'#3b2118',colorName:'Dark brown',pattern:'solid',colorRole:'earth',formality:4,warmth:2,season:['spring','summer','fall'],style:['classic','preppy'],img:'./assets/demo/shoe-brown-penny-loafers.png'},
+  {id:'local-shoes-black-boots',name:'Black leather Chelsea boots',cat:'shoes',sub:'boots',color:'#171717',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:4,warmth:4,season:['fall','winter','spring'],style:['classic','edgy'],img:'./assets/demo/shoe-black-chelsea-boots.png'},
+  {id:'local-shoes-burgundy-oxfords',name:'Burgundy leather Oxford shoes',cat:'shoes',sub:'loafers',color:'#512126',colorName:'Burgundy',pattern:'solid',colorRole:'earth',formality:5,warmth:2,season:['spring','fall','winter'],style:['classic','formal'],img:'./assets/demo/shoe-burgundy-oxfords.png'},
+  {id:'local-shoes-gold-party',name:'Gold strappy party sandals',cat:'shoes',sub:'heels',color:'#c6a06a',colorName:'Champagne gold',pattern:'solid',colorRole:'color',formality:4,warmth:1,season:['spring','summer','fall'],style:['evening','party'],img:'./assets/demo/shoe-gold-party-sandals.png'},
+  {id:'local-dress-tropical',name:'Tropical resort maxi dress',cat:'dress',sub:'dress',color:'#198d91',colorName:'Teal / coral',pattern:'printed',colorRole:'bold',formality:2,warmth:1,season:['spring','summer'],style:['vacation','romantic'],img:'./assets/demo/dress-tropical-resort-maxi.png'},
+  {id:'local-dress-black-cocktail',name:'Black satin cocktail dress',cat:'dress',sub:'dress',color:'#151515',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:5,warmth:2,season:['spring','summer','fall','winter'],style:['classic','evening'],img:'./assets/demo/dress-black-cocktail.png'},
+  {id:'local-layer-black-blazer',name:'Black tailored blazer',cat:'outerwear',sub:'blazer',color:'#171717',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:5,warmth:2,season:['spring','fall','winter'],style:['classic','formal'],img:'./assets/demo/layer-black-tailored-blazer.png'},
+  {id:'local-bottom-blue-jeans',name:'Classic blue straight-leg jeans',cat:'bottom',sub:'jeans',color:'#38688e',colorName:'Medium blue',pattern:'solid',colorRole:'color',formality:2,warmth:3,season:['spring','summer','fall','winter'],style:['classic','casual','street'],img:'./assets/demo/bottom-blue-straight-jeans.png'},
+  {id:'local-bottom-black-mini',name:'Black tailored mini skirt',cat:'bottom',sub:'skirt',color:'#171717',colorName:'Black',pattern:'solid',colorRole:'neutral',formality:3,warmth:1,season:['spring','summer','fall'],style:['classic','evening'],img:'./assets/demo/bottom-black-mini-skirt.png'},
+  {id:'local-bottom-ivory-midi',name:'Ivory satin midi skirt',cat:'bottom',sub:'skirt',color:'#eee1ca',colorName:'Ivory',pattern:'solid',colorRole:'neutral',formality:4,warmth:2,season:['spring','summer','fall'],style:['romantic','evening'],img:'./assets/demo/bottom-ivory-satin-midi-skirt.png'},
+  {id:'local-bottom-olive-wide',name:'Olive wide-leg utility trousers',cat:'bottom',sub:'trousers',color:'#626149',colorName:'Olive',pattern:'solid',colorRole:'earth',formality:2,warmth:2,season:['spring','summer','fall'],style:['casual','street'],img:'./assets/demo/bottom-olive-wide-leg-trousers.png'}
 ];
 
 /* ---------- STATE ---------- */
-var STORE = 'stylesync-app-v1';
+// New key intentionally starts the presentation with the photo wardrobe instead of
+// retaining an older empty/test-data closet from previous prototype versions.
+var STORE = 'stylesync-app-v6';
 var state = loadState();
+
+// Imported product captions sometimes describe the whole model look rather than the
+// item being sold. The official product URL is the most reliable semantic signal.
+function repairImportedCategory(i){
+  if (!i || !i.productUrl) return i;
+  var path = i.productUrl.toLowerCase().split('?')[0];
+  function set(cat, sub){ i.cat = cat; i.sub = sub; }
+  if (/jumpsuit/.test(path) || (/dress/.test(path) && !/dress[_-]?shirt/.test(path))) set('dress', 'dress');
+  else if (/pants|trousers|jeans|shorts|skort|culottes/.test(path))
+    set('bottom', /jeans/.test(path) ? 'jeans' : /skort/.test(path) ? 'skirt' : 'trousers');
+  else if (/coat/.test(path)) set('outerwear', 'coat');
+  else if (/jacket|blazer/.test(path)) set('outerwear', /blazer/.test(path) ? 'blazer' : 'jacket');
+  else if (/shoe|heel|flat|loafer|sneaker|boot|slingback/.test(path))
+    set('shoes', /boot/.test(path) ? 'boots' : /sneaker/.test(path) ? 'sneakers' : /loafer/.test(path) ? 'loafers' : 'heels');
+  else if (/top|shirt|polo|cami|corset|tank|sweater|knit/.test(path))
+    set('top', /sweater|knit/.test(path) ? 'sweater' : /shirt|polo/.test(path) ? 'shirt' : 'tee');
+  return i;
+}
+
 function loadState() {
   try {
     var s = JSON.parse(localStorage.getItem(STORE));
-    if (s && s.wardrobe) return s;
+    if (s && Array.isArray(s.wardrobe)) {
+      // Migrate old browser state: every former line-art item lacked a raster image.
+      s.wardrobe = s.wardrobe.filter(function(i){
+        return !!(i && (i.flatlayUrl || i.img || i.imageUrl));
+      }).map(repairImportedCategory);
+      if (s.wardrobe.length) return s;
+    }
   } catch (e) {}
-  return { wardrobe: SEED.map(function(x){return Object.assign({}, x);}), profile: { style: [], color: [], budget: 'mid' }, feedback: {} };
+  return { wardrobe: SEED.map(function(i){ return Object.assign({}, i); }), profile: { style: [], color: [], budget: 'mid' }, feedback: {} };
 }
 function persist() {
   try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e){}
@@ -781,7 +772,7 @@ var OCCASIONS = {
   date:      { label:'a date night', target:3.4, name:'sharp and a little personal' },
   brunch:    { label:'a relaxed brunch', target:2.4, name:'relaxed but intentional' },
   casual:    { label:'a casual day of errands', target:1.8, name:'easy and low-effort' },
-  night:     { label:'a night out', target:3.2, name:'darker and dressed-up' }
+  night:     { label:'a night out', target:4.0, name:'darker and dressed-up' }
 };
 
 /* ---------- ENGINE ---------- */
@@ -839,6 +830,9 @@ function buildOutfits(ctx) {
 
   var tops = byCat('top'), bottoms = byCat('bottom'), dresses = byCat('dress');
   var outer = byCat('outerwear'), shoes = byCat('shoes');
+  // A party/night-out request should never fall back to running shoes when the
+  // wardrobe contains several purpose-appropriate options.
+  if (ctx.occ === 'night') shoes = shoes.filter(function(s){ return s.formality >= 3; });
   if (!shoes.length) shoes = [null];
 
   // "Style around this piece": constrain the candidate pool so every outfit
@@ -865,6 +859,12 @@ function buildOutfits(ctx) {
     });
     shoes.forEach(function(sh){
       layerOpts.forEach(function(layer){
+        // A complete outfit has exactly one core structure. Reject corrupted category
+        // data instead of silently producing dress+pants or top-without-bottom looks.
+        var validBase = baseKind === 'dress'
+          ? base.length === 1 && base[0].cat === 'dress'
+          : base.length === 2 && base[0].cat === 'top' && base[1].cat === 'bottom';
+        if (!validBase || (sh && sh.cat !== 'shoes') || (layer && layer.cat !== 'outerwear')) return;
         var pieces = base.slice();
         if (sh) pieces.push(sh);
         var full = layer ? pieces.concat([layer]) : pieces;
@@ -878,12 +878,36 @@ function buildOutfits(ctx) {
 
   // sort, then diversify (avoid duplicate top+bottom cores)
   combos.sort(function(a,b){ return b.score - a.score; });
-  var picked = [], seenCore = {};
+  var picked = [], seenCore = {}, seenShoe = {}, seenTop = {}, seenVariant = {};
   for (var i=0;i<combos.length && picked.length<3;i++) {
     var core = combos[i].coreKey;
-    if (seenCore[core]) continue;
+    var shoeKey = combos[i].shoe ? combos[i].shoe.id : 'no-shoes';
+    var layerKey = combos[i].layer ? combos[i].layer.id : 'no-layer';
+    var topKey = combos[i].base.filter(function(piece){ return piece.cat === 'top'; })[0];
+    topKey = topKey ? topKey.id : 'no-top';
+    var variantKey = core + '|' + shoeKey + '|' + layerKey;
+    // Normally diversify the core garments. When styling around one selected item,
+    // the repeated core is intentional; diversify its shoes/layers instead.
+    if (seenVariant[variantKey] || seenShoe[shoeKey]
+        || (ctx.mustInclude && topKey !== 'no-top' && seenTop[topKey])
+        || (!ctx.mustInclude && seenCore[core])) continue;
     seenCore[core] = 1;
+    seenShoe[shoeKey] = 1;
+    seenTop[topKey] = 1;
+    seenVariant[variantKey] = 1;
     picked.push(combos[i]);
+  }
+  // Small wardrobes may not have three distinct shoe options. Fill remaining slots
+  // with different clothing cores instead of returning fewer recommendations.
+  for (var j=0;j<combos.length && picked.length<3;j++) {
+    var fallbackCore = combos[j].coreKey;
+    var fallbackShoe = combos[j].shoe ? combos[j].shoe.id : 'no-shoes';
+    var fallbackLayer = combos[j].layer ? combos[j].layer.id : 'no-layer';
+    var fallbackVariant = fallbackCore + '|' + fallbackShoe + '|' + fallbackLayer;
+    if (seenVariant[fallbackVariant] || (!ctx.mustInclude && seenCore[fallbackCore])) continue;
+    seenCore[fallbackCore] = 1;
+    seenVariant[fallbackVariant] = 1;
+    picked.push(combos[j]);
   }
   return picked;
 }
@@ -1068,17 +1092,15 @@ var results = document.getElementById('results');
 var _idSeq = 0;
 function uid(){ return 'u' + Date.now().toString(36) + (_idSeq++).toString(36); }
 
-// Show the real photo when there is one, else the drawn garment. Imported catalogue
-// items point at remote URLs that can fail (hotlink blocks, expired CDN links, offline),
-// so the illustration sits behind every <img> as a live fallback rather than leaving a
-// broken-image icon. referrerpolicy keeps hotlink-sensitive hosts from rejecting us.
+// Only display real or generated raster product images. Never fall back to garment line art.
 function itemArt(i){
-  if (!i.img) return garment(i.sub, i.color, i.pattern);
-  return '<img src="' + escAttr(i.img) + '" alt="' + escAttr(i.name||'') + '"'
+  var src = i.flatlayUrl || i.img || i.imageUrl;
+  if (!src) return '<span class="no-photo">Photo unavailable</span>';
+  return '<img src="' + escAttr(src) + '" alt="' + escAttr(i.name||'') + '"'
        + ' referrerpolicy="no-referrer" loading="lazy"'
-       + ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"'
-       + ' style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
-       + '<span class="art-fallback" style="display:none;width:100%;height:100%">' + garment(i.sub, i.color, i.pattern) + '</span>';
+       + ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"'
+       + ' style="width:100%;height:100%;object-fit:contain;border-radius:8px;background:#fff">'
+       + '<span class="no-photo" style="display:none">Photo unavailable</span>';
 }
 // item names and URLs come from an external catalogue — never interpolate them raw
 function escAttr(s){
@@ -1251,30 +1273,18 @@ function styleAround(id){
 }
 function clearMatch(){ matchItemId = null; generate(); toast('Back to your whole wardrobe.'); }
 
-/* ---------- FIND SIMILAR (free tier): text-query search links built from the item's own
-   detected/edited attributes. This is NOT brand/product matching — no vision API, no cost,
-   no backend. It just finds visually-plausible items for sale, using what we already know. */
-function shopQuery(i){
-  var parts = [i.colorName && i.colorName!=='—' ? i.colorName : '', i.pattern && i.pattern!=='solid' ? i.pattern : '', i.sub || i.cat];
-  return parts.filter(Boolean).join(' ');
-}
 // Imported catalogue items keep a link back to the official product page they came from.
 // Only http(s) is allowed through — the URL arrives from an external file.
 function sourceLinkHTML(i){
   if (!i.productUrl || !/^https?:\/\//i.test(i.productUrl)) return '';
   var brand = (i.source && i.source.brand) ? i.source.brand : 'source';
+  var provenance = i.imageProvenance && i.imageProvenance.type === 'ai-generated-flatlay'
+    ? ' · AI-generated prototype flat lay' : '';
+  var linkLabel = brand === 'Wikimedia Commons' ? 'View image & license' : 'View source product';
   return '<div class="similar-links">🏷 <a class="source-link" href="' + escAttr(i.productUrl)
-    + '" target="_blank" rel="noopener noreferrer">View source product</a>'
-    + ' <span style="color:var(--muted)">· ' + escAttr(brand) + '</span></div>';
+    + '" target="_blank" rel="noopener noreferrer">' + linkLabel + '</a>'
+    + ' <span style="color:var(--muted)">· ' + escAttr(brand + provenance) + '</span></div>';
 }
-function similarLinksHTML(i){
-  var q = encodeURIComponent(shopQuery(i));
-  return '<div class="similar-links">🔎 Find similar:'
-    + ' <a href="https://www.google.com/search?tbm=shop&q='+q+'" target="_blank" rel="noopener">Google</a>'
-    + ' · <a href="https://s.taobao.com/search?q='+q+'" target="_blank" rel="noopener">淘宝</a>'
-    + '</div>';
-}
-
 /* ---------- WARDROBE RENDER ---------- */
 var closet = document.getElementById('closet');
 var activeFilter = 'all';
@@ -1292,7 +1302,6 @@ function renderCloset() {
       + '<div class="formality-dots">'+formalityDots(i.formality)+'<span class="fl">formality</span></div>'
       + (canStyle ? '<button class="style-this" data-style="'+i.id+'">✦ Style around this</button>' : '')
       + sourceLinkHTML(i)
-      + similarLinksHTML(i)
       + '</div></div>';
   }).join('');
   document.querySelectorAll('[data-del]').forEach(function(b){
@@ -1377,9 +1386,11 @@ function normalizeImported(raw){
   if (typeof raw.productUrl !== 'string' || !/^https?:\/\//i.test(raw.productUrl)) return null;
   var cat = ZARA_CATS.indexOf(raw.cat) >= 0 ? raw.cat : 'top';
   var sub = ZARA_SUBS.indexOf(raw.sub) >= 0 ? raw.sub : null;
-  var img = (typeof raw.imageUrl === 'string' && /^https?:\/\//i.test(raw.imageUrl)) ? raw.imageUrl
+  var flatlay = (typeof raw.flatlayUrl === 'string' && /^(?:https?:\/\/|\.?\/assets\/)/i.test(raw.flatlayUrl)) ? raw.flatlayUrl : null;
+  var img = flatlay || (typeof raw.imageUrl === 'string' && /^https?:\/\//i.test(raw.imageUrl)) ? (flatlay || raw.imageUrl)
           : (typeof raw.img === 'string' && /^https?:\/\//i.test(raw.img)) ? raw.img : null;
-  return {
+  if (!img) return null;
+  return repairImportedCategory({
     id: uid(),
     name: raw.name.trim().slice(0, 120),
     cat: cat,
@@ -1393,10 +1404,13 @@ function normalizeImported(raw){
     season: Array.isArray(raw.season) ? raw.season.filter(function(s){ return typeof s === 'string'; }).slice(0,4) : [],
     style: Array.isArray(raw.style) ? raw.style.filter(function(s){ return typeof s === 'string'; }).slice(0,6) : [],
     img: img,
+    imageUrl: (typeof raw.imageUrl === 'string' ? raw.imageUrl : null),
+    flatlayUrl: flatlay,
+    imageProvenance: raw.imageProvenance || null,
     productUrl: raw.productUrl,
     source: (raw.source && typeof raw.source === 'object') ? raw.source : null,
     isTestData: true
-  };
+  });
 }
 
 function importZaraTestData(){
@@ -1428,6 +1442,56 @@ function importZaraTestData(){
   }).then(function(){
     btn.disabled = false; btn.textContent = original;
   });
+}
+
+function importUrTestData(){
+  var btn = document.getElementById('importUrBtn');
+  var original = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Importing...';
+  fetch('ur-sample.json', { cache: 'no-store' }).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(payload){
+    if (!payload || !Array.isArray(payload.items)) throw new Error('Unexpected file shape');
+    var seen = {};
+    state.wardrobe.forEach(function(i){ if (i.productUrl) seen[i.productUrl] = true; });
+    var added = 0, skipped = 0;
+    payload.items.forEach(function(raw){
+      var item = normalizeImported(raw);
+      if (!item || seen[item.productUrl]) { skipped++; return; }
+      state.wardrobe.push(item); seen[item.productUrl] = true; added++;
+    });
+    persist(); renderCloset(); updateItemCount();
+    toast(added ? 'Imported ' + added + ' Urban Outfitters test items.' : 'Already imported - no duplicates added.');
+  }).catch(function(e){
+    console.error('Urban Outfitters import failed', e);
+    toast('Could not load ur-sample.json - serve it beside index.html.');
+  }).then(function(){ btn.disabled = false; btn.textContent = original; });
+}
+
+function importOpenWardrobe(){
+  var btn = document.getElementById('importOpenBtn');
+  var original = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Importing...';
+  fetch('commons-sample.json', { cache: 'no-store' }).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(payload){
+    if (!payload || !Array.isArray(payload.items)) throw new Error('Unexpected file shape');
+    var seen = {};
+    state.wardrobe.forEach(function(i){ if (i.productUrl) seen[i.productUrl] = true; });
+    var added = 0;
+    payload.items.forEach(function(raw){
+      var item = normalizeImported(raw);
+      if (!item || seen[item.productUrl]) return;
+      state.wardrobe.push(item); seen[item.productUrl] = true; added++;
+    });
+    persist(); renderCloset(); updateItemCount();
+    toast(added ? 'Imported ' + added + ' openly licensed wardrobe items.' : 'Open wardrobe is already imported.');
+  }).catch(function(e){
+    console.error('Open wardrobe import failed', e);
+    toast('Could not load commons-sample.json - serve it beside index.html.');
+  }).then(function(){ btn.disabled = false; btn.textContent = original; });
 }
 
 // open the same tag editor used for adding, pre-filled with an existing item's saved values
@@ -1534,10 +1598,7 @@ function renderAddStep1(){
   modalBody.innerHTML = ''
     + '<div class="dropzone" id="dropzone" tabindex="0" role="button"><div class="big">📷</div><div style="margin-top:6px;font-size:14px">Click, or drop a clothing photo here</div><div style="font-size:12px;margin-top:4px">your own photo works — or pick a sample below</div></div>'
     + '<input type="file" id="fileInput" accept="image/*" style="display:none">'
-    + '<div style="font-family:-apple-system,sans-serif;font-size:12px;color:var(--muted);margin:14px 0 6px">Or try a sample photo:</div>'
-    + '<div class="sample-pick" id="samplePick">'
-    + SAMPLES.map(function(s,idx){ return '<button data-s="'+idx+'" title="'+s.name+'">'+garment(s.sub,s.color,s.pattern)+'</button>'; }).join('')
-    + '</div>';
+    ;
   var dz = document.getElementById('dropzone'), fi = document.getElementById('fileInput');
   dz.addEventListener('click', function(){ fi.click(); });
   dz.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fi.click(); } });
@@ -1599,15 +1660,34 @@ function handlePhoto(file){
   reader.onload = function(){
     var dataUrl = reader.result;
     var base = guessFromPhoto(dataUrl);
-    showScanning();
+    var classroomFlatlay = file.name.toLowerCase() === 'party-dress-upload.png';
+    showScanning(classroomFlatlay);
+    // Deterministic classroom upload: this prepared phone-style photo demonstrates
+    // the same editable tagging result without relying on classroom Wi-Fi or an API.
+    if (classroomFlatlay) {
+      setTimeout(function(){
+        renderTagEditor(Object.assign({}, base, {
+          img:'./assets/classroom-upload/party-dress-flatlay.png',
+          name:'Plum sequin party dress', cat:'dress', sub:'dress',
+          color:'#4b203f', colorName:'Plum purple', colorRole:'bold',
+          pattern:'solid', season:['spring','summer','fall','winter'],
+          style:['evening','party'], warmth:2, formality:4, _aiTagged:true
+        }));
+      }, 900);
+      return;
+    }
     classifyGarment(dataUrl, function(detected, fromAI){
       renderTagEditor(Object.assign({}, base, detected, { _aiTagged: fromAI }));
     });
   };
   reader.readAsDataURL(file);
 }
-function showScanning(){
+function showScanning(preparingFlatlay){
+  if (preparingFlatlay) {
+    modalBody.innerHTML = '<div class="scanning">Analyzing your photo…<div class="scan-bar"><div class="scan-fill" id="sf"></div></div><div style="font-size:12px;color:var(--muted)">Detecting the garment, removing the background, and preparing a clean flat lay</div></div>';
+  } else {
   modalBody.innerHTML = '<div class="scanning">🔍 Analyzing your photo…<div class="scan-bar"><div class="scan-fill" id="sf"></div></div><div style="font-size:12px;color:var(--muted)">Detecting category, color, pattern, warmth, formality</div></div>';
+  }
   var f = document.getElementById('sf'); var p = 0;
   // creeps toward 90% while the real request is in flight, so the bar reflects
   // "working" rather than a fake fixed duration
@@ -1688,7 +1768,7 @@ function renderBulkPick(){
   modalBody.innerHTML = ''
     + '<div class="ai-note">✨ <div>Detected <strong>'+detected.length+'</strong> items in your photo. Untick anything that isn\'t yours, then add them all at once.</div></div>'
     + '<div class="bulk-grid" id="bulkGrid">'
-    + detected.map(function(s,i){ return '<div class="bulk-cell on" data-i="'+i+'"><div class="bck">✓</div>'+garment(s.sub,s.color,s.pattern)+'<div class="bn">'+s.name+'</div></div>'; }).join('')
+    + detected.map(function(s,i){ return '<div class="bulk-cell on" data-i="'+i+'"><div class="bck">✓</div>'+itemArt(s)+'<div class="bn">'+s.name+'</div></div>'; }).join('')
     + '</div>'
     + '<button class="save-btn" id="bulkSave">Add selected to wardrobe</button>';
   document.querySelectorAll('#bulkGrid .bulk-cell').forEach(function(c){
@@ -2039,10 +2119,7 @@ document.getElementById('generate').addEventListener('click', generate);
 document.querySelectorAll('#filters .chip').forEach(function(c){
   c.addEventListener('click', function(){ document.querySelectorAll('#filters .chip').forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); activeFilter=c.dataset.f; renderCloset(); });
 });
-document.getElementById('clearSamplesBtn').addEventListener('click', clearSamples);
 document.getElementById('addItemBtn').addEventListener('click', openAdd);
-document.getElementById('importZaraBtn').addEventListener('click', importZaraTestData);
-document.getElementById('addBulkBtn').addEventListener('click', openBulk);
 document.getElementById('modalX').addEventListener('click', closeAdd);
 overlay.addEventListener('click', function(e){ if(e.target===overlay) closeAdd(); });
 

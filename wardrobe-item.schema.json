@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StyleSync Wardrobe Item",
+  "type": "object",
+  "required": ["id","name","cat","sub","colorName","pattern","season","style","productUrl","source"],
+  "properties": {
+    "id": {"type":"string"}, "name": {"type":"string"},
+    "cat": {"enum":["top","bottom","dress","outerwear","shoes","accessory"]},
+    "sub": {"type":"string"}, "color": {"type":"string"}, "colorName": {"type":"string"},
+    "pattern": {"enum":["solid","striped","checked","printed"]},
+    "formality": {"type":"integer","minimum":1,"maximum":5}, "warmth": {"type":"integer","minimum":1,"maximum":5},
+    "season": {"type":"array","items":{"enum":["spring","summer","fall","winter"]}},
+    "style": {"type":"array","items":{"type":"string"}},
+    "imageUrl": {"type":["string","null"],"format":"uri"}, "productUrl": {"type":"string","format":"uri"},
+    "source": {"type":"object"}, "isTestData": {"type":"boolean"}
+  }
+}

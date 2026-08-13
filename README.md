@@ -15,9 +15,13 @@ Built for **UGBA 117 — Digital Transformation**, Summer 2026.
 - **Wardrobe** — photograph a garment and an AI vision model fills in category,
   subcategory, colour, pattern, season, style, warmth and formality. Every tag is
   editable; nothing is saved until you confirm it.
-- **ZARA test data** — one-click import of 100 public catalogue items for demoing
-  the app with a full wardrobe. Images are referenced from their official URLs,
-  never re-hosted, and each item links back to its source product page.
+- **Demo data** — separate one-click imports for ZARA, Urban Outfitters, and a
+  12-item openly licensed wardrobe from Wikimedia Commons.
+  The snapshots contain 100 ZARA and 40 Urban Outfitters records; only products with
+  a raster image are added. Nine approved ZARA items use local AI-generated flat lays,
+  clearly marked as prototype assets, ahead of their official reference photos.
+- **No line-art garments** — the old 19-item illustrated closet is removed on load,
+  and missing or failed images show a neutral “Photo unavailable” state.
 
 ## Stack
 
@@ -32,11 +36,19 @@ Serve the directory over HTTP — opening `index.html` as a `file://` page block
 JSON fetch that the ZARA import needs.
 
 ```
-npx http-server . -p 4173 -c-1
+npm install
+npm run serve
 ```
 
 The vision endpoint only runs on Netlify; locally the app falls back to on-device
 colour and pattern detection and says so in the tagging panel.
+
+Run `npm run verify` to validate all datasets and all local image paths.
+
+For a deterministic live presentation, simply open **Wardrobe**. A 28-item personal
+wardrobe with project-local photos is present on first load; no import or reset step is
+required. On **Get Dressed**, manually choose the occasion, temperature, weather,
+and any preferences before clicking **Style me**.
 
 ## Database
 

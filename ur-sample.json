@@ -1,0 +1,1289 @@
+{
+  "schemaVersion": 1,
+  "source": "Urban Outfitters official public catalog",
+  "imagePolicy": "Remote official URLs only until an AI flat-lay asset is generated.",
+  "collectedAt": "2026-08-13T18:10:37.693Z",
+  "count": 40,
+  "items": [
+    {
+      "id": "ur-001",
+      "name": "BDG Star Applique Graphic Leopard Print Long Sleeve Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Leopard Print",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/107542227_029_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/107542227_029_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-star-applique-graphic-leopard-print-long-sleeve-spill-the-tee?color=029",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-002",
+      "name": "BDG Kayla Low-Rise Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Austin",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/89297493_092_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/89297493_092_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-kayla-low-rise-jean2?color=092",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-003",
+      "name": "BDG  Short Sleeve Solid Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "White",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/96451505_011_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/96451505_011_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-short-sleeve-solid-spill-the-tee?color=011",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-004",
+      "name": "BDG Sunridge Mid-Rise Cargo Balloon Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Gold",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/107023608_070_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/107023608_070_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-sunridge-mid-rise-cargo-balloon-pant?color=070",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-005",
+      "name": "iets frans… Harri Wide Leg Jogger Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Grey",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/100290162_004_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/100290162_004_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/iets-frans-harri-wide-leg-jogger-pant?color=004",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-006",
+      "name": "BDG So Soft Cardigan",
+      "cat": "outerwear",
+      "sub": "sweater",
+      "color": "#8892a6",
+      "colorName": "Neutral Multi",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 3,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/110750577_015_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/110750577_015_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-so-soft-cardigan?color=015",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-007",
+      "name": "BDG Keira Low-Rise Slim Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Dark Vintage Wash",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/106015142_108_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/106015142_108_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-keira-low-rise-slim-jean?color=108",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-008",
+      "name": "UO Fia Off-The-Shoulder Crop Top",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Pink Polka Dot",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/101507341_066_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/101507341_066_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/uo-fia-off-the-shoulder-crop-top?color=066",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-009",
+      "name": "BDG Logan Buckle Baggy Barrel Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Light Wash",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/84087246_045_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/84087246_045_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-logan-buckle-baggy-barrel-jean?color=045",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-010",
+      "name": "BDG Off-Duty Ribbed Scoop Neck Short Sleeve Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/104959424_040_b5?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/104959424_040_b5?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-off-duty-ribbed-scoop-neck-short-sleeve-tee?color=040",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-011",
+      "name": "BDG Bobbi Baggy Pull-On Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black Multi",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/105373682_009_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/105373682_009_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-bobbi-baggy-pull-on-pant2?color=009",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-012",
+      "name": "BDG Printed Short Sleeve Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Leopard Print",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/96451505_020_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/96451505_020_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-printed-short-sleeve-spill-the-tee?color=020",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-013",
+      "name": "BDG Fia Jersey Knit Off-The-Shoulder Crop Top",
+      "cat": "top",
+      "sub": "sweater",
+      "color": "#8892a6",
+      "colorName": "Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/108047010_040_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/108047010_040_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-fia-jersey-knit-off-the-shoulder-crop-top?color=040",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-014",
+      "name": "BDG Keira Low-Rise Slim Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Rinsed Denim",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/106015142_094_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/106015142_094_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-keira-low-rise-slim-jean?color=094",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-015",
+      "name": "BDG Ribbed Square Neck Tank Top",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Book room red",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/87910832_602_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/87910832_602_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-ribbed-square-neck-tank-top?color=602",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-016",
+      "name": "BDG Cate Cotton Band Jacket",
+      "cat": "outerwear",
+      "sub": "jacket",
+      "color": "#8892a6",
+      "colorName": "Olive",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 3,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/109650796_230_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/109650796_230_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-cate-cotton-band-jacket?color=230",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-017",
+      "name": "BDG Bobbi Cropped Baggy Pull-On Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Khaki",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/105337919_036_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/105337919_036_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-bobbi-cropped-baggy-pull-on-pants?color=036",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-018",
+      "name": "BDG Brittney Square Neck Henley Babydoll Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Green",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/88210224_030_e?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/88210224_030_e?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-brittney-square-neck-henley-babydoll-tee?color=030",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-019",
+      "name": "Out From Under Bec Ballet Wrap Top",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Blush",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/104759824_068_b3?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/104759824_068_b3?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-bec-long-sleeve-ballet-wrap-top?color=068",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-020",
+      "name": "Out From Under Essential Barrel Leg Full Length Sweatpants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Heather Grey",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/96713011_005_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/96713011_005_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-essential-barrel-leg-full-length-sweatpant?color=005",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-021",
+      "name": "BDG Boxy Long Sleeve Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Red Multi",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/105237275_069_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/105237275_069_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-boxy-long-sleeve-spill-the-tee?color=069",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-022",
+      "name": "Out From Under Bec Short Sleeve Baby Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Blue + Brown Stripe",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/104747019_505_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/104747019_505_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-bec-short-sleeve-baby-tee?color=505",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-023",
+      "name": "Out From Under Bec Plunging Surplice Cropped Cami",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Heather Grey",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/104809546_006_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/104809546_006_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-bec-plunging-surplice-cropped-cami?color=006",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-024",
+      "name": "Kimchi Blue Viv Shrunken Swing Peacoat",
+      "cat": "outerwear",
+      "sub": "coat",
+      "color": "#8892a6",
+      "colorName": "Grey",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 3,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/108972712_004_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/108972712_004_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/kimchi-blue-viv-shrunken-swing-peacoat?color=004",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-025",
+      "name": "UO Primrose Lace Babydoll Romper",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Mulberry",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/92036334_263_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/92036334_263_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/uo-primrose-lace-babydoll-romper?color=263",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-026",
+      "name": "Out From Under Modern Love Corset",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Snake",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/57537995_618_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/57537995_618_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-modern-love-corset?color=618",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-027",
+      "name": "Out From Under Bec Low-Rise Mini Skort",
+      "cat": "bottom",
+      "sub": "skirt",
+      "color": "#8892a6",
+      "colorName": "Pink Stripe",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/82587676_916_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/82587676_916_b2?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-bec-low-rise-mini-skort?color=916",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-028",
+      "name": "BDG Courtney Off-The-Shoulder Oversized Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Lilac",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/100819317_055_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/100819317_055_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-courtney-off-the-shoulder-slouchy-tee?color=055",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-029",
+      "name": "Out From Under Bec Pinch-Front Halter Cami",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Twilight blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/104760566_424_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/104760566_424_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-bec-pinch-front-halter-cami?color=424",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-030",
+      "name": "BDG Kayla Printed Low-Rise Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Mid Blue Utility",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/89298012_042_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/89298012_042_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-kayla-printed-low-rise-jean?color=042",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-031",
+      "name": "Out From Under Cotton Compression Boatneck Cropped Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Ink blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/89374631_436_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/89374631_436_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-cotton-compression-boatneck-cropped-tee?color=436",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-032",
+      "name": "Out From Under Diana Layering Lace-Trim Henley Top",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Green",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "y2k",
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/88383021_386_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/88383021_386_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-diana-layering-lace-trim-henley-top?color=386",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-033",
+      "name": "BDG Long Sleeve Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Ivory",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/102270691_011_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/102270691_011_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-long-sleeve-spill-the-tee?color=011",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-034",
+      "name": "BDG Logan Printed Buckle Baggy Barrel Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/100151778_094_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/100151778_094_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-logan-printed-buckle-baggy-barrel-jean?color=094",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-035",
+      "name": "BDG 360 Utility Low-Rise Straight Leg Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Dark Green",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/100346287_037_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/100346287_037_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-360-utility-low-rise-straight-leg-pant?color=037",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-036",
+      "name": "BDG Brooke Low-Rise Flare Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Vintage Denim Medium",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/96020706_107_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/96020706_107_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-brooke-low-rise-flare-jeans?color=107",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-037",
+      "name": "BDG Boxy Short Sleeve Spill The Tee",
+      "cat": "top",
+      "sub": "tee",
+      "color": "#8892a6",
+      "colorName": "Rust",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/105252969_619_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/105252969_619_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-boxy-short-sleeve-spill-the-tee?color=619",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-038",
+      "name": "BDG Bobbi Baggy Pull-On Pants",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Green",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/95467379_036_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/95467379_036_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-bobbi-baggy-pull-on-pant?color=036",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-039",
+      "name": "Out From Under Try Me Bubble Hoodie Sweatshirt",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Blue Gray",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 3,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/94373735_849_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/94373735_849_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/out-from-under-try-me-bubble-hoodie-sweatshirt?color=849",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "ur-040",
+      "name": "BDG Kayla Cocoon Low-Rise Jeans",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "casual",
+        "street"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://images.urbndata.com/is/image/UrbanOutfitters/100324151_108_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "imageUrl": "https://images.urbndata.com/is/image/UrbanOutfitters/100324151_108_b?$medium$&fit=constrain&fmt=webp&hei=1046&qlt=80&wid=698",
+      "flatlayUrl": null,
+      "productUrl": "https://www.urbanoutfitters.com/shop/bdg-kayla-cocoon-low-rise-jean?color=108",
+      "source": {
+        "brand": "Urban Outfitters",
+        "site": "urbanoutfitters.com",
+        "collectedAt": "2026-08-13",
+        "category": "womens-clothing"
+      },
+      "isTestData": true
+    }
+  ]
+}
