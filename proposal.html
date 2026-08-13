@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSync — Wear What You Own</title>
+<meta name="description" content="StyleSync: an AI stylist that builds outfits from the wardrobe you already own. UGBA 117 Digital Transformation project pitch by Jiarui Shi.">
+<style>
+  @font-face {
+    font-family: "system-display";
+    src: local("Helvetica Neue"), local("Arial");
+    font-weight: 800;
+  }
+
+  :root {
+    --ink: #14151d;
+    --ink-2: #1d1f2b;
+    --paper: #ececf0;
+    --paper-2: #e0e1e8;
+    --accent: #4438ff;
+    --accent-ink: #d9d5ff;
+    --tag: #f2a93b;
+    --tag-ink: #3a2a08;
+    --line: #33354a;
+    --muted: #9a9cb0;
+    --text: #eceaf5;
+    --text-dim: #b7b8c9;
+    --card-bg: #1a1c28;
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ink: #ececf0;
+      --ink-2: #e0e1e8;
+      --paper: #14151d;
+      --paper-2: #1d1f2b;
+      --line: #c7c8d4;
+      --muted: #6e7180;
+      --text: #14151d;
+      --text-dim: #4c4e5e;
+      --card-bg: #ffffff;
+      --accent-ink: #211a7a;
+      --tag: #a8660f;
+      --shadow: rgba(20, 21, 29, 0.08);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ink: #14151d;
+    --ink-2: #1d1f2b;
+    --paper: #ececf0;
+    --paper-2: #e0e1e8;
+    --line: #33354a;
+    --muted: #9a9cb0;
+    --text: #eceaf5;
+    --text-dim: #b7b8c9;
+    --card-bg: #1a1c28;
+    --accent-ink: #d9d5ff;
+    --tag: #f2a93b;
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  :root[data-theme="light"] {
+    --ink: #ececf0;
+    --ink-2: #e0e1e8;
+    --paper: #14151d;
+    --paper-2: #1d1f2b;
+    --line: #c7c8d4;
+    --muted: #6e7180;
+    --text: #14151d;
+    --text-dim: #4c4e5e;
+    --card-bg: #ffffff;
+    --accent-ink: #211a7a;
+    --tag: #a8660f;
+    --shadow: rgba(20, 21, 29, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+
+  .display {
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  a { color: inherit; }
+
+  .rail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 34px;
+    border-right: 1px solid var(--line);
+    background: linear-gradient(180deg, transparent, transparent);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+  }
+
+  .rail-tick {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .rail-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  .rail-fill {
+    flex: 1;
+    width: 1px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--line) 0,
+      var(--line) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+    margin-top: 12px;
+  }
+
+  main {
+    margin-left: 34px;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.7s ease-out forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--tag);
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-size: clamp(46px, 8vw, 84px);
+    line-height: 0.96;
+    margin: 0 0 20px;
+  }
+
+  .hero .sub {
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 46ch;
+    margin: 0 0 32px;
+    font-style: italic;
+  }
+
+  .pitch-block {
+    background: var(--accent);
+    color: #f4f3ff;
+    padding: 28px 30px;
+    max-width: 62ch;
+    position: relative;
+  }
+
+  .pitch-block::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 24px;
+    width: 14px;
+    height: 14px;
+    background: var(--ink);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    border: 1px solid var(--line);
+  }
+
+  .pitch-block p {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    line-height: 1.5;
+  }
+
+  .byline {
+    margin-top: 36px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .byline strong { color: var(--text-dim); font-weight: 600; }
+
+  /* SECTION SHELL */
+  section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .section-head h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    margin: 0;
+  }
+
+  .section-head .tag-label {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .lede {
+    max-width: 60ch;
+    color: var(--text-dim);
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  /* VALUES */
+  .values {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .value-row {
+    background: var(--ink);
+    padding: 22px 26px;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .value-row .vnum {
+    font-family: -apple-system, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--tag);
+    letter-spacing: 0.06em;
+  }
+
+  .value-row h3 {
+    font-family: -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .value-row p { margin: 0; color: var(--text-dim); font-size: 15px; }
+
+  /* SWATCH CARDS */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .swatch {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .swatch:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+  .swatch .strip { height: 8px; }
+  .strip.a { background: var(--accent); }
+  .strip.b { background: var(--tag); }
+  .strip.c { background: var(--muted); }
+
+  .swatch .body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+
+  .swatch h3 {
+    font-family: -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  .swatch p {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin: 0 0 8px;
+  }
+
+  .swatch .kv {
+    font-family: -apple-system, sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+
+  @media (max-width: 760px) {
+    .swatches { grid-template-columns: 1fr; }
+    .value-row { grid-template-columns: 60px 1fr; }
+  }
+
+  /* STACK STRIP */
+  .stack-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  /* CHECKLIST (light shift) */
+  .checklist-section {
+    background: var(--paper);
+    color: var(--paper-2);
+    border-bottom: none;
+  }
+
+  :root .checklist-section { --local-text: var(--ink); }
+
+  .checklist-section .section-head h2,
+  .checklist-section h3,
+  .checklist-section .lede,
+  .checklist-section .progress-label,
+  .checklist-section .phase-desc {
+    color: var(--ink);
+  }
+
+  .checklist-section .section-head .tag-label { color: var(--ink-2); opacity: 0.6; }
+
+  .progress-wrap {
+    margin-bottom: 40px;
+  }
+
+  .progress-label {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: color-mix(in srgb, var(--ink) 12%, transparent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .phase {
+    margin-bottom: 34px;
+    background: var(--paper-2);
+    border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  }
+
+  .phase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+
+  .phase-num {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .phase-head h3 {
+    font-family: -apple-system, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .phase-desc {
+    font-family: -apple-system, sans-serif;
+    font-size: 12px;
+    color: var(--ink-2);
+    margin-left: auto;
+    opacity: 0.65;
+  }
+
+  .checklist {
+    list-style: none;
+    margin: 0;
+    padding: 6px 8px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 3px;
+  }
+
+  .checklist li:hover { background: rgba(68,56,255,0.06); }
+
+  .checklist input[type="checkbox"] {
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+    border: 1.5px solid color-mix(in srgb, var(--ink) 45%, var(--paper));
+    flex: none;
+    cursor: pointer;
+    position: relative;
+    background: transparent;
+  }
+
+  .checklist input:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checklist input:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(40deg);
+  }
+
+  .checklist label {
+    font-family: ui-monospace, monospace;
+    font-size: 13.5px;
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .checklist li.done label {
+    color: var(--ink-2);
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  footer {
+    padding: 40px 0 60px;
+    font-family: -apple-system, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero, .swatch { animation: none !important; transition: none !important; }
+  }
+
+  @media (max-width: 640px) {
+    .rail { display: none; }
+    main { margin-left: 0; }
+    .wrap { padding: 0 20px; }
+    .hero { padding: 56px 0 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail-tick"><div class="rail-label">DEFINE</div></div>
+  <div class="rail-fill"></div>
+  <div class="rail-tick"><div class="rail-label">BUILD</div></div>
+  <div class="rail-fill"></div>
+  <div class="rail-tick"><div class="rail-label">CONNECT&nbsp;AI</div></div>
+  <div class="rail-fill"></div>
+  <div class="rail-tick"><div class="rail-label">TEST&nbsp;&amp;&nbsp;DEMO</div></div>
+</div>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow mono"><span class="dot"></span>UGBA 117 &middot; Digital Transformation &middot; Summer 2026</div>
+      <h1 class="display">Wear what<br>you already own.</h1>
+      <p class="sub">StyleSync is an AI stylist for the closet you've already got — not the one an app wants to sell you.</p>
+      <div class="pitch-block">
+        <p>StyleSync turns your own wardrobe into a real outfit — for the weather, the occasion, the dress code, today. Upload what you own, tell it your taste, and get 2–3 outfits explained in plain language, built only from clothes you already have.</p>
+      </div>
+      <div class="byline">
+        <span><strong>Built by</strong> Jiarui Shi</span>
+        <span><strong>Format</strong> Individual AI web app</span>
+        <span><strong>Primary user</strong> Anyone who owns clothes they like but freezes at the closet</span>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="section-head">
+        <h2 class="display">The closet isn't the problem.<br>The decision is.</h2>
+        <span class="tag-label mono">01 / Problem</span>
+      </div>
+      <p class="lede">Most people already own clothes they like — they just can't turn a full closet into "the presentation is at 2pm, it's 60 degrees, and I want to look put-together but not stiff." Fashion apps are built to sell the next thing, not to help with the thing already hanging in the closet.</p>
+      <p class="lede">StyleSync starts from what you own. Optional purchases only show up once your existing wardrobe has been used — clearly labeled, never mixed in as if you already had them.</p>
+    </section>
+
+    <section id="values">
+      <div class="section-head">
+        <h2 class="display">What it won't compromise on</h2>
+        <span class="tag-label mono">02 / Values</span>
+      </div>
+      <div class="values">
+        <div class="value-row">
+          <span class="vnum mono">Own&nbsp;It</span>
+          <div>
+            <h3>Wear what you own</h3>
+            <p>Recommendations start with your closet, not a cart. Purchases are optional, separate, and always labeled as such.</p>
+          </div>
+        </div>
+        <div class="value-row">
+          <span class="vnum mono">Trust</span>
+          <div>
+            <h3>Your data, your call</h3>
+            <p>Every AI tag is editable. Every photo is deletable. You choose whether purchase suggestions appear at all.</p>
+          </div>
+        </div>
+        <div class="value-row">
+          <span class="vnum mono">Fit</span>
+          <div>
+            <h3>Grounded in you, explained plainly</h3>
+            <p>Every outfit is built only from items you actually own, with a short reason attached — never an invented item, never a mystery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <h2 class="display">The first version, in full</h2>
+        <span class="tag-label mono">03 / MVP Scope</span>
+      </div>
+      <p class="lede" style="margin-bottom:32px;">Six features, one complete journey — from a photo of a T-shirt to an outfit you'd actually wear out the door.</p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="strip a"></div>
+          <div class="body">
+            <h3>Wardrobe setup</h3>
+            <p>Upload a clothing photo and confirm the details.</p>
+            <div class="kv">AI TAGS &middot; CATEGORY / COLOR / PATTERN / SEASON / FORMALITY</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="strip b"></div>
+          <div class="body">
+            <h3>Style profile</h3>
+            <p>Add inspiration images or pick style labels and a budget.</p>
+            <div class="kv">OUTPUT &middot; AESTHETIC, COLOR & SILHOUETTE SUMMARY</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="strip c"></div>
+          <div class="body">
+            <h3>Get dressed</h3>
+            <p>Enter the occasion, weather, and dress code.</p>
+            <div class="kv">RETURNS &middot; 2–3 OUTFITS, EACH EXPLAINED</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="strip a"></div>
+          <div class="body">
+            <h3>Match an item</h3>
+            <p>Pick one piece — a jacket, a skirt, a tee.</p>
+            <div class="kv">RETURNS &middot; COMPATIBLE PIECES YOU OWN</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="strip b"></div>
+          <div class="body">
+            <h3>Complete the look</h3>
+            <p>Optionally see a few curated pieces to fill a gap.</p>
+            <div class="kv">SCOPE &middot; CURATED LIST ONLY, NOT CHECKOUT</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="strip c"></div>
+          <div class="body">
+            <h3>Feedback loop</h3>
+            <p>Rate an outfit: helpful, not my style, too formal, too casual.</p>
+            <div class="kv">EFFECT &middot; SHAPES LATER RECOMMENDATIONS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-head">
+        <h2 class="display">Built with</h2>
+        <span class="tag-label mono">04 / Stack</span>
+      </div>
+      <div class="stack-strip">
+        <span class="chip">Claude Code / Build School</span>
+        <span class="chip">Next.js + React</span>
+        <span class="chip">Supabase</span>
+        <span class="chip">Vercel</span>
+        <span class="chip">AI vision model</span>
+        <span class="chip">AI reasoning model</span>
+        <span class="chip">Open-Meteo API</span>
+      </div>
+    </section>
+  </div>
+
+  <section class="checklist-section" id="checklist">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display">Everything left to build</h2>
+        <span class="tag-label mono">05 / Delivery Plan</span>
+      </div>
+      <p class="lede">Four phases, pulled straight from the proposal's build plan. Check items off as you go — your progress is saved in this browser.</p>
+
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="progress-text">0 / 24 done</span><span>Overall progress</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-num">PH.1</span>
+          <h3>Define</h3>
+          <span class="phase-desc">Scope &amp; test data</span>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c1"><label for="c1">Write the core user flow: upload → tag → style profile → get dressed → feedback</label></li>
+          <li><input type="checkbox" id="c2"><label for="c2">Collect ~15–20 sample wardrobe photos across categories</label></li>
+          <li><input type="checkbox" id="c3"><label for="c3">Choose 3–5 style profiles / inspiration sets to design against</label></li>
+          <li><input type="checkbox" id="c4"><label for="c4">Sketch low-fidelity screens for each MVP feature</label></li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-num">PH.2</span>
+          <h3>Build</h3>
+          <span class="phase-desc">The working app</span>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c5"><label for="c5">Set up Next.js/React project, deploy skeleton to Vercel</label></li>
+          <li><input type="checkbox" id="c6"><label for="c6">Set up Supabase: auth, wardrobe table, image storage</label></li>
+          <li><input type="checkbox" id="c7"><label for="c7">Build wardrobe upload + editable item-tag UI</label></li>
+          <li><input type="checkbox" id="c8"><label for="c8">Build style-profile intake (inspiration images / labels / budget)</label></li>
+          <li><input type="checkbox" id="c9"><label for="c9">Build "Get dressed" context form (occasion, weather, dress code)</label></li>
+          <li><input type="checkbox" id="c10"><label for="c10">Build outfit-results UI: 2–3 options, each with an explanation</label></li>
+          <li><input type="checkbox" id="c11"><label for="c11">Build "Match an item" flow</label></li>
+          <li><input type="checkbox" id="c12"><label for="c12">Build "Complete the look" curated view — no checkout</label></li>
+          <li><input type="checkbox" id="c13"><label for="c13">Build feedback controls (helpful / not my style / too formal / too casual)</label></li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-num">PH.3</span>
+          <h3>Connect AI</h3>
+          <span class="phase-desc">Wardrobe-grounded intelligence</span>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c14"><label for="c14">Wire vision model to tag category / color / pattern / season / formality on upload</label></li>
+          <li><input type="checkbox" id="c15"><label for="c15">Wire text model to summarize a style profile from inspiration inputs</label></li>
+          <li><input type="checkbox" id="c16"><label for="c16">Constrain the recommendation prompt to only the user's saved item IDs</label></li>
+          <li><input type="checkbox" id="c17"><label for="c17">Require the model to explain each pick and flag its assumptions</label></li>
+          <li><input type="checkbox" id="c18"><label for="c18">Connect Open-Meteo for weather context</label></li>
+          <li><input type="checkbox" id="c19"><label for="c19">Store feedback and feed it back into future recommendation prompts</label></li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-num">PH.4</span>
+          <h3>Test &amp; Demo</h3>
+          <span class="phase-desc">Prove the flow works</span>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c20"><label for="c20">Test the full flow with a few real users and sample wardrobes</label></li>
+          <li><input type="checkbox" id="c21"><label for="c21">Refine prompts based on mismatched or rejected recommendations</label></li>
+          <li><input type="checkbox" id="c22"><label for="c22">Confirm privacy controls: edit tags, delete items, opt out of purchase suggestions</label></li>
+          <li><input type="checkbox" id="c23"><label for="c23">Prepare the live demo scenario: business-casual presentation, cool day</label></li>
+          <li><input type="checkbox" id="c24"><label for="c24">Write up what worked, what failed, and what's next</label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>StyleSync &middot; UGBA 117 Project Proposal &middot; Summer 2026</span>
+      <span>Prepared by Jiarui Shi</span>
+    </footer>
+  </div>
+</main>
+
+<script>
+  (function () {
+    var boxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+    var fill = document.getElementById('progress-fill');
+    var text = document.getElementById('progress-text');
+    var KEY = 'stylesync-checklist-v1';
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function save(state) {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    }
+
+    function update() {
+      var state = {};
+      var done = 0;
+      boxes.forEach(function (b) {
+        state[b.id] = b.checked;
+        b.closest('li').classList.toggle('done', b.checked);
+        if (b.checked) done++;
+      });
+      save(state);
+      fill.style.width = (done / boxes.length * 100) + '%';
+      text.textContent = done + ' / ' + boxes.length + ' done';
+    }
+
+    var saved = load();
+    boxes.forEach(function (b) {
+      if (saved[b.id]) b.checked = true;
+      b.addEventListener('change', update);
+    });
+    update();
+  })();
+</script>
+</body>
+</html>

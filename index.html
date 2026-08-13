@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSync — Wear What You Own</title>
+<meta name="description" content="StyleSync: a working AI-stylist prototype that builds outfits from the wardrobe you already own. UGBA 117 project by Jiarui Shi.">
+<style>
+  :root {
+    --ink: #14151d;
+    --ink-2: #1d1f2b;
+    --paper: #ececf0;
+    --paper-2: #e0e1e8;
+    --accent: #4438ff;
+    --accent-soft: #6a60ff;
+    --accent-ink: #d9d5ff;
+    --tag: #f2a93b;
+    --good: #2fbf71;
+    --bad: #e2564d;
+    --line: #33354a;
+    --muted: #9a9cb0;
+    --text: #eceaf5;
+    --text-dim: #b7b8c9;
+    --card-bg: #1a1c28;
+    --card-2: #21243250;
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ink: #eceef2; --ink-2: #e2e4ea; --paper: #14151d; --paper-2: #1d1f2b;
+      --line: #cbccd6; --muted: #6e7180; --text: #14151d; --text-dim: #4c4e5e;
+      --card-bg: #ffffff; --card-2: #f6f6fa; --accent-ink: #211a7a; --tag: #a8660f;
+      --shadow: rgba(20, 21, 29, 0.08);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #14151d; --ink-2: #1d1f2b; --line: #33354a; --muted: #9a9cb0;
+    --text: #eceaf5; --text-dim: #b7b8c9; --card-bg: #1a1c28; --card-2: #21243250;
+    --accent-ink: #d9d5ff; --tag: #f2a93b; --shadow: rgba(0,0,0,0.4);
+  }
+  :root[data-theme="light"] {
+    --ink: #eceef2; --ink-2: #e2e4ea; --line: #cbccd6; --muted: #6e7180;
+    --text: #14151d; --text-dim: #4c4e5e; --card-bg: #ffffff; --card-2: #f6f6fa;
+    --accent-ink: #211a7a; --tag: #a8660f; --shadow: rgba(20,21,29,0.08);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--ink); color: var(--text);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+  .sans { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--ink) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { max-width: 1080px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 20px; }
+  .logo { font-family: -apple-system, sans-serif; font-weight: 800; letter-spacing: -0.02em; font-size: 19px; display: flex; align-items: center; gap: 9px; }
+  .logo .mk { width: 20px; height: 20px; background: var(--accent); display: inline-block; border-radius: 5px; position: relative; }
+  .logo .mk::after { content: ""; position: absolute; inset: 5px 5px auto auto; width: 6px; height: 6px; background: var(--tag); border-radius: 50%; }
+  nav.tabs { display: flex; gap: 4px; margin-left: 8px; flex-wrap: wrap; }
+  nav.tabs button {
+    background: transparent; border: none; color: var(--text-dim);
+    font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600;
+    padding: 8px 14px; border-radius: 8px;
+  }
+  nav.tabs button:hover { color: var(--text); background: var(--card-2); }
+  nav.tabs button.on { color: #fff; background: var(--accent); }
+  :root[data-theme="light"] nav.tabs button.on, @media (prefers-color-scheme: light) { }
+  .spacer { flex: 1; }
+  .ghost {
+    background: transparent; border: 1px solid var(--line); color: var(--text-dim);
+    font-family: -apple-system, sans-serif; font-size: 13px; font-weight: 600;
+    padding: 8px 12px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .ghost:hover { border-color: var(--accent); color: var(--text); }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 90px; }
+  .view { display: none; animation: fade 0.4s ease; }
+  .view.on { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  h1.page { font-size: clamp(30px, 5vw, 46px); line-height: 1.02; margin: 4px 0 10px; }
+  .lede { color: var(--text-dim); font-size: 17px; max-width: 60ch; margin: 0 0 26px; }
+  .eyebrow { font-size: 11px; color: var(--muted); display: flex; gap: 9px; align-items: center; margin-bottom: 14px; }
+  .eyebrow .dot { width: 6px; height: 6px; background: var(--tag); display: inline-block; }
+
+  /* ---------- GET DRESSED FORM ---------- */
+  .grid2 { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; }
+  .panel { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 22px; box-shadow: 0 10px 30px -18px var(--shadow); }
+  .panel h3 { font-family: -apple-system, sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 16px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-family: -apple-system, sans-serif; font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 7px; }
+  .field select, .field input[type="text"], .field input[type="number"] {
+    width: 100%; padding: 11px 12px; border-radius: 9px; border: 1px solid var(--line);
+    background: var(--card-2); color: var(--text); font-family: -apple-system, sans-serif; font-size: 14px;
+  }
+  .field select:focus, .field input:focus { outline: none; border-color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    font-family: -apple-system, sans-serif; font-size: 13px; padding: 8px 13px;
+    border: 1px solid var(--line); background: var(--card-2); color: var(--text-dim); border-radius: 999px; user-select: none;
+  }
+  .chip.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .row-tog { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .switch { position: relative; width: 44px; height: 26px; flex: none; }
+  .switch input { display: none; }
+  .switch .track { position: absolute; inset: 0; background: var(--line); border-radius: 999px; transition: .2s; }
+  .switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: .2s; }
+  .switch input:checked + .track { background: var(--accent); }
+  .switch input:checked + .track::after { transform: translateX(18px); }
+  .cta {
+    width: 100%; margin-top: 6px; background: var(--accent); color: #fff; border: none;
+    font-family: -apple-system, sans-serif; font-weight: 700; font-size: 15px; padding: 14px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform .12s, background .2s;
+  }
+  .cta:hover { background: var(--accent-soft); transform: translateY(-1px); }
+  .weather-note { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  /* ---------- SAMPLE-DATA BANNER ---------- */
+  .sample-banner {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: var(--card-2); border: 1px dashed var(--line); border-radius: 12px;
+    padding: 13px 16px; margin-bottom: 16px;
+    font-family: -apple-system, sans-serif; font-size: 13px; color: var(--text-dim);
+  }
+  .sample-banner[hidden] { display: none; }
+  .sample-banner > div { flex: 1; min-width: 240px; }
+  .sample-banner button {
+    flex: none; background: transparent; border: 1px solid var(--line); color: var(--text-dim);
+    font-family: -apple-system, sans-serif; font-size: 12.5px; font-weight: 600;
+    padding: 8px 14px; border-radius: 9px; transition: .15s; cursor: pointer;
+  }
+  .sample-banner button:hover { border-color: var(--bad); color: var(--bad); }
+
+  /* ---------- TRAVEL / PACKING ---------- */
+  .pack-summary { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 10px 30px -20px var(--shadow); }
+  .pack-stats { display: flex; gap: 26px; flex-wrap: wrap; margin-bottom: 16px; }
+  .pack-stat .n { font-family: -apple-system, sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .pack-stat .l { font-family: ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-top: 2px; }
+  .fill-bar { height: 8px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--line); overflow: hidden; }
+  .fill-bar > i { display: block; height: 100%; background: var(--accent); transition: width .3s ease; }
+  .fill-bar.over > i { background: var(--bad); }
+  .fill-note { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); margin-top: 7px; }
+  .pack-group { margin-bottom: 16px; }
+  .pack-group > h4 { font-family: ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+  .pack-row { display: flex; align-items: center; gap: 12px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 11px; padding: 10px 13px; margin-bottom: 7px; }
+  .pack-row .art { width: 40px; height: 44px; flex: none; background: var(--card-2); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .pack-row .art svg, .pack-row .art img { width: 100%; height: 100%; object-fit: cover; }
+  .pack-row .nm { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; }
+  .pack-row .why { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .pack-row .bulk { margin-left: auto; text-align: right; flex: none; }
+  .pack-row .bulk .dots { display: inline-flex; gap: 2.5px; }
+  .pack-row .bulk .bd { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+  .pack-row .bulk .bd.on { background: var(--tag); }
+  .pack-row .bulk .bl { font-family: ui-monospace, monospace; font-size: 9px; color: var(--muted); display: block; margin-top: 3px; }
+  .left-behind { border: 1.5px dashed var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 4px; }
+  .left-behind h4 { font-family: ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+  .left-behind p { font-family: -apple-system, sans-serif; font-size: 12.5px; color: var(--text-dim); margin: 0 0 5px; }
+  .trip-look { background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; margin-bottom: 9px; }
+  .trip-look .th { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
+  .trip-look .tag { font-family: -apple-system, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 3px 7px; border-radius: 5px; }
+  .trip-look .tt { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; }
+  .trip-look .ti { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); }
+
+  /* ---------- OUTFIT RESULTS ---------- */
+  .results-empty {
+    border: 1.5px dashed var(--line); border-radius: 14px; padding: 46px 26px; text-align: center; color: var(--muted);
+    font-family: -apple-system, sans-serif;
+  }
+  .results-empty .big { font-size: 42px; margin-bottom: 10px; }
+  .outfit {
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 20px; overflow: hidden;
+    box-shadow: 0 10px 30px -20px var(--shadow);
+  }
+  .outfit-head { display: flex; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid var(--line); }
+  .outfit-head .badge { font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 4px 9px; border-radius: 6px; }
+  .outfit-head .score { margin-left: auto; font-family: ui-monospace, monospace; font-size: 12px; color: var(--muted); }
+  .outfit-head h4 { font-family: -apple-system, sans-serif; font-size: 16px; margin: 0; }
+  .look { display: flex; gap: 12px; padding: 20px; flex-wrap: wrap; }
+  .look .g { flex: 1; min-width: 92px; text-align: center; }
+  .look .g .art { background: var(--card-2); border: 1px solid var(--line); border-radius: 11px; padding: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+  .look .g .art svg { width: 100%; height: 100%; }
+  .look .g .nm { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--text-dim); margin-top: 7px; line-height: 1.3; }
+  .look .g .role { font-family: ui-monospace, monospace; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+  .why { padding: 0 20px 16px; }
+  .why p { font-size: 15px; color: var(--text-dim); margin: 0; }
+  .why .assume { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); margin-top: 9px; font-style: italic; }
+  .fb { display: flex; align-items: center; gap: 8px; padding: 12px 20px 18px; flex-wrap: wrap; }
+  .fb .lbl { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); margin-right: 2px; }
+  .fb button {
+    background: var(--card-2); border: 1px solid var(--line); color: var(--text-dim);
+    font-family: -apple-system, sans-serif; font-size: 12.5px; font-weight: 600; padding: 7px 11px; border-radius: 8px; transition: .15s;
+  }
+  .fb button:hover { border-color: var(--accent); color: var(--text); }
+  .fb button.pick-good.on { background: var(--good); color: #fff; border-color: var(--good); }
+  .fb button.pick-bad.on { background: var(--bad); color: #fff; border-color: var(--bad); }
+  .fb button.pick-adj.on { background: var(--tag); color: #1a1400; border-color: var(--tag); }
+
+  /* complete the look */
+  .shop { border-top: 1px dashed var(--line); padding: 16px 20px 20px; background: var(--card-2); }
+  .shop .h { display: flex; align-items: center; gap: 8px; font-family: -apple-system, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--tag); margin-bottom: 12px; }
+  .shop .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .shop .buy { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .shop .buy .t { font-family: -apple-system, sans-serif; font-size: 13.5px; font-weight: 600; }
+  .shop .buy .p { font-family: ui-monospace, monospace; font-size: 12px; color: var(--muted); margin: 3px 0 6px; }
+  .shop .buy .r { font-size: 12.5px; color: var(--text-dim); }
+  .shop .disc { font-family: -apple-system, sans-serif; font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+  /* ---------- WARDROBE ---------- */
+  .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+  .filterset { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; min-width: 0; }
+  .filterset .chip { cursor: pointer; }
+  .add-btn { background: var(--accent); color: #fff; border: none; font-family: -apple-system, sans-serif; font-weight: 700; font-size: 14px; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+  #addBulkBtn { margin-left: auto; }
+  @media (max-width: 600px) {
+    .toolbar { flex-direction: column; align-items: stretch; }
+    .filterset { width: 100%; }
+    .add-btn { width: 100%; justify-content: center; }
+    #addBulkBtn { margin-left: 0; }
+  }
+  .add-btn:hover { background: var(--accent-soft); }
+  .closet { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px; }
+  .item { background: var(--card-bg); border: 1px solid var(--line); border-radius: 13px; overflow: hidden; transition: transform .15s, border-color .15s; position: relative; }
+  .item:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .item .art { aspect-ratio: 1; background: var(--card-2); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .item .art svg { width: 78%; height: 78%; }
+  .item .meta { padding: 12px 13px 14px; }
+  .item .meta .nm { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; line-height: 1.25; }
+  .item .meta .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .item .meta .t { font-family: ui-monospace, monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); background: var(--card-2); border: 1px solid var(--line); padding: 3px 6px; border-radius: 5px; }
+  .item .del { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: color-mix(in srgb, var(--card-bg) 80%, transparent); color: var(--muted); font-size: 15px; line-height: 1; display: none; align-items: center; justify-content: center; }
+  .item:hover .del { display: flex; }
+  .item .del:hover { color: var(--bad); border-color: var(--bad); }
+  .item .edit { position: absolute; top: 8px; right: 40px; width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: color-mix(in srgb, var(--card-bg) 80%, transparent); color: var(--muted); font-size: 13px; line-height: 1; display: none; align-items: center; justify-content: center; }
+  .item:hover .edit { display: flex; }
+  .item .edit:hover { color: var(--accent); border-color: var(--accent); }
+  .formality-dots { display: inline-flex; gap: 3px; margin-top: 8px; align-items: center; }
+  .formality-dots .fd { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
+  .formality-dots .fd.on { background: var(--tag); }
+  .formality-dots .fl { font-family: ui-monospace, monospace; font-size: 9px; color: var(--muted); margin-left: 5px; }
+  .style-this { margin-top: 10px; width: 100%; background: var(--card-2); border: 1px solid var(--line); color: var(--text-dim); font-family: -apple-system, sans-serif; font-size: 12px; font-weight: 600; padding: 7px; border-radius: 8px; transition: .15s; }
+  .style-this:hover { border-color: var(--accent); color: var(--accent); }
+  .similar-links { margin-top: 8px; font-family: ui-monospace, monospace; font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .similar-links a { color: var(--accent); text-decoration: none; }
+  .similar-links a:hover { text-decoration: underline; }
+  .match-banner { display: flex; align-items: center; gap: 12px; background: var(--card-2); border: 1px solid var(--accent); border-radius: 11px; padding: 12px 16px; margin-bottom: 16px; font-family: -apple-system, sans-serif; }
+  .match-banner .mb-art { width: 34px; height: 34px; flex: none; }
+  .match-banner .mb-txt { font-size: 13px; color: var(--text-dim); }
+  .match-banner .mb-txt strong { color: var(--text); }
+  .match-banner .mb-clear { margin-left: auto; background: transparent; border: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 7px; }
+  .match-banner .mb-clear:hover { border-color: var(--bad); color: var(--bad); }
+  .bulk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 4px; }
+  .bulk-cell { border: 1px solid var(--line); border-radius: 9px; padding: 8px; text-align: center; cursor: pointer; position: relative; background: var(--card-2); }
+  .bulk-cell.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .bulk-cell svg { width: 40px; height: 40px; }
+  .bulk-cell .bn { font-family: -apple-system, sans-serif; font-size: 10px; color: var(--text-dim); margin-top: 4px; line-height: 1.2; }
+  .bulk-cell .bck { position: absolute; top: 5px; right: 6px; font-size: 12px; color: var(--accent); font-weight: 800; opacity: 0; }
+  .bulk-cell.on .bck { opacity: 1; }
+
+  /* ---------- STYLE PROFILE ---------- */
+  .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .summary-card { background: var(--accent); color: #f3f2ff; border-radius: 14px; padding: 24px; }
+  .summary-card h3 { font-family: -apple-system, sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; opacity: .8; margin: 0 0 14px; }
+  .summary-card p { font-size: 16px; line-height: 1.5; margin: 0 0 12px; }
+  .summary-card .tagline { font-family: -apple-system, sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; margin-bottom: 10px; }
+
+  /* ---------- MODAL ---------- */
+  .overlay { position: fixed; inset: 0; background: rgba(8,9,14,0.6); backdrop-filter: blur(4px); z-index: 60; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .overlay.on { display: flex; }
+  .modal { background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; }
+  .modal-head { display: flex; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+  .modal-head h3 { font-family: -apple-system, sans-serif; font-size: 17px; margin: 0; }
+  .modal-head .x { margin-left: auto; background: transparent; border: none; color: var(--muted); font-size: 22px; line-height: 1; }
+  .modal-body { padding: 22px; }
+  .dropzone { border: 1.5px dashed var(--line); border-radius: 12px; padding: 26px; text-align: center; color: var(--muted); font-family: -apple-system, sans-serif; margin-bottom: 8px; }
+  .dropzone .big { font-size: 34px; }
+  .sample-pick { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 4px; }
+  .sample-pick button { border: 1px solid var(--line); background: var(--card-2); border-radius: 9px; padding: 8px; }
+  .sample-pick button svg { width: 34px; height: 34px; display: block; }
+  .sample-pick button:hover { border-color: var(--accent); }
+  .scanning { text-align: center; padding: 20px 0; font-family: -apple-system, sans-serif; color: var(--text-dim); font-size: 14px; }
+  .scan-bar { height: 5px; background: var(--card-2); border-radius: 999px; overflow: hidden; margin: 14px auto; max-width: 240px; }
+  .scan-fill { height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
+  .ai-note { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); background: var(--card-2); border-radius: 9px; padding: 10px 12px; margin-bottom: 16px; display: flex; gap: 8px; }
+  .save-btn { width: 100%; background: var(--accent); color: #fff; border: none; font-family: -apple-system, sans-serif; font-weight: 700; font-size: 15px; padding: 13px; border-radius: 11px; margin-top: 4px; }
+  .save-btn:hover { background: var(--accent-soft); }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--paper); color: var(--ink); font-family: -apple-system, sans-serif; font-weight: 600; font-size: 14px; padding: 12px 20px; border-radius: 10px; box-shadow: 0 12px 40px -12px rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: .25s; z-index: 80; }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer { border-top: 1px solid var(--line); }
+  .foot { max-width: 1080px; margin: 0 auto; padding: 22px 24px 40px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-family: -apple-system, sans-serif; font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 820px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .profile-grid { grid-template-columns: 1fr; }
+    nav.tabs button { padding: 7px 10px; font-size: 13px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .view, .cta, .item { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <span class="logo">StyleSync<span class="mk"></span></span>
+    <nav class="tabs" id="tabs">
+      <button data-view="dressed" class="on">Get Dressed</button>
+      <button data-view="travel">Pack a Trip</button>
+      <button data-view="closet">Wardrobe</button>
+      <button data-view="profile">Style Profile</button>
+    </nav>
+    <span class="spacer"></span>
+    <button class="ghost" id="acctBtn" title="Account">👤 Log in</button>
+    <button class="ghost" id="themeBtn" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ GET DRESSED ============ -->
+  <section class="view on" id="view-dressed">
+    <div class="eyebrow mono"><span class="dot"></span>Working prototype · Wardrobe-grounded</div>
+    <h1 class="page display">What should I wear today?</h1>
+    <p class="lede">Tell StyleSync the situation. It builds 2–3 complete outfits <strong>only</strong> from clothes in your wardrobe, explains each one in plain language, and never invents an item you don't own.</p>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>The situation</h3>
+        <div class="field">
+          <label for="occasion">Occasion</label>
+          <select id="occasion">
+            <option value="interview">Interview / big presentation</option>
+            <option value="work" selected>Work / office day</option>
+            <option value="bizcasual">Business-casual meeting</option>
+            <option value="date">Date night</option>
+            <option value="brunch">Coffee / brunch with friends</option>
+            <option value="casual">Casual day / errands</option>
+            <option value="night">Party / night out</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="temp">Temperature — <span id="tempVal">60</span>°F <button id="autoWeatherBtn" style="background:none;border:none;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-left:8px">📍 Auto</button></label>
+          <input type="range" id="temp" min="25" max="95" value="60" style="width:100%">
+          <div class="weather-note" id="weatherNote">Cool. A light layer will help.</div>
+        </div>
+        <div class="field">
+          <label>Weather</label>
+          <div class="chips" id="weatherChips">
+            <span class="chip on" data-w="clear">Clear</span>
+            <span class="chip" data-w="rain">Rain</span>
+            <span class="chip" data-w="snow">Snow</span>
+            <span class="chip" data-w="sun">Strong sun</span>
+            <span class="chip" data-w="wind">Windy</span>
+            <span class="chip" data-w="humid">Humid</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Anything to keep in mind? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+          <div class="chips" id="prefChips">
+            <span class="chip" data-p="comfy">Comfort first</span>
+            <span class="chip" data-p="impress">Want to impress</span>
+            <span class="chip" data-p="warm">Keep me warm</span>
+            <span class="chip" data-p="lowkey">Low-key</span>
+          </div>
+        </div>
+        <div class="field row-tog" style="margin-top:20px">
+          <label style="margin:0">Show optional purchases to fill gaps</label>
+          <label class="switch"><input type="checkbox" id="shopToggle"><span class="track"></span></label>
+        </div>
+        <button class="cta" id="generate">✦ Style me</button>
+        <div class="weather-note" style="margin-top:12px">Uses <span id="itemCount">0</span> items in your wardrobe. <a href="#" id="toCloset" style="color:var(--accent)">Add more →</a></div>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:16px;cursor:pointer;font-size:13px;color:var(--text-dim)"><input type="checkbox" id="quickModeToggle" style="width:16px;height:16px;cursor:pointer"> Just pick one (quick mode)</label>
+      </div>
+
+      <div id="results">
+        <div class="results-empty">
+          <div class="big">🪞</div>
+          <div style="font-weight:700;color:var(--text-dim);font-size:16px">Your outfits will appear here</div>
+          <div style="font-size:14px;margin-top:6px">Set the situation on the left and hit <em>Style me</em>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PACK A TRIP ============ -->
+  <section class="view" id="view-travel">
+    <div class="eyebrow mono"><span class="dot"></span>Travel mode · Fewest items, most outfits</div>
+    <h1 class="page display">What should I pack?</h1>
+    <p class="lede">Packing is the opposite problem from getting dressed: you're choosing <strong>once</strong>, for days you can't see yet, with a bag that only holds so much. StyleSync picks the smallest set of clothes you own that still covers the trip — favouring pieces that go with everything, pack flat, and don't arrive creased.</p>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>The trip</h3>
+        <div class="field">
+          <label for="tripDays">How many days — <span id="tripDaysVal">4</span></label>
+          <input type="range" id="tripDays" min="1" max="14" value="4" style="width:100%">
+        </div>
+        <div class="field">
+          <label for="tripTemp">Typical temperature — <span id="tripTempVal">60</span>°F</label>
+          <input type="range" id="tripTemp" min="25" max="95" value="60" style="width:100%">
+          <div class="weather-note" id="tripTempNote">Cool. Pack one real layer.</div>
+        </div>
+        <div class="field">
+          <label>What's on the itinerary?</label>
+          <div class="chips" id="tripOccChips">
+            <span class="chip on" data-o="work">Work / meetings</span>
+            <span class="chip on" data-o="casual">Sightseeing</span>
+            <span class="chip" data-o="bizcasual">Business-casual</span>
+            <span class="chip" data-o="date">Nice dinner</span>
+            <span class="chip" data-o="interview">Presentation</span>
+          </div>
+        </div>
+        <div class="field row-tog" style="margin-top:20px">
+          <label style="margin:0">Carry-on only</label>
+          <label class="switch"><input type="checkbox" id="carryOnToggle" checked><span class="track"></span></label>
+        </div>
+        <button class="cta" id="packBtn">🧳 Build my packing list</button>
+        <div class="weather-note" style="margin-top:12px">Picks from the <span id="tripItemCount">0</span> items you own — never suggests buying for the trip.</div>
+      </div>
+
+      <div id="packResults">
+        <div class="results-empty">
+          <div class="big">🧳</div>
+          <div style="font-weight:700;color:var(--text-dim);font-size:16px">Your packing list will appear here</div>
+          <div style="font-size:14px;margin-top:6px">Set the trip on the left and hit <em>Build my packing list</em>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WARDROBE ============ -->
+  <section class="view" id="view-closet">
+    <div class="eyebrow mono"><span class="dot"></span>Your closet · Stored on this device</div>
+    <h1 class="page display">Your wardrobe</h1>
+    <p class="lede">Every item is tagged by AI on upload — category, color, pattern, warmth, and formality — and every tag is yours to edit. StyleSync only ever recommends from what's here.</p>
+    <div class="toolbar">
+      <div class="filterset" id="filters">
+        <span class="chip on" data-f="all">All</span>
+        <span class="chip" data-f="top">Tops</span>
+        <span class="chip" data-f="bottom">Bottoms</span>
+        <span class="chip" data-f="dress">Dresses</span>
+        <span class="chip" data-f="outerwear">Outerwear</span>
+        <span class="chip" data-f="shoes">Shoes</span>
+        <span class="chip" data-f="accessory">Accessories</span>
+      </div>
+      <button class="add-btn" id="importZaraBtn" style="background:transparent;color:var(--text-dim);border:1px solid var(--line)">🏷 Import ZARA test data</button>
+      <button class="add-btn" id="addBulkBtn" style="background:transparent;color:var(--text-dim);border:1px solid var(--line)">📸 Add several</button>
+      <button class="add-btn" id="addItemBtn">＋ Add item</button>
+    </div>
+    <div class="sample-banner" id="sampleBanner" hidden>
+      <div>
+        <strong id="sampleCount">0</strong> of these are sample clothes StyleSync started you with — not yours.
+        <span style="color:var(--muted)">Clearing them leaves everything you added untouched.</span>
+      </div>
+      <button id="clearSamplesBtn">Remove sample clothes</button>
+    </div>
+    <div class="closet" id="closet"></div>
+  </section>
+
+  <!-- ============ STYLE PROFILE ============ -->
+  <section class="view" id="view-profile">
+    <div class="eyebrow mono"><span class="dot"></span>Learns your taste</div>
+    <h1 class="page display">Your style profile</h1>
+    <p class="lede">Pick the aesthetics you gravitate toward and set a budget. StyleSync weights recommendations toward this profile — and toward the outfits you've rated as your style.</p>
+    <div class="profile-grid">
+      <div class="panel">
+        <h3>Aesthetics you like</h3>
+        <div class="chips" id="styleChips">
+          <span class="chip" data-s="minimal">Minimal</span>
+          <span class="chip" data-s="classic">Classic / timeless</span>
+          <span class="chip" data-s="street">Streetwear</span>
+          <span class="chip" data-s="preppy">Preppy</span>
+          <span class="chip" data-s="edgy">Edgy / dark</span>
+          <span class="chip" data-s="cozy">Cozy / soft</span>
+        </div>
+        <h3 style="margin-top:24px">Colors you reach for</h3>
+        <div class="chips" id="colorChips">
+          <span class="chip" data-c="neutral">Neutrals</span>
+          <span class="chip" data-c="earth">Earth tones</span>
+          <span class="chip" data-c="cool">Cool / blues</span>
+          <span class="chip" data-c="bold">Bold / bright</span>
+        </div>
+        <div class="field" style="margin-top:24px">
+          <label for="budget">Budget for optional pieces (per item)</label>
+          <select id="budget">
+            <option value="low">Under $50</option>
+            <option value="mid" selected>$50–$120</option>
+            <option value="high">$120+</option>
+          </select>
+        </div>
+      </div>
+      <div class="summary-card">
+        <h3>StyleSync reads you as</h3>
+        <div class="tagline" id="profileTagline">Pick a few labels →</div>
+        <p id="profileSummary">Once you choose your aesthetics and colors, StyleSync summarizes your taste here and uses it to rank every outfit.</p>
+        <p style="font-family:-apple-system,sans-serif;font-size:12px;opacity:.75;margin-top:16px" id="profileBudget"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ADD ITEM MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-head"><h3>Add an item</h3><button class="x" id="modalX">×</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="overlay" id="authOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="authTitle">Log in</h3><button class="x" id="authX">×</button></div>
+    <div class="modal-body" id="authBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="foot">
+    <span>StyleSync · UGBA 117 Digital Transformation · Summer 2026 · Prototype by Jiarui Shi</span>
+    <span><a href="proposal.html" style="color:var(--accent)">Read the proposal →</a></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   StyleSync prototype engine
+   Self-contained: sample wardrobe + rules-based styling engine.
+   In production the rules engine is replaced by an AI reasoning
+   model constrained to the same wardrobe item IDs (see proposal).
+   ============================================================ */
+
+/* ---------- GARMENT ART (inline SVG per subtype) ---------- */
+function garment(sub, fill, pattern) {
+  var stroke = "rgba(0,0,0,0.28)";
+  var pat = "";
+  var pid = "p" + Math.random().toString(36).slice(2, 8);
+  if (pattern === "striped") {
+    pat = '<defs><pattern id="'+pid+'" width="7" height="7" patternTransform="rotate(0)" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="'+fill+'"/><rect width="7" height="3.5" fill="rgba(255,255,255,0.55)"/></pattern></defs>';
+    fill = "url(#"+pid+")";
+  } else if (pattern === "checked") {
+    pat = '<defs><pattern id="'+pid+'" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="'+fill+'"/><rect width="4.5" height="9" fill="rgba(255,255,255,0.35)"/><rect width="9" height="4.5" fill="rgba(255,255,255,0.22)"/></pattern></defs>';
+    fill = "url(#"+pid+")";
+  }
+  var body = {
+    tee: '<path d="M32 20 L20 30 L26 40 L32 35 L32 92 L68 92 L68 35 L74 40 L80 30 L68 20 C64 26 56 27 50 27 C44 27 36 26 32 20Z"/>',
+    shirt: '<path d="M32 20 L20 30 L26 40 L32 35 L32 92 L68 92 L68 35 L74 40 L80 30 L68 20 L58 24 L50 34 L42 24Z"/><line x1="50" y1="34" x2="50" y2="90" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
+    sweater: '<path d="M30 22 L18 34 L24 48 L31 44 L31 94 L69 94 L69 44 L76 48 L82 34 L70 22 C64 28 56 29 50 29 C44 29 36 28 30 22Z"/><line x1="31" y1="88" x2="69" y2="88" stroke="'+stroke+'" stroke-width="1.5" fill="none"/>',
+    blazer: '<path d="M31 20 L20 32 L27 44 L32 40 L32 94 L68 94 L68 40 L73 44 L80 32 L69 20 L57 25 L50 40 L43 25Z"/><path d="M43 25 L38 52 M57 25 L62 52" stroke="'+stroke+'" stroke-width="1.3" fill="none"/><circle cx="47" cy="60" r="1.4" fill="'+stroke+'"/><circle cx="47" cy="70" r="1.4" fill="'+stroke+'"/>',
+    coat: '<path d="M30 20 L19 32 L26 48 L31 44 L31 104 L69 104 L69 44 L74 48 L81 32 L70 20 L57 26 L50 40 L43 26Z"/><line x1="50" y1="40" x2="50" y2="102" stroke="'+stroke+'" stroke-width="1.3" fill="none"/><circle cx="50" cy="56" r="1.5" fill="'+stroke+'"/><circle cx="50" cy="70" r="1.5" fill="'+stroke+'"/><circle cx="50" cy="84" r="1.5" fill="'+stroke+'"/>',
+    jacket: '<path d="M31 20 L20 30 L27 44 L32 40 L32 88 L68 88 L68 40 L73 44 L80 30 L69 20 L57 25 L50 36 L43 25Z"/><line x1="50" y1="36" x2="50" y2="86" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
+    // sun shell (防晒衣): hooded, drawn lighter than a jacket to read as thin
+    sunshirt: '<path d="M31 22 L20 32 L26 46 L32 42 L32 90 L68 90 L68 42 L74 46 L80 32 L69 22 C64 30 56 32 50 32 C44 32 36 30 31 22Z"/><path d="M40 22 C44 30 56 30 60 22" stroke="'+stroke+'" stroke-width="1.1" fill="none"/><line x1="50" y1="32" x2="50" y2="88" stroke="'+stroke+'" stroke-width="1" stroke-dasharray="3 2" fill="none"/>',
+    trousers: '<path d="M34 22 L66 22 L64 100 L54 100 L50 50 L46 100 L36 100Z"/><line x1="34" y1="30" x2="66" y2="30" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
+    jeans: '<path d="M34 22 L66 22 L64 100 L54 100 L50 50 L46 100 L36 100Z"/><line x1="34" y1="30" x2="66" y2="30" stroke="'+stroke+'" stroke-width="1.4" fill="none"/><path d="M40 40 L44 44 M60 40 L56 44" stroke="'+stroke+'" stroke-width="0.9" fill="none"/>',
+    chinos: '<path d="M35 22 L65 22 L63 100 L54 100 L50 50 L46 100 L37 100Z"/><line x1="35" y1="30" x2="65" y2="30" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
+    skirt: '<path d="M36 26 L64 26 L74 96 L26 96Z"/><line x1="36" y1="34" x2="64" y2="34" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
+    dress: '<path d="M36 22 L30 32 L36 40 L38 46 L28 98 L72 98 L62 46 L64 40 L70 32 L64 22 C60 27 54 28 50 28 C46 28 40 27 36 22Z"/><line x1="38" y1="46" x2="62" y2="46" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
+    sneakers: '<path d="M20 66 L20 78 C20 82 24 84 28 84 L74 84 C80 84 82 80 80 76 L64 58 C60 54 54 56 52 60 L48 66 L30 66 C24 66 20 62 20 66Z"/><line x1="30" y1="70" x2="46" y2="70" stroke="'+stroke+'" stroke-width="1.3"/><path d="M52 60 L56 68 M58 62 L62 70" stroke="'+stroke+'" stroke-width="1.1" fill="none"/>',
+    loafers: '<path d="M22 68 C22 64 26 62 32 62 L58 62 C68 62 78 68 80 76 C81 80 78 84 72 84 L28 84 C24 84 22 80 22 76Z"/><path d="M34 66 C40 62 52 62 58 66" stroke="'+stroke+'" stroke-width="1.3" fill="none"/>',
+    // heeled shoe — the ZARA sample uses this sub, and without a shape it fell back to a tee
+    heels: '<path d="M28 54 C28 50 32 48 38 48 L56 48 C66 48 74 56 76 66 L78 78 C78 82 74 84 70 84 L68 84 L66 72 L44 68 L34 66 C30 65 28 62 28 58Z"/><path d="M66 72 L70 84" stroke="'+stroke+'" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M34 56 C42 52 54 52 60 58" stroke="'+stroke+'" stroke-width="1.2" fill="none"/>',
+    boots: '<path d="M34 40 L52 40 L54 66 L74 74 C80 76 80 84 74 84 L36 84 C32 84 30 80 30 74 L32 44Z"/><line x1="34" y1="48" x2="52" y2="48" stroke="'+stroke+'" stroke-width="1.2"/>'
+  };
+  var shape = body[sub] || body.tee;
+  return '<svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">'+pat+'<g fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.4" stroke-linejoin="round">'+shape+'</g></svg>';
+}
+
+/* ---------- SAMPLE WARDROBE ----------
+   formality 1(very casual)..5(formal) ; warmth 1(hot-weather)..5(cold-weather)
+   colorRole: neutral | color | bold ; style tags drive profile match          */
+var SEED = [
+  {id:'w1', name:'White oxford shirt', cat:'top', sub:'shirt', color:'#f2f2ec', colorName:'White', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['classic','minimal','preppy']},
+  {id:'w2', name:'Light-blue oxford shirt', cat:'top', sub:'shirt', color:'#cfe0f2', colorName:'Light blue', pattern:'solid', colorRole:'color', formality:3, warmth:2, style:['classic','preppy']},
+  {id:'w3', name:'White crew tee', cat:'top', sub:'tee', color:'#f2f2ec', colorName:'White', pattern:'solid', colorRole:'neutral', formality:2, warmth:1, style:['minimal','classic']},
+  {id:'w4', name:'Navy crew tee', cat:'top', sub:'tee', color:'#28324a', colorName:'Navy', pattern:'solid', colorRole:'neutral', formality:2, warmth:1, style:['minimal']},
+  {id:'w5', name:'Striped long-sleeve', cat:'top', sub:'tee', color:'#2b3a55', colorName:'Navy/white', pattern:'striped', colorRole:'color', formality:2, warmth:2, style:['classic','preppy']},
+  {id:'w6', name:'Charcoal merino sweater', cat:'top', sub:'sweater', color:'#3a3d45', colorName:'Charcoal', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['classic','minimal','cozy']},
+  {id:'w7', name:'Cream cable-knit', cat:'top', sub:'sweater', color:'#ece0c9', colorName:'Cream', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['cozy','classic']},
+  {id:'w8', name:'Dark indigo jeans', cat:'bottom', sub:'jeans', color:'#2a3550', colorName:'Indigo', pattern:'solid', colorRole:'neutral', formality:2, warmth:3, style:['minimal','classic','street']},
+  {id:'w9', name:'Black tailored trousers', cat:'bottom', sub:'trousers', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:4, warmth:2, style:['classic','minimal','edgy']},
+  {id:'w10', name:'Beige chinos', cat:'bottom', sub:'chinos', color:'#cbb48f', colorName:'Beige', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['preppy','classic']},
+  {id:'w11', name:'Olive utility trousers', cat:'bottom', sub:'trousers', color:'#5a5a3c', colorName:'Olive', pattern:'solid', colorRole:'earth', formality:2, warmth:3, style:['street','cozy']},
+  {id:'w12', name:'Black A-line skirt', cat:'bottom', sub:'skirt', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['classic','edgy']},
+  {id:'w13', name:'Navy wrap dress', cat:'dress', sub:'dress', color:'#28324a', colorName:'Navy', pattern:'solid', colorRole:'color', formality:4, warmth:2, style:['classic','minimal']},
+  {id:'w14', name:'Camel wool coat', cat:'outerwear', sub:'coat', color:'#b08d57', colorName:'Camel', pattern:'solid', colorRole:'earth', formality:4, warmth:5, style:['classic','minimal']},
+  {id:'w15', name:'Denim jacket', cat:'outerwear', sub:'jacket', color:'#4a6a8a', colorName:'Denim blue', pattern:'solid', colorRole:'color', formality:2, warmth:3, style:['street','classic']},
+  {id:'w16', name:'Black blazer', cat:'outerwear', sub:'blazer', color:'#1c1d22', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:4, warmth:2, style:['classic','edgy','minimal']},
+  {id:'w17', name:'White leather sneakers', cat:'shoes', sub:'sneakers', color:'#f0f0ea', colorName:'White', pattern:'solid', colorRole:'neutral', formality:2, warmth:3, style:['minimal','street','classic']},
+  {id:'w18', name:'Brown leather loafers', cat:'shoes', sub:'loafers', color:'#6b4a2b', colorName:'Brown', pattern:'solid', colorRole:'earth', formality:4, warmth:3, style:['classic','preppy']},
+  {id:'w19', name:'Black Chelsea boots', cat:'shoes', sub:'boots', color:'#17181c', colorName:'Black', pattern:'solid', colorRole:'neutral', formality:3, warmth:4, style:['edgy','classic','street']}
+];
+
+/* ---------- STATE ---------- */
+var STORE = 'stylesync-app-v1';
+var state = loadState();
+function loadState() {
+  try {
+    var s = JSON.parse(localStorage.getItem(STORE));
+    if (s && s.wardrobe) return s;
+  } catch (e) {}
+  return { wardrobe: SEED.map(function(x){return Object.assign({}, x);}), profile: { style: [], color: [], budget: 'mid' }, feedback: {} };
+}
+function persist() {
+  try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e){}
+  if (currentUser) syncToCloud();
+}
+
+/* ---------- ACCOUNT + CLOUD SYNC ----------
+   Wardrobe and style profile follow the logged-in account (Supabase Auth + Postgres,
+   Row Level Security scopes every row to auth.uid()). Feedback stays device-local only.
+   Sync strategy: full-snapshot replace on every persist() while logged in — simpler and
+   more robust than diffing individual changes, and at this scale (a personal wardrobe)
+   the extra writes are negligible. */
+var SUPABASE_URL = 'https://tmpkvihdjqirfmypfqvl.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_e5c-eYAd9g1gbPol36Le9w_Mn9NBolA';
+var sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+var currentUser = null;
+
+function updateAcctBtn(){
+  var b = document.getElementById('acctBtn');
+  if (!b) return;
+  if (currentUser) { b.textContent = '↪ Log out (' + currentUser.email + ')'; b.title = 'Log out'; }
+  else { b.textContent = '👤 Log in'; b.title = 'Log in or sign up'; }
+}
+function openAuth(){
+  authMode = 'login';
+  document.getElementById('authOverlay').classList.add('on');
+  renderAuthForm();
+}
+function closeAuth(){ document.getElementById('authOverlay').classList.remove('on'); }
+var authMode = 'login';
+function renderAuthForm(){
+  document.getElementById('authTitle').textContent = authMode==='login' ? 'Log in' : 'Sign up';
+  document.getElementById('authBody').innerHTML = ''
+    + '<div class="field"><label>Email</label><input type="email" id="auth-email" autocomplete="email"></div>'
+    + '<div class="field"><label>Password</label><input type="password" id="auth-pass" autocomplete="'+(authMode==='login'?'current-password':'new-password')+'"></div>'
+    + '<div id="authError" style="color:var(--bad);font-size:13px;margin:2px 0 10px;display:none"></div>'
+    + '<button class="save-btn" id="authSubmit">'+(authMode==='login'?'Log in':'Create account')+'</button>'
+    + '<p style="font-family:-apple-system,sans-serif;font-size:13px;margin-top:14px;color:var(--text-dim)">'
+    + (authMode==='login' ? 'No account yet? <a href="#" id="authSwitch" style="color:var(--accent)">Sign up</a>' : 'Already have an account? <a href="#" id="authSwitch" style="color:var(--accent)">Log in</a>')
+    + '</p>';
+  document.getElementById('authSwitch').addEventListener('click', function(e){ e.preventDefault(); authMode = authMode==='login'?'signup':'login'; renderAuthForm(); });
+  document.getElementById('authSubmit').addEventListener('click', submitAuth);
+}
+function submitAuth(){
+  var email = document.getElementById('auth-email').value.trim();
+  var pass = document.getElementById('auth-pass').value;
+  var errEl = document.getElementById('authError');
+  errEl.style.display = 'none';
+  if (!email || !pass) { errEl.textContent = 'Enter both email and password.'; errEl.style.display = 'block'; return; }
+  var btn = document.getElementById('authSubmit');
+  btn.disabled = true; btn.textContent = 'Please wait…';
+  var req = authMode==='login'
+    ? sb.auth.signInWithPassword({ email: email, password: pass })
+    : sb.auth.signUp({ email: email, password: pass });
+  req.then(function(res){
+    if (res.error) throw res.error;
+    if (authMode==='signup' && res.data && res.data.user && !res.data.session) {
+      toast('Check your email to confirm your account, then log in.');
+      authMode = 'login'; renderAuthForm();
+    } else {
+      closeAuth();
+      toast(authMode==='login' ? 'Logged in.' : 'Account created.');
+    }
+  }).catch(function(e){
+    errEl.textContent = (e && e.message) || 'Something went wrong.';
+    errEl.style.display = 'block';
+  }).then(function(){
+    btn.disabled = false; btn.textContent = authMode==='login'?'Log in':'Create account';
+  });
+}
+function rowToItem(r){
+  return { id:r.id, name:r.name, cat:r.cat, sub:r.sub, color:r.color, colorName:r.color_name,
+    pattern:r.pattern, colorRole:r.color_role, formality:r.formality, warmth:r.warmth,
+    style:r.style||[], img:r.img||undefined,
+    // present only after supabase-migration.sql has been run
+    season:r.season||[], productUrl:r.product_url||undefined,
+    source:r.source||undefined, isTestData:!!r.is_test_data };
+}
+function pullFromCloud(){
+  Promise.all([
+    sb.from('wardrobe_items').select('*').eq('user_id', currentUser.id).order('created_at'),
+    sb.from('style_profiles').select('*').eq('user_id', currentUser.id).maybeSingle()
+  ]).then(function(results){
+    var itemsRes = results[0], profRes = results[1];
+    if (itemsRes.error) throw itemsRes.error;
+    if (itemsRes.data && itemsRes.data.length) {
+      state.wardrobe = itemsRes.data.map(rowToItem);
+      if (profRes.data) state.profile = { style: profRes.data.style||[], color: profRes.data.color||[], budget: profRes.data.budget||'mid' };
+      try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e){}
+      renderCloset(); renderProfile(); updateItemCount();
+      toast('Synced your wardrobe from your account.');
+    } else {
+      // first login for this account — push the current (guest) wardrobe up as a starting point
+      toast('Saving your current wardrobe to your account…');
+      persist();
+    }
+  }).catch(function(e){ console.error('cloud pull failed', e); toast('Could not load your saved wardrobe.'); });
+}
+// season / product_url / source / is_test_data only exist once supabase-migration.sql
+// has been run. Rather than requiring that migration before the app works at all, the
+// first insert tries the full row, and on an "unknown column" error retries without the
+// new fields and remembers to skip them for the rest of the session.
+var cloudHasImportColumns = true;
+function isMissingColumnError(e){
+  if (!e) return false;
+  var code = e.code || '';
+  var msg = (e.message || '') + ' ' + (e.details || '');
+  return code === 'PGRST204' || code === '42703' ||
+         /column .* does not exist|could not find the .* column/i.test(msg);
+}
+function wardrobeRows(includeImportCols){
+  return state.wardrobe.map(function(i){
+    var row = { id: i.id, user_id: currentUser.id, name: i.name, cat: i.cat, sub: i.sub||null,
+      color: i.color||null, color_name: i.colorName||null, pattern: i.pattern||null,
+      color_role: i.colorRole||null, formality: i.formality||null, warmth: i.warmth||null,
+      style: i.style||[], img: i.img||null };
+    if (includeImportCols) {
+      row.season = i.season || [];
+      row.product_url = i.productUrl || null;
+      row.source = i.source || null;
+      row.is_test_data = !!i.isTestData;
+    }
+    return row;
+  });
+}
+function syncToCloud(){
+  if (!currentUser || !sb) return;
+  sb.from('wardrobe_items').delete().eq('user_id', currentUser.id).then(function(delRes){
+    if (delRes.error) throw delRes.error;
+    if (!state.wardrobe.length) return { error: null };
+    return sb.from('wardrobe_items').insert(wardrobeRows(cloudHasImportColumns));
+  }).then(function(insRes){
+    if (insRes && insRes.error && cloudHasImportColumns && isMissingColumnError(insRes.error)) {
+      cloudHasImportColumns = false;
+      console.warn('Supabase is missing the import columns — run supabase-migration.sql to sync season/source data. Falling back.');
+      return sb.from('wardrobe_items').insert(wardrobeRows(false));
+    }
+    return insRes;
+  }).then(function(insRes){
+    if (insRes && insRes.error) throw insRes.error;
+    return sb.from('style_profiles').upsert({ user_id: currentUser.id, style: state.profile.style||[], color: state.profile.color||[], budget: state.profile.budget||'mid' });
+  }).then(function(upRes){
+    if (upRes && upRes.error) throw upRes.error;
+  }).catch(function(e){ console.error('cloud sync failed', e); toast('Could not save to your account — check your connection.'); });
+}
+if (sb) {
+  sb.auth.onAuthStateChange(function(event, session){
+    currentUser = session ? session.user : null;
+    updateAcctBtn();
+    if (currentUser && event==='SIGNED_IN') pullFromCloud();
+  });
+}
+document.getElementById('acctBtn').addEventListener('click', function(){
+  if (!sb) { toast('Account system unavailable right now.'); return; }
+  if (currentUser) sb.auth.signOut();
+  else openAuth();
+});
+document.getElementById('authX').addEventListener('click', closeAuth);
+document.getElementById('authOverlay').addEventListener('click', function(e){ if (e.target.id==='authOverlay') closeAuth(); });
+
+/* ---------- OCCASION MODEL ---------- */
+var OCCASIONS = {
+  interview: { label:'an interview or big presentation', target:4.3, name:'polished and credible' },
+  work:      { label:'a work day', target:3.4, name:'put-together but comfortable' },
+  bizcasual: { label:'a business-casual meeting', target:3.3, name:'smart without being stiff' },
+  date:      { label:'a date night', target:3.4, name:'sharp and a little personal' },
+  brunch:    { label:'a relaxed brunch', target:2.4, name:'relaxed but intentional' },
+  casual:    { label:'a casual day of errands', target:1.8, name:'easy and low-effort' },
+  night:     { label:'a night out', target:3.2, name:'darker and dressed-up' }
+};
+
+/* ---------- ENGINE ---------- */
+function warmthTargetFromTemp(t) {
+  if (t < 40) return 5;
+  if (t < 52) return 4;
+  if (t < 64) return 3;
+  if (t < 76) return 2;
+  return 1;
+}
+function needsOuterwear(t) { return t < 62; }
+function forbidsHeavy(t) { return t > 74; }
+
+function scoreItemFormality(item, target) {
+  return 1 - Math.min(1, Math.abs(item.formality - target) / 3);
+}
+function styleMatch(item) {
+  if (!state.profile.style.length) return 0.5;
+  var hit = item.style.filter(function(s){ return state.profile.style.indexOf(s) >= 0; }).length;
+  return Math.min(1, 0.35 + hit * 0.33);
+}
+function colorMatch(item) {
+  var c = state.profile.color;
+  if (!c.length) return 0.5;
+  if (c.indexOf('neutral')>=0 && item.colorRole==='neutral') return 1;
+  if (c.indexOf('earth')>=0 && item.colorRole==='earth') return 1;
+  if (c.indexOf('cool')>=0 && (item.colorName||'').match(/blue|navy|indigo|denim/i)) return 1;
+  if (c.indexOf('bold')>=0 && item.colorRole==='bold') return 1;
+  return 0.55;
+}
+function feedbackBias(item) {
+  var f = state.feedback[item.id] || 0;
+  return f * 0.12; // rated helpful pushes up, not-my-style pushes down
+}
+function colorHarmony(items) {
+  var neutrals = items.filter(function(i){return i.colorRole==='neutral';}).length;
+  var bolds = items.filter(function(i){return i.colorRole==='bold';}).length;
+  var patterns = items.filter(function(i){return i.pattern!=='solid';}).length;
+  var s = 0.6 + neutrals * 0.12;
+  if (bolds > 1) s -= 0.25;           // two loud colors clash
+  if (patterns > 1) s -= 0.3;         // pattern-on-pattern is risky
+  return Math.max(0.2, Math.min(1, s));
+}
+
+// Travel mode reuses the whole outfit engine, but against the packed subset instead
+// of the full closet. Setting poolOverride is how it narrows the candidate pool.
+var poolOverride = null;
+function activePool(){ return poolOverride || state.wardrobe; }
+function byCat(c) { return activePool().filter(function(i){return i.cat===c;}); }
+
+function buildOutfits(ctx) {
+  var target = ctx.target;
+  var warmthNeed = warmthTargetFromTemp(ctx.temp);
+  var combos = [];
+
+  var tops = byCat('top'), bottoms = byCat('bottom'), dresses = byCat('dress');
+  var outer = byCat('outerwear'), shoes = byCat('shoes');
+  if (!shoes.length) shoes = [null];
+
+  // "Style around this piece": constrain the candidate pool so every outfit
+  // contains the chosen item.
+  var forceLayer = false;
+  if (ctx.mustInclude) {
+    var must = state.wardrobe.filter(function(x){return x.id===ctx.mustInclude;})[0];
+    if (must) {
+      if (must.cat==='top')       { tops=[must]; dresses=[]; }
+      else if (must.cat==='bottom'){ bottoms=[must]; dresses=[]; }
+      else if (must.cat==='dress') { dresses=[must]; tops=[]; bottoms=[]; }
+      else if (must.cat==='shoes') { shoes=[must]; }
+      else if (must.cat==='outerwear'){ outer=[must]; forceLayer=true; }
+    }
+  }
+
+  function assemble(base, baseKind) {
+    // base = [top,bottom] or [dress]. Try every viable layer (incl. none) and
+    // let scoring — not a hard-coded "warmest coat" rule — decide what fits.
+    var layerOpts = forceLayer ? [outer[0]] : [null];
+    if (!forceLayer) outer.forEach(function(o){
+      if (forbidsHeavy(ctx.temp) && o.warmth >= 4) return; // no wool coat in warm weather
+      layerOpts.push(o);
+    });
+    shoes.forEach(function(sh){
+      layerOpts.forEach(function(layer){
+        var pieces = base.slice();
+        if (sh) pieces.push(sh);
+        var full = layer ? pieces.concat([layer]) : pieces;
+        combos.push(scoreCombo(full, base, layer, sh, baseKind, ctx, warmthNeed, target));
+      });
+    });
+  }
+
+  tops.forEach(function(t){ bottoms.forEach(function(b){ assemble([t,b], 'sep'); }); });
+  dresses.forEach(function(d){ assemble([d], 'dress'); });
+
+  // sort, then diversify (avoid duplicate top+bottom cores)
+  combos.sort(function(a,b){ return b.score - a.score; });
+  var picked = [], seenCore = {};
+  for (var i=0;i<combos.length && picked.length<3;i++) {
+    var core = combos[i].coreKey;
+    if (seenCore[core]) continue;
+    seenCore[core] = 1;
+    picked.push(combos[i]);
+  }
+  return picked;
+}
+
+// How much skin a garment covers. Derived from type because the wardrobe model has no
+// sleeve/hem field — good enough to separate "long sleeves and full-length" from
+// "short sleeves and bare legs", which is the distinction strong sun turns on.
+var COVERAGE = { tee:1, shirt:3, sweater:3, blazer:3, coat:3, jacket:3, sunshirt:3.5,
+  trousers:3, jeans:3, chinos:3, skirt:1, dress:1.5, sneakers:2, loafers:2, heels:1.5, boots:3 };
+function coverageOf(i){ var c = COVERAGE[i.sub]; return c === undefined ? 2 : c; }
+
+// A sun-protective layer (防晒衣 / UPF shell) is the one layer that exists to be worn
+// in heat: long sleeves, near-zero warmth. The engine must not treat it like a jacket,
+// or it gets penalised in exactly the weather it was made for.
+function isSunLayer(i){ return !!i && (i.sub === 'sunshirt' || (i.cat === 'outerwear' && (i.warmth||3) <= 1)); }
+
+// Pale fabric reflects sun, dark soaks it up. Computed from the item's actual colour
+// value, so it works for AI-detected colours too — not just the seed palette.
+function isLightColor(i){
+  if (!i.color || i.color.charAt(0) !== '#' || i.color.length < 7) return false;
+  var r = parseInt(i.color.slice(1,3),16), g = parseInt(i.color.slice(3,5),16), b = parseInt(i.color.slice(5,7),16);
+  return (0.299*r + 0.587*g + 0.114*b) > 150;
+}
+
+/* Weather has to move the ranking, not just add a footnote — otherwise picking
+   "Windy" changes nothing and the control is decoration. Each condition below maps
+   to a decision a person actually makes when dressing for it. */
+function weatherAdjust(items, base, layer, shoe, ctx){
+  var w = ctx.weather, adj = 0;
+  var wet = (w === 'rain' || w === 'snow');
+
+  if (wet) {
+    if (shoe) {
+      if (shoe.sub === 'boots') adj += 0.13;            // the right call in wet weather
+      else if (shoe.sub === 'sneakers') adj -= 0.11;    // canvas and leather soak through
+      else if (shoe.sub === 'loafers') adj -= 0.07;
+    }
+    adj += layer ? 0.10 : -0.09;                        // you want something over the top
+  }
+  if (w === 'snow') {
+    // snow is wet AND cold: a light layer that passes for rain is not enough here
+    var cover = layer ? Math.max(layer.warmth, base[0].warmth) : base[0].warmth;
+    if (cover < 4) adj -= 0.16;
+    if (shoe && shoe.sub === 'boots') adj += 0.07;      // traction matters more than in rain
+  }
+  if (w === 'wind') {
+    if (layer && (layer.sub === 'coat' || layer.sub === 'jacket' || layer.sub === 'blazer')) adj += 0.11;
+    else if (!layer) adj -= 0.07;
+    // loose hems are a nuisance in real wind
+    if (base.some(function(b){ return b.sub === 'skirt' || b.sub === 'dress'; })) adj -= 0.09;
+  }
+  if (w === 'sun') {
+    // The one condition where MORE fabric helps: covered skin doesn't burn. Warmth is
+    // handled separately by the temperature term, so reward coverage on its own —
+    // the ideal answer is a light long sleeve, not a warm one.
+    var cov = base.map(coverageOf).reduce(function(a,b){return a+b;},0) / base.length;
+    adj += (cov - 2) * 0.08;
+    var pale = items.filter(isLightColor).length;
+    adj += pale * 0.03;                                  // pale fabric bounces heat
+    if (isSunLayer(layer)) adj += 0.18;                  // exactly what it's for
+    else if (layer && (layer.warmth||3) >= 3) adj -= 0.14; // a warm layer in full sun is wrong
+  }
+  if (w === 'humid' && ctx.temp >= 68) {
+    // Sticky air only makes layers miserable when it's already warm. Damp *cold*
+    // is the opposite — it cuts through you and needs more covering, not less —
+    // so below this point humidity gets no say and the temperature rules.
+    if (layer) adj -= 0.14;
+    if (base[0].warmth >= 4) adj -= 0.12;
+    if (base[0].warmth <= 2) adj += 0.09;
+  }
+  return adj;
+}
+
+function scoreCombo(items, base, layer, shoe, kind, ctx, warmthNeed, target) {
+  var fScores = items.map(function(i){ return scoreItemFormality(i, target); });
+  var fAvg = fScores.reduce(function(a,b){return a+b;},0)/fScores.length;
+
+  // warmth: an outer layer dominates how warm you actually feel, so coverage is
+  // the warmer of (top, layer) — not their sum. A coat over a tee reads ~coat-warm.
+  var topBase = base[0].warmth;
+  var coverage = layer ? Math.max(layer.warmth, topBase) : topBase;
+  var warmthFit = 1 - Math.min(1, Math.abs(coverage - warmthNeed)/2.5);
+  // a layer is usually wrong on a hot day — unless it's the kind made for hot days
+  if (forbidsHeavy(ctx.temp) && layer && !isSunLayer(layer)) warmthFit -= 0.15;
+
+  var harmony = colorHarmony(items);
+  var styleAvg = items.map(styleMatch).reduce(function(a,b){return a+b;},0)/items.length;
+  var colorAvg = items.map(colorMatch).reduce(function(a,b){return a+b;},0)/items.length;
+  var fbAvg = items.map(feedbackBias).reduce(function(a,b){return a+b;},0);
+
+  // formality clash between core pieces (e.g., tailored trousers + sneakers)
+  var fs = base.concat(shoe?[shoe]:[]).map(function(i){return i.formality;});
+  var spread = Math.max.apply(null, fs) - Math.min.apply(null, fs);
+  var clashPenalty = spread >= 3 ? 0.18 : 0;
+
+  // preference nudges
+  var prefAdj = 0;
+  if (ctx.impress) prefAdj += (fAvg - 0.5) * 0.25;
+  if (ctx.lowkey || ctx.comfy) prefAdj += (0.7 - Math.abs(target - 2)) * 0.05;
+
+  var wAdj = weatherAdjust(items, base, layer, shoe, ctx);
+
+  var score = fAvg*0.34 + warmthFit*0.24 + harmony*0.14 + styleAvg*0.14 + colorAvg*0.08 + fbAvg + prefAdj + wAdj - clashPenalty;
+
+  var core = (kind==='dress') ? base[0].id : base[0].id+'+'+base[1].id;
+  // Keep the raw score for ranking. Clamping here would flatten the order whenever
+  // several combos push past 1.0 (easy once weather bonuses stack), leaving the sort
+  // to fall back on insertion order. Display clamps instead — see renderOutfits.
+  return { items: items, base: base, layer: layer, shoe: shoe, kind: kind, ctx: ctx,
+           score: score, warmthFit: warmthFit, fAvg: fAvg,
+           harmony: harmony, coreKey: core, target: target, warmthNeed: warmthNeed };
+}
+
+/* ---------- EXPLANATION (plain-language, cites real items) ---------- */
+function explain(o) {
+  var occ = OCCASIONS[o.ctx.occ];
+  var t = o.ctx.temp;
+  var reasons = [];
+  var lead = o.base[0];
+  var bottom = o.base[1];
+
+  // formality reasoning
+  if (o.fAvg > 0.72) reasons.push('It lands right at the ' + (occ.target>=4?'polished':'smart-casual') + ' level ' + occ.label + ' calls for');
+  else if (o.target >= 3.6) reasons.push('The ' + (o.layer?o.layer.name.toLowerCase():lead.name.toLowerCase()) + ' does the heavy lifting to keep this credible for ' + occ.label);
+  else reasons.push('It keeps things ' + occ.name + ' for ' + occ.label);
+
+  // warmth reasoning
+  var tempPhrase = t<40?'a cold':t<52?'a chilly':t<64?'a cool':t<76?'a mild':'a warm';
+  if (o.layer) reasons.push('the ' + o.layer.name.toLowerCase() + ' covers ' + tempPhrase + ' ' + t + '°F day');
+  else if (t>=64) reasons.push('with no bulky layer it stays comfortable at ' + t + '°F');
+  else reasons.push('it holds up at ' + t + '°F without over-layering');
+
+  // color / harmony
+  if (o.harmony >= 0.8) reasons.push('the palette stays clean — neutrals doing the work so nothing competes');
+  else if (o.items.some(function(i){return i.pattern!=='solid';})) reasons.push('the pattern is the one accent, so everything else stays quiet');
+
+  var shoeTxt = o.shoe ? (' ' + o.shoe.name + ' finish it off.') : '';
+  var sentence = cap(reasons[0]) + ', ' + reasons[1] + (reasons[2]?', and ' + reasons[2]:'') + '.' + shoeTxt;
+
+  // assumptions / honesty
+  var assume = [];
+  var w = o.ctx.weather;
+  if ((w==='rain' || w==='snow') && o.shoe && o.shoe.sub!=='boots')
+    assume.push((w==='snow'?'snow':'rain') + '\'s forecast — ' + o.shoe.name.toLowerCase() + ' will struggle; boots would be safer if you have a pair.');
+  if ((w==='rain' || w==='snow') && !o.layer)
+    assume.push('there\'s no layer here for the wet — grab whatever shell you own on the way out.');
+  if (w==='snow' && (o.layer ? Math.max(o.layer.warmth, o.base[0].warmth) : o.base[0].warmth) < 4)
+    assume.push('this is the warmest combination your closet allows, but it\'s still light for snow.');
+  if (w==='wind' && o.base.some(function(b){return b.sub==='skirt'||b.sub==='dress';}))
+    assume.push('it\'s windy and this has a loose hem — fine if you\'re mostly indoors.');
+  if (w==='sun') {
+    var covAvg = o.base.map(coverageOf).reduce(function(a,b){return a+b;},0) / o.base.length;
+    if (covAvg < 2 && !isSunLayer(o.layer))
+      assume.push('strong sun and this leaves a lot of skin bare — sunscreen, or throw a sun shell (防晒衣) over it if you\'ll be out a while.');
+    else if (!isSunLayer(o.layer))
+      assume.push('strong sun — still worth sunscreen on whatever stays uncovered.');
+  }
+  if (w==='humid' && o.layer && t >= 68)
+    assume.push('humid air makes layers clammy — you\'ll probably want to carry the ' + o.layer.name.toLowerCase() + ' rather than wear it.');
+  if (needsOuterwear(t) && !o.layer) assume.push('nothing in your closet layers cleanly here at ' + t + '°F — consider adding a light jacket.');
+  if (o.harmony < 0.55) assume.push('this pairs two statement pieces; swap one for a neutral if it feels loud.');
+
+  return { text: sentence, assume: assume };
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+/* ---------- OPTIONAL PURCHASE CATALOG ---------- */
+var CATALOG = [
+  { gap:'shoes', when:function(o){return !o.items.some(function(i){return i.cat==='shoes';});}, t:'Minimal white sneaker', price:{low:'$45',mid:'$95',high:'$150'}, r:'A clean neutral sneaker would pair with almost every top+bottom you own.' },
+  { gap:'layer', when:function(o){return needsOuterwear(o.ctx.temp) && !o.layer;}, t:'Lightweight overshirt', price:{low:'$40',mid:'$85',high:'$160'}, r:'You\'re short a light layer for cool days — an overshirt bridges tee-to-jacket.' },
+  { gap:'belt', when:function(o){return o.items.some(function(i){return i.cat==='shoes' && (i.sub==='loafers'||i.sub==='boots');});}, t:'Leather belt', price:{low:'$25',mid:'$60',high:'$120'}, r:'A leather belt matched to your shoes pulls the whole look together.' },
+  { gap:'knit', when:function(o){return o.ctx.temp<55;}, t:'Fine-gauge crewneck knit', price:{low:'$38',mid:'$90',high:'$180'}, r:'A thinner knit layers under the blazer without bulk on colder days.' }
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+var results = document.getElementById('results');
+
+// unique, monotonic ids — Date.now() alone collides when items are added in the
+// same millisecond (e.g. bulk add), which made delete/rating hit the wrong item.
+var _idSeq = 0;
+function uid(){ return 'u' + Date.now().toString(36) + (_idSeq++).toString(36); }
+
+// Show the real photo when there is one, else the drawn garment. Imported catalogue
+// items point at remote URLs that can fail (hotlink blocks, expired CDN links, offline),
+// so the illustration sits behind every <img> as a live fallback rather than leaving a
+// broken-image icon. referrerpolicy keeps hotlink-sensitive hosts from rejecting us.
+function itemArt(i){
+  if (!i.img) return garment(i.sub, i.color, i.pattern);
+  return '<img src="' + escAttr(i.img) + '" alt="' + escAttr(i.name||'') + '"'
+       + ' referrerpolicy="no-referrer" loading="lazy"'
+       + ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"'
+       + ' style="width:100%;height:100%;object-fit:cover;border-radius:8px">'
+       + '<span class="art-fallback" style="display:none;width:100%;height:100%">' + garment(i.sub, i.color, i.pattern) + '</span>';
+}
+// item names and URLs come from an external catalogue — never interpolate them raw
+function escAttr(s){
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// "Style around this piece" constraint (Match-an-item feature)
+var matchItemId = null;
+
+function bindClear(){
+  var cm = document.getElementById('clearMatch');
+  if (cm) cm.addEventListener('click', clearMatch);
+}
+// empty states point at the wardrobe — make that link actually go there
+function bindGoCloset(){
+  document.querySelectorAll('.go-closet').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); showView('closet'); });
+  });
+}
+function matchBanner(){
+  if (!matchItemId) return '';
+  var mi = state.wardrobe.filter(function(x){return x.id===matchItemId;})[0];
+  if (!mi) return '';
+  return '<div class="match-banner"><div class="mb-art">'+itemArt(mi)+'</div>'
+    + '<div class="mb-txt">Building outfits around <strong>'+mi.name+'</strong></div>'
+    + '<button class="mb-clear" id="clearMatch">Use whole wardrobe</button></div>';
+}
+// "No outfits" has three very different causes, and telling the user the wrong one
+// sends them to fix the wrong thing. Name the actual blocker.
+// Only what actually blocks an outfit. The engine treats shoes as optional (it builds
+// a look without them), so listing shoes as "still needed" would misdirect the user.
+function missingEssentials(){
+  var have = {};
+  state.wardrobe.forEach(function(i){ have[i.cat] = true; });
+  var missing = [];
+  if (!have.top && !have.dress) missing.push('a top');
+  if (!have.bottom && !have.dress) missing.push('a bottom');
+  return missing;
+}
+function emptyResultsHTML(){
+  var wrap = function(icon, title, body){
+    return '<div class="results-empty"><div class="big">' + icon + '</div>'
+      + '<div style="font-weight:700;color:var(--text-dim);font-size:16px">' + title + '</div>'
+      + '<div style="font-size:14px;margin-top:6px">' + body + '</div></div>';
+  };
+  if (!state.wardrobe.length)
+    return wrap('👗', 'Your wardrobe is empty',
+      'StyleSync only ever recommends clothes you actually own — so it needs a few first. <a href="#" class="go-closet" style="color:var(--accent)">Add your clothes →</a>');
+  var missing = missingEssentials();
+  if (missing.length)
+    return wrap('🧩', 'Not enough to build a full outfit',
+      'You still need ' + missing.join(' and ') + '. <a href="#" class="go-closet" style="color:var(--accent)">Add to your wardrobe →</a>');
+  return wrap('🤔', 'No outfit fits that combination yet',
+    'You have the pieces, but none of them work together for this occasion and temperature. Try a different occasion, or clear the item filter.');
+}
+
+function renderOutfits(list, ctx) {
+  var banner = matchBanner();
+  if (!list.length) {
+    results.innerHTML = banner + emptyResultsHTML();
+    bindClear(); bindGoCloset(); return;
+  }
+  var toShow = quickModeOn ? list.slice(0, 1) : list;
+  var showShop = document.getElementById('shopToggle').checked;
+  var html = banner;
+  if(quickModeOn) html += '<div style="font-size:12px;color:var(--good);margin-bottom:12px;font-weight:600">⚡ Quick mode: just the top match</div>';
+  toShow.forEach(function(o, idx){
+    var ex = explain(o);
+    var fb = state.feedback['outfit_'+o.coreKey] || {};
+    html += '<div class="outfit">';
+    html += '<div class="outfit-head"><span class="badge">Look '+(idx+1)+'</span><h4>'+outfitTitle(o)+'</h4><span class="score mono">Fit '+displayFit(o.score)+'</span></div>';
+    html += '<div class="look">';
+    o.items.forEach(function(i){
+      html += '<div class="g"><div class="art">'+itemArt(i)+'</div><div class="nm">'+i.name+'</div><div class="role">'+roleLabel(i)+'</div></div>';
+    });
+    html += '</div>';
+    html += '<div class="why"><p>'+ex.text+'</p>';
+    if (ex.assume.length) html += '<div class="assume">⚠ Heads-up: '+ex.assume.join(' ')+'</div>';
+    html += '</div>';
+    // feedback
+    html += '<div class="fb"><span class="lbl">Was this your style?</span>'
+      + fbBtn(o.coreKey,'good','👍 Helpful', fb.v==='good')
+      + fbBtn(o.coreKey,'bad','👎 Not my style', fb.v==='bad')
+      + fbBtn(o.coreKey,'formal','Too formal', fb.v==='formal')
+      + fbBtn(o.coreKey,'casual','Too casual', fb.v==='casual')
+      + '</div>';
+    // complete the look
+    if (showShop) {
+      var picks = CATALOG.filter(function(c){return c.when(o);}).slice(0,2);
+      if (picks.length) {
+        html += '<div class="shop"><div class="h">◇ Complete the look — optional purchases</div><div class="items">';
+        picks.forEach(function(c){
+          html += '<div class="buy"><div class="t">'+c.t+'</div><div class="p">'+c.price[state.profile.budget]+' · est.</div><div class="r">'+c.r+'</div></div>';
+        });
+        html += '</div><div class="disc">These are optional suggestions to fill a gap — not items you own, and there\'s no checkout. Turn this off any time.</div></div>';
+      }
+    }
+    html += '</div>';
+  });
+  results.innerHTML = html;
+  bindFeedback(ctx);
+  bindClear();
+}
+// scores are unclamped internally so ranking stays meaningful; only the badge clamps
+function displayFit(s){ return Math.round(Math.max(0, Math.min(1, s)) * 100); }
+function outfitTitle(o){
+  if (o.kind==='dress') return o.base[0].name + (o.layer?' + '+o.layer.name:'');
+  return o.base[0].name + ' + ' + o.base[1].name;
+}
+function roleLabel(i){ return i.cat==='top'?'Top':i.cat==='bottom'?'Bottom':i.cat==='dress'?'Dress':i.cat==='outerwear'?'Layer':'Shoes'; }
+function fbBtn(key, v, label, on){
+  var cls = v==='good'?'pick-good':(v==='bad'?'pick-bad':'pick-adj');
+  return '<button data-fbkey="'+key+'" data-fbv="'+v+'" class="'+cls+(on?' on':'')+'">'+label+'</button>';
+}
+// apply (sign=+1) or reverse (sign=-1) one rating's item-level bias
+function applyBias(o, v, sign){
+  o.items.forEach(function(it){
+    var cur = state.feedback[it.id]||0;
+    if (v==='good') state.feedback[it.id]=cur+1*sign;
+    else if (v==='bad') state.feedback[it.id]=cur-1.2*sign;
+    else if (v==='formal' && it.formality>=4) state.feedback[it.id]=cur-1*sign;
+    else if (v==='casual' && it.formality<=2) state.feedback[it.id]=cur-1*sign;
+  });
+}
+function bindFeedback(ctx){
+  document.querySelectorAll('.fb button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var key=b.dataset.fbkey, v=b.dataset.fbv;
+      var o = lastResults.filter(function(x){return x.coreKey===key;})[0];
+      var prev = state.feedback['outfit_'+key];
+      // reverse the PREVIOUS rating first, so repeated / changed clicks don't stack bias
+      if (o && prev && prev.v) applyBias(o, prev.v, -1);
+      if (prev && prev.v===v) {
+        delete state.feedback['outfit_'+key];        // click same rating again = clear it
+        toast('Rating cleared.');
+      } else {
+        state.feedback['outfit_'+key] = { v:v };
+        if (o) applyBias(o, v, +1);
+        toast(v==='good'?'Noted — more like this.':v==='bad'?'Got it — StyleSync will steer away.':'Adjusting future picks.');
+      }
+      persist();
+      // recompute (not just re-render) — feedback shifts each item's score via
+      // feedbackBias(), so the ranking, and possibly which outfits surface, should
+      // update immediately rather than waiting for the next manual "Style me" click.
+      generate();
+    });
+  });
+}
+
+var lastResults = [];
+function generate() {
+  var occ = document.getElementById('occasion').value;
+  var temp = parseInt(document.getElementById('temp').value,10);
+  var weather = document.querySelector('#weatherChips .chip.on').dataset.w;
+  var prefs = Array.prototype.map.call(document.querySelectorAll('#prefChips .chip.on'), function(c){return c.dataset.p;});
+  var ctx = { occ:occ, target:OCCASIONS[occ].target, temp:temp, weather:weather,
+    impress: prefs.indexOf('impress')>=0, comfy: prefs.indexOf('comfy')>=0,
+    lowkey: prefs.indexOf('lowkey')>=0, wantWarm: prefs.indexOf('warm')>=0,
+    mustInclude: matchItemId };
+  lastResults = buildOutfits(ctx);
+  renderOutfits(lastResults, ctx);
+  results.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// Match-an-item: jump to Get Dressed and build outfits around one piece
+function styleAround(id){
+  matchItemId = id;
+  showView('dressed');
+  generate();
+}
+function clearMatch(){ matchItemId = null; generate(); toast('Back to your whole wardrobe.'); }
+
+/* ---------- FIND SIMILAR (free tier): text-query search links built from the item's own
+   detected/edited attributes. This is NOT brand/product matching — no vision API, no cost,
+   no backend. It just finds visually-plausible items for sale, using what we already know. */
+function shopQuery(i){
+  var parts = [i.colorName && i.colorName!=='—' ? i.colorName : '', i.pattern && i.pattern!=='solid' ? i.pattern : '', i.sub || i.cat];
+  return parts.filter(Boolean).join(' ');
+}
+// Imported catalogue items keep a link back to the official product page they came from.
+// Only http(s) is allowed through — the URL arrives from an external file.
+function sourceLinkHTML(i){
+  if (!i.productUrl || !/^https?:\/\//i.test(i.productUrl)) return '';
+  var brand = (i.source && i.source.brand) ? i.source.brand : 'source';
+  return '<div class="similar-links">🏷 <a class="source-link" href="' + escAttr(i.productUrl)
+    + '" target="_blank" rel="noopener noreferrer">View source product</a>'
+    + ' <span style="color:var(--muted)">· ' + escAttr(brand) + '</span></div>';
+}
+function similarLinksHTML(i){
+  var q = encodeURIComponent(shopQuery(i));
+  return '<div class="similar-links">🔎 Find similar:'
+    + ' <a href="https://www.google.com/search?tbm=shop&q='+q+'" target="_blank" rel="noopener">Google</a>'
+    + ' · <a href="https://s.taobao.com/search?q='+q+'" target="_blank" rel="noopener">淘宝</a>'
+    + '</div>';
+}
+
+/* ---------- WARDROBE RENDER ---------- */
+var closet = document.getElementById('closet');
+var activeFilter = 'all';
+function renderCloset() {
+  var items = activeFilter==='all' ? state.wardrobe : state.wardrobe.filter(function(i){return i.cat===activeFilter;});
+  closet.innerHTML = items.map(function(i){
+    var canStyle = i.cat!=='accessory';
+    return '<div class="item">'
+      + '<button class="del" data-del="'+i.id+'" title="Delete">×</button>'
+      + '<button class="edit" data-edit="'+i.id+'" title="Edit">✎</button>'
+      + '<div class="art">'+itemArt(i)+'</div>'
+      + '<div class="meta"><div class="nm">'+escAttr(i.name)+'</div>'
+      + '<div class="tags"><span class="t">'+i.cat+'</span><span class="t">'+escAttr(i.colorName)+'</span><span class="t">'+i.pattern+'</span><span class="t">warmth '+i.warmth+'</span></div>'
+      + ((i.season && i.season.length) ? '<div class="tags">'+i.season.map(function(s){return '<span class="t">'+escAttr(s)+'</span>';}).join('')+'</div>' : '')
+      + '<div class="formality-dots">'+formalityDots(i.formality)+'<span class="fl">formality</span></div>'
+      + (canStyle ? '<button class="style-this" data-style="'+i.id+'">✦ Style around this</button>' : '')
+      + sourceLinkHTML(i)
+      + similarLinksHTML(i)
+      + '</div></div>';
+  }).join('');
+  document.querySelectorAll('[data-del]').forEach(function(b){
+    b.addEventListener('click', function(){
+      state.wardrobe = state.wardrobe.filter(function(x){return x.id!==b.dataset.del;});
+      persist(); renderCloset(); updateItemCount(); toast('Item removed.');
+    });
+  });
+  document.querySelectorAll('[data-style]').forEach(function(b){
+    b.addEventListener('click', function(){ styleAround(b.dataset.style); });
+  });
+  document.querySelectorAll('[data-edit]').forEach(function(b){
+    b.addEventListener('click', function(){ openEdit(b.dataset.edit); });
+  });
+  updateItemCount();
+  updateSampleBanner();
+}
+
+/* ---------- SAMPLE DATA ----------
+   The prototype ships with a seed closet so a first-time visitor sees a working app.
+   Items the user adds get uid()-generated ids, so matching against the seed ids is an
+   exact way to separate "clothes StyleSync invented" from "clothes you actually own" —
+   safer than guessing by name or date. */
+var SEED_IDS = SEED.map(function(s){ return s.id; });
+// Imported catalogue items count as "not yours" too — they're test data, same as the
+// seed closet, so one control clears both rather than leaving ZARA items stranded.
+function isSampleItem(i){ return SEED_IDS.indexOf(i.id) >= 0 || i.isTestData === true; }
+function updateSampleBanner(){
+  var banner = document.getElementById('sampleBanner');
+  if (!banner) return;
+  var n = state.wardrobe.filter(isSampleItem).length;
+  banner.hidden = (n === 0);
+  document.getElementById('sampleCount').textContent = n;
+}
+function clearSamples(){
+  var n = state.wardrobe.filter(isSampleItem).length;
+  if (!n) { toast('No sample clothes left — everything here is yours.'); return; }
+  if (!confirm('Remove ' + n + ' sample item' + (n===1?'':'s') + '? Anything you added yourself stays.')) return;
+  // Collect the ids actually being removed. Imported items carry generated ids, so
+  // checking SEED_IDS alone would leave their ratings behind to skew later scoring.
+  var goneIds = {};
+  state.wardrobe.filter(isSampleItem).forEach(function(i){ goneIds[i.id] = true; });
+  state.wardrobe = state.wardrobe.filter(function(i){ return !isSampleItem(i); });
+  Object.keys(state.feedback).forEach(function(k){
+    var ids = k.indexOf('outfit_') === 0 ? k.slice(7).split('+') : [k];
+    if (ids.some(function(id){ return goneIds[id]; })) delete state.feedback[k];
+  });
+  persist(); renderCloset(); updateItemCount();
+  toast('Removed ' + n + ' sample item' + (n===1?'':'s') + '.');
+}
+
+/* ---------- ZARA TEST-DATA IMPORT ----------
+   Loads catalogue metadata collected into zara-sample.json. Images are referenced by
+   their official remote URLs and never downloaded or re-hosted; items without a usable
+   image fall back to the drawn garment. Deduplication keys on productUrl, so pressing
+   import repeatedly is a no-op rather than a way to pile up duplicates. */
+var ZARA_SUBS = ['tee','shirt','sweater','blazer','coat','jacket','sunshirt','trousers',
+  'jeans','chinos','skirt','dress','sneakers','loafers','heels','boots'];
+var ZARA_CATS = ['top','bottom','dress','outerwear','shoes','accessory'];
+var ZARA_PATTERNS = ['solid','striped','checked','printed'];
+
+function clampInt(v, lo, hi, dflt){
+  var n = parseInt(v, 10);
+  if (isNaN(n)) return dflt;
+  return Math.max(lo, Math.min(hi, n));
+}
+// The file is external input: validate every field rather than trusting it into state,
+// or one bad record would break rendering or the outfit engine for the whole closet.
+function normalizeImported(raw){
+  if (!raw || typeof raw.name !== 'string' || !raw.name.trim()) return null;
+  if (typeof raw.productUrl !== 'string' || !/^https?:\/\//i.test(raw.productUrl)) return null;
+  var cat = ZARA_CATS.indexOf(raw.cat) >= 0 ? raw.cat : 'top';
+  var sub = ZARA_SUBS.indexOf(raw.sub) >= 0 ? raw.sub : null;
+  var img = (typeof raw.imageUrl === 'string' && /^https?:\/\//i.test(raw.imageUrl)) ? raw.imageUrl
+          : (typeof raw.img === 'string' && /^https?:\/\//i.test(raw.img)) ? raw.img : null;
+  return {
+    id: uid(),
+    name: raw.name.trim().slice(0, 120),
+    cat: cat,
+    sub: sub || ({top:'shirt',bottom:'trousers',dress:'dress',outerwear:'jacket',shoes:'sneakers',accessory:'shirt'})[cat],
+    color: /^#[0-9a-f]{6}$/i.test(raw.color||'') ? raw.color : '#8892a6',
+    colorName: typeof raw.colorName === 'string' && raw.colorName.trim() ? raw.colorName.trim().slice(0,40) : 'Unknown',
+    pattern: ZARA_PATTERNS.indexOf(raw.pattern) >= 0 ? raw.pattern : 'solid',
+    colorRole: ['neutral','earth','color','bold'].indexOf(raw.colorRole) >= 0 ? raw.colorRole : 'color',
+    formality: clampInt(raw.formality, 1, 5, 3),
+    warmth: clampInt(raw.warmth, 1, 5, 2),
+    season: Array.isArray(raw.season) ? raw.season.filter(function(s){ return typeof s === 'string'; }).slice(0,4) : [],
+    style: Array.isArray(raw.style) ? raw.style.filter(function(s){ return typeof s === 'string'; }).slice(0,6) : [],
+    img: img,
+    productUrl: raw.productUrl,
+    source: (raw.source && typeof raw.source === 'object') ? raw.source : null,
+    isTestData: true
+  };
+}
+
+function importZaraTestData(){
+  var btn = document.getElementById('importZaraBtn');
+  var original = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Importing…';
+  fetch('zara-sample.json', { cache: 'no-store' }).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(payload){
+    if (!payload || !Array.isArray(payload.items)) throw new Error('Unexpected file shape');
+    var seen = {};
+    state.wardrobe.forEach(function(i){ if (i.productUrl) seen[i.productUrl] = true; });
+    var added = 0, skipped = 0, invalid = 0;
+    payload.items.slice(0, 100).forEach(function(raw){
+      var item = normalizeImported(raw);
+      if (!item) { invalid++; return; }
+      if (seen[item.productUrl]) { skipped++; return; }
+      state.wardrobe.push(item);
+      seen[item.productUrl] = true;
+      added++;
+    });
+    persist(); renderCloset(); updateItemCount();
+    if (added) toast('Imported ' + added + ' ZARA test items' + (invalid ? ' (' + invalid + ' skipped as malformed).' : '.'));
+    else toast(skipped ? 'Already imported — no duplicates added.' : 'Nothing to import.');
+  }).catch(function(e){
+    console.error('ZARA import failed', e);
+    toast('Could not load zara-sample.json — it must sit beside index.html on the server.');
+  }).then(function(){
+    btn.disabled = false; btn.textContent = original;
+  });
+}
+
+// open the same tag editor used for adding, pre-filled with an existing item's saved values
+function openEdit(id){
+  var item = state.wardrobe.filter(function(x){ return x.id===id; })[0];
+  if (!item) return;
+  overlay.classList.add('on');
+  renderTagEditor(item, true);
+}
+function formalityDots(f){ var s=''; for(var i=1;i<=5;i++) s+='<span class="fd'+(i<=f?' on':'')+'"></span>'; return s; }
+function updateItemCount(){
+  document.getElementById('itemCount').textContent = state.wardrobe.length;
+  var t = document.getElementById('tripItemCount');
+  if (t) t.textContent = state.wardrobe.length;
+}
+
+/* ---------- ADD ITEM (simulated AI tagging) ---------- */
+var SAMPLES = [
+  {name:'Rust corduroy overshirt', cat:'outerwear', sub:'jacket', color:'#a0562e', colorName:'Rust', pattern:'solid', colorRole:'earth', formality:2, warmth:4, style:['cozy','street']},
+  {name:'Grey marl hoodie', cat:'top', sub:'sweater', color:'#8b8e97', colorName:'Grey', pattern:'solid', colorRole:'neutral', formality:1, warmth:3, style:['street','cozy']},
+  {name:'Checked flannel shirt', cat:'top', sub:'shirt', color:'#8a3b3b', colorName:'Red check', pattern:'checked', colorRole:'bold', formality:2, warmth:3, style:['cozy','street']},
+  {name:'Pleated midi skirt', cat:'bottom', sub:'skirt', color:'#3d4a3a', colorName:'Sage', pattern:'solid', colorRole:'earth', formality:3, warmth:2, style:['classic','preppy']},
+  {name:'White canvas high-tops', cat:'shoes', sub:'sneakers', color:'#efeee6', colorName:'White', pattern:'solid', colorRole:'neutral', formality:2, warmth:3, style:['street','minimal']}
+];
+var overlay = document.getElementById('overlay');
+var modalBody = document.getElementById('modalBody');
+var draftItem = null;
+
+function openAdd(){ overlay.classList.add('on'); renderAddStep1(); }
+function closeAdd(){ overlay.classList.remove('on'); draftItem=null; }
+
+// base guess for a real uploaded photo — category/warmth/formality can't be read from
+// pixels alone without a real vision model, so these stay generic and user-editable.
+// Color and pattern get overwritten by analyzeImage() with values read from the actual photo.
+function guessFromPhoto(dataUrl){
+  return {name:'New item', cat:'top', sub:'shirt', color:'#8892a6', colorName:'—',
+    pattern:'solid', colorRole:'neutral', formality:3, warmth:2, style:['classic'], img:dataUrl};
+}
+
+// Named color palette used to label a detected pixel color (nearest-match, not exact).
+var COLOR_PALETTE = [
+  {name:'White', hex:'#f2f2ec', role:'neutral'}, {name:'Black', hex:'#1c1d22', role:'neutral'},
+  {name:'Grey', hex:'#8b8e97', role:'neutral'}, {name:'Charcoal', hex:'#3a3d45', role:'neutral'},
+  {name:'Cream', hex:'#ece0c9', role:'neutral'}, {name:'Beige', hex:'#cbb48f', role:'earth'},
+  {name:'Camel', hex:'#b08d57', role:'earth'}, {name:'Brown', hex:'#6b4a2b', role:'earth'},
+  {name:'Rust', hex:'#a0562e', role:'earth'}, {name:'Olive', hex:'#5a5a3c', role:'earth'},
+  {name:'Sage', hex:'#3d4a3a', role:'earth'}, {name:'Navy', hex:'#28324a', role:'neutral'},
+  {name:'Blue', hex:'#3b6ea5', role:'color'}, {name:'Light blue', hex:'#cfe0f2', role:'color'},
+  {name:'Denim blue', hex:'#4a6a8a', role:'color'}, {name:'Red', hex:'#8a3b3b', role:'bold'},
+  {name:'Pink', hex:'#d98ba0', role:'bold'}, {name:'Orange', hex:'#c97a3a', role:'bold'},
+  {name:'Yellow', hex:'#d6bf4a', role:'bold'}, {name:'Green', hex:'#4a6a4a', role:'earth'},
+  {name:'Purple', hex:'#6a4a7a', role:'bold'}
+];
+function nearestColor(rgb){
+  var best=null, bestD=Infinity;
+  COLOR_PALETTE.forEach(function(c){
+    var r=parseInt(c.hex.slice(1,3),16), g=parseInt(c.hex.slice(3,5),16), b=parseInt(c.hex.slice(5,7),16);
+    var d=(r-rgb.r)*(r-rgb.r)+(g-rgb.g)*(g-rgb.g)+(b-rgb.b)*(b-rgb.b);
+    if(d<bestD){ bestD=d; best=c; }
+  });
+  return best;
+}
+// Reads the actual uploaded photo via canvas: crops to a center square (garment usually
+// fills the frame more there than the edges), averages pixel color, and uses color
+// variance as a rough solid-vs-pattern signal. This is real pixel analysis, not a mock —
+// but it's a heuristic, not a trained vision model, so pattern *type* (striped/checked/etc)
+// still isn't guessable and is left for the user to set.
+function analyzeImage(dataUrl, cb){
+  var img = new Image();
+  img.onload = function(){
+    try {
+      var size = 48;
+      var c = document.createElement('canvas'); c.width = size; c.height = size;
+      var ctx = c.getContext('2d');
+      var s = Math.min(img.naturalWidth, img.naturalHeight);
+      var sx = (img.naturalWidth - s) / 2, sy = (img.naturalHeight - s) / 2;
+      ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+      var data = ctx.getImageData(0, 0, size, size).data;
+      var rs=[], gs=[], bs=[], rSum=0, gSum=0, bSum=0, n=0;
+      for (var i=0; i<data.length; i+=4){
+        if (data[i+3] < 10) continue;
+        rs.push(data[i]); gs.push(data[i+1]); bs.push(data[i+2]);
+        rSum+=data[i]; gSum+=data[i+1]; bSum+=data[i+2]; n++;
+      }
+      if (!n) { cb({}); return; }
+      var avg = {r:rSum/n, g:gSum/n, b:bSum/n};
+      var varSum = 0;
+      for (var j=0; j<rs.length; j++){
+        var dr=rs[j]-avg.r, dg=gs[j]-avg.g, db=bs[j]-avg.b;
+        varSum += dr*dr+dg*dg+db*db;
+      }
+      var variance = varSum / n;
+      var nc = nearestColor(avg);
+      var hex = '#' + [avg.r, avg.g, avg.b].map(function(v){
+        return Math.round(v).toString(16).padStart(2, '0');
+      }).join('');
+      cb({ color: hex, colorName: nc.name, colorRole: nc.role, pattern: variance > 2200 ? 'printed' : 'solid' });
+    } catch (e) { cb({}); }
+  };
+  img.onerror = function(){ cb({}); };
+  img.src = dataUrl;
+}
+function renderAddStep1(){
+  modalBody.innerHTML = ''
+    + '<div class="dropzone" id="dropzone" tabindex="0" role="button"><div class="big">📷</div><div style="margin-top:6px;font-size:14px">Click, or drop a clothing photo here</div><div style="font-size:12px;margin-top:4px">your own photo works — or pick a sample below</div></div>'
+    + '<input type="file" id="fileInput" accept="image/*" style="display:none">'
+    + '<div style="font-family:-apple-system,sans-serif;font-size:12px;color:var(--muted);margin:14px 0 6px">Or try a sample photo:</div>'
+    + '<div class="sample-pick" id="samplePick">'
+    + SAMPLES.map(function(s,idx){ return '<button data-s="'+idx+'" title="'+s.name+'">'+garment(s.sub,s.color,s.pattern)+'</button>'; }).join('')
+    + '</div>';
+  var dz = document.getElementById('dropzone'), fi = document.getElementById('fileInput');
+  dz.addEventListener('click', function(){ fi.click(); });
+  dz.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fi.click(); } });
+  fi.addEventListener('change', function(){ if(fi.files && fi.files[0]) handlePhoto(fi.files[0]); });
+  ['dragover','dragenter'].forEach(function(ev){ dz.addEventListener(ev,function(e){ e.preventDefault(); dz.style.borderColor='var(--accent)'; }); });
+  ['dragleave','drop'].forEach(function(ev){ dz.addEventListener(ev,function(e){ e.preventDefault(); dz.style.borderColor=''; }); });
+  dz.addEventListener('drop', function(e){ var f=e.dataTransfer.files && e.dataTransfer.files[0]; if(f) handlePhoto(f); });
+  document.querySelectorAll('#samplePick button').forEach(function(b){
+    b.addEventListener('click', function(){ scanThenTag(SAMPLES[+b.dataset.s]); });
+  });
+}
+// Downscale before upload: a phone photo is several MB, and the model doesn't need
+// more than ~800px to classify a garment. Keeps requests fast and well under limits.
+function downscaleImage(dataUrl, cb){
+  var img = new Image();
+  img.onload = function(){
+    var max = 800;
+    var scale = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    if (scale === 1) { cb(dataUrl); return; }
+    var c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * scale);
+    c.height = Math.round(img.naturalHeight * scale);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    try { cb(c.toDataURL('image/jpeg', 0.85)); } catch (e) { cb(dataUrl); }
+  };
+  img.onerror = function(){ cb(dataUrl); };
+  img.src = dataUrl;
+}
+// Ask the vision model to classify the garment. Falls back to the local canvas
+// color/pattern heuristic if the API is unreachable or errors, so upload never dead-ends.
+function classifyGarment(dataUrl, cb){
+  downscaleImage(dataUrl, function(small){
+    var done = false;
+    var timer = setTimeout(function(){ if(!done){ done = true; localFallback(); } }, 20000);
+    function localFallback(){ analyzeImage(dataUrl, function(d){ cb(d, false); }); }
+    fetch('/api/classify-garment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image: small })
+    }).then(function(r){ return r.json().then(function(j){ return { ok: r.ok, body: j }; }); })
+      .then(function(res){
+        if (done) return;
+        done = true; clearTimeout(timer);
+        if (!res.ok || res.body.error) { localFallback(); return; }
+        cb(res.body, true);
+      })
+      .catch(function(){ if(!done){ done = true; clearTimeout(timer); localFallback(); } });
+  });
+}
+// real photo upload: read the file, run AI classification while the scan animation
+// plays, then open the tag editor pre-filled with what the model detected.
+function handlePhoto(file){
+  if (!file.type || file.type.indexOf('image/')!==0) { toast('Please choose an image file.'); return; }
+  var reader = new FileReader();
+  reader.onload = function(){
+    var dataUrl = reader.result;
+    var base = guessFromPhoto(dataUrl);
+    showScanning();
+    classifyGarment(dataUrl, function(detected, fromAI){
+      renderTagEditor(Object.assign({}, base, detected, { _aiTagged: fromAI }));
+    });
+  };
+  reader.readAsDataURL(file);
+}
+function showScanning(){
+  modalBody.innerHTML = '<div class="scanning">🔍 Analyzing your photo…<div class="scan-bar"><div class="scan-fill" id="sf"></div></div><div style="font-size:12px;color:var(--muted)">Detecting category, color, pattern, warmth, formality</div></div>';
+  var f = document.getElementById('sf'); var p = 0;
+  // creeps toward 90% while the real request is in flight, so the bar reflects
+  // "working" rather than a fake fixed duration
+  var iv = setInterval(function(){
+    if (!document.getElementById('sf')) { clearInterval(iv); return; }
+    p = Math.min(90, p + 6);
+    document.getElementById('sf').style.width = p + '%';
+  }, 200);
+}
+function scanThenTag(sample){
+  showScanning();
+  setTimeout(function(){ renderTagEditor(sample); }, 900);
+}
+function renderTagEditor(s, isEdit){
+  draftItem = isEdit ? Object.assign({}, s) : Object.assign({id:uid()}, s);
+  var thumb = s.img ? '<div style="text-align:center;margin-bottom:14px"><img src="'+s.img+'" alt="uploaded" style="max-height:150px;max-width:100%;border-radius:10px;border:1px solid var(--line)"></div>' : '';
+  var note = isEdit ? 'Editing a saved item — change anything below and save.'
+    : s._aiTagged ? 'AI read your photo and filled in category, subcategory, color, pattern, season, style, warmth, and formality. Everything is editable — StyleSync only trusts what you confirm.'
+    : s.img ? 'AI tagging is unavailable right now, so we detected the color from your photo and guessed the rest. Please check the tags below.'
+    : 'AI suggested these tags from your photo. Everything is editable — StyleSync only trusts what you confirm.';
+  var season = Array.isArray(s.season) ? s.season : [];
+  var styleTags = Array.isArray(s.style) ? s.style : [];
+  modalBody.innerHTML = thumb
+    + '<div class="ai-note">✨ <div>'+note+'</div></div>'
+    + '<div class="field"><label>Name</label><input type="text" id="e-name" value="'+escAttr(s.name)+'"></div>'
+    + '<div class="field"><label>Category</label><select id="e-cat">'+opt(['top','bottom','dress','outerwear','shoes','accessory'],s.cat)+'</select></div>'
+    + '<div class="field"><label>Subcategory</label><select id="e-sub">'+opt(ZARA_SUBS, s.sub)+'</select></div>'
+    + '<div class="field"><label>Color</label><input type="text" id="e-color" value="'+escAttr(s.colorName)+'"></div>'
+    + '<div class="field"><label>Pattern</label><select id="e-pattern">'+opt(['solid','striped','checked','printed'],s.pattern)+'</select></div>'
+    + '<div class="field"><label>Season <span style="color:var(--muted);font-weight:400">(comma separated)</span></label><input type="text" id="e-season" value="'+escAttr(season.join(', '))+'"></div>'
+    + '<div class="field"><label>Style tags <span style="color:var(--muted);font-weight:400">(comma separated)</span></label><input type="text" id="e-style" value="'+escAttr(styleTags.join(', '))+'"></div>'
+    + '<div class="field"><label>Warmth — <span id="wv">'+s.warmth+'</span> / 5</label><input type="range" id="e-warmth" min="1" max="5" value="'+s.warmth+'" style="width:100%"></div>'
+    + '<div class="field"><label>Formality — <span id="fv">'+s.formality+'</span> / 5</label><input type="range" id="e-formality" min="1" max="5" value="'+s.formality+'" style="width:100%"></div>'
+    + '<button class="save-btn" id="saveItem">'+(isEdit ? 'Save changes' : 'Save to wardrobe')+'</button>';
+  document.getElementById('e-warmth').addEventListener('input', function(e){ document.getElementById('wv').textContent=e.target.value; });
+  document.getElementById('e-formality').addEventListener('input', function(e){ document.getElementById('fv').textContent=e.target.value; });
+  document.getElementById('saveItem').addEventListener('click', function(){ saveDraft(isEdit); });
+}
+function opt(arr,sel){ return arr.map(function(a){return '<option'+(a===sel?' selected':'')+'>'+a+'</option>';}).join(''); }
+function csvField(id){
+  return document.getElementById(id).value.split(',')
+    .map(function(x){ return x.trim().toLowerCase(); })
+    .filter(Boolean)
+    .filter(function(v, idx, arr){ return arr.indexOf(v) === idx; });
+}
+function saveDraft(isEdit){
+  draftItem.name = document.getElementById('e-name').value || draftItem.name;
+  draftItem.cat = document.getElementById('e-cat').value;
+  draftItem.sub = document.getElementById('e-sub').value || draftItem.sub;
+  draftItem.colorName = document.getElementById('e-color').value || draftItem.colorName;
+  draftItem.pattern = document.getElementById('e-pattern').value;
+  draftItem.season = csvField('e-season');
+  draftItem.style = csvField('e-style');
+  draftItem.warmth = +document.getElementById('e-warmth').value;
+  draftItem.formality = +document.getElementById('e-formality').value;
+  delete draftItem._aiTagged;
+  if (isEdit) {
+    state.wardrobe = state.wardrobe.map(function(x){ return x.id===draftItem.id ? draftItem : x; });
+    persist(); closeAdd(); renderCloset(); toast('Updated “'+draftItem.name+'”.');
+  } else {
+    state.wardrobe.push(draftItem);
+    persist(); closeAdd(); renderCloset(); toast('Added “'+draftItem.name+'” to your wardrobe.');
+  }
+}
+
+/* ---------- BULK ADD (F1): one photo → many items ---------- */
+function openBulk(){ overlay.classList.add('on'); renderBulkScan(); }
+function renderBulkScan(){
+  modalBody.innerHTML = '<div class="scanning">🔍 Scanning your photo for multiple items…<div class="scan-bar"><div class="scan-fill" id="sf"></div></div><div style="font-size:12px;color:var(--muted)">One photo — StyleSync detects each garment</div></div>';
+  var f=document.getElementById('sf'), p=0;
+  var iv=setInterval(function(){ p+=20; f.style.width=Math.min(100,p)+'%'; if(p>=100){ clearInterval(iv); setTimeout(renderBulkPick,300); } },200);
+}
+function renderBulkPick(){
+  var detected = SAMPLES; // simulated multi-item detection
+  modalBody.innerHTML = ''
+    + '<div class="ai-note">✨ <div>Detected <strong>'+detected.length+'</strong> items in your photo. Untick anything that isn\'t yours, then add them all at once.</div></div>'
+    + '<div class="bulk-grid" id="bulkGrid">'
+    + detected.map(function(s,i){ return '<div class="bulk-cell on" data-i="'+i+'"><div class="bck">✓</div>'+garment(s.sub,s.color,s.pattern)+'<div class="bn">'+s.name+'</div></div>'; }).join('')
+    + '</div>'
+    + '<button class="save-btn" id="bulkSave">Add selected to wardrobe</button>';
+  document.querySelectorAll('#bulkGrid .bulk-cell').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('on'); });
+  });
+  document.getElementById('bulkSave').addEventListener('click', function(){
+    var added=0;
+    document.querySelectorAll('#bulkGrid .bulk-cell.on').forEach(function(c){
+      var s = SAMPLES[+c.dataset.i];
+      state.wardrobe.push(Object.assign({id:uid()}, s));
+      added++;
+    });
+    if(!added){ toast('Nothing selected.'); return; }
+    persist(); closeAdd(); renderCloset(); toast('Added '+added+' items from one photo.');
+  });
+}
+
+/* ---------- STYLE PROFILE ---------- */
+function renderProfile(){
+  document.querySelectorAll('#styleChips .chip').forEach(function(c){ c.classList.toggle('on', state.profile.style.indexOf(c.dataset.s)>=0); });
+  document.querySelectorAll('#colorChips .chip').forEach(function(c){ c.classList.toggle('on', state.profile.color.indexOf(c.dataset.c)>=0); });
+  document.getElementById('budget').value = state.profile.budget;
+  var s = state.profile.style, c = state.profile.color;
+  var tagMap = {minimal:'a minimalist',classic:'a classic dresser',street:'a streetwear-leaning',preppy:'a preppy',edgy:'an edgy',cozy:'a cozy-comfort'};
+  var tl = s.length ? cap(tagMap[s[0]]||'a considered') + ' dresser' : 'Pick a few labels →';
+  document.getElementById('profileTagline').textContent = tl;
+  if (s.length || c.length) {
+    var colorTxt = c.length ? c.map(function(x){return {neutral:'neutrals',earth:'earth tones',cool:'cool blues',bold:'bold color'}[x];}).join(', ') : 'a flexible palette';
+    document.getElementById('profileSummary').textContent = 'You lean toward ' + (s.map(function(x){return {minimal:'clean minimalism',classic:'timeless staples',street:'street ease',preppy:'preppy polish',edgy:'darker edge',cozy:'soft comfort'}[x];}).join(' and ') || 'a mix of looks') + ', built on ' + colorTxt + '. StyleSync now ranks outfits that match this higher.';
+  }
+  var bmap={low:'Under $50 per optional piece.',mid:'$50–$120 per optional piece.',high:'$120+ per optional piece.'};
+  document.getElementById('profileBudget').textContent = 'Budget: ' + bmap[state.profile.budget];
+}
+
+/* ---------- TRAVEL / PACKING ----------
+   Packing inverts the Get Dressed problem: you commit once, for days you can't see,
+   into a bag with a hard limit. So the ranking favours pieces that (a) serve several
+   of the trip's occasions, (b) go with everything, and (c) cost little space and
+   arrive uncreased — then the existing outfit engine runs against just that subset
+   to prove the list actually dresses you. */
+
+// bulk / wrinkle only exist on items the AI tagged after this feature shipped.
+// Derive them from garment type + warmth otherwise, so travel mode works on any closet.
+var BULK_BASE = { tee:1, shirt:1.5, sweater:3, blazer:3, coat:5, jacket:3.5, sunshirt:1,
+  trousers:2, jeans:3, chinos:2, skirt:1.5, dress:2, sneakers:4, loafers:3.5, heels:3, boots:5 };
+var WRINKLE_BASE = { tee:2, shirt:4, sweater:1.5, blazer:3.5, coat:2, jacket:2, sunshirt:1,
+  trousers:3, jeans:1.5, chinos:3, skirt:3, dress:3.5, sneakers:1, loafers:1, heels:1, boots:1 };
+
+function itemBulk(i){
+  if (typeof i.bulk === 'number') return i.bulk;
+  var b = BULK_BASE[i.sub];
+  if (b === undefined) b = 2;
+  return Math.max(1, Math.min(5, b + ((i.warmth||3) - 3) * 0.35));
+}
+function itemWrinkle(i){
+  if (typeof i.wrinkle === 'number') return i.wrinkle;
+  var w = WRINKLE_BASE[i.sub];
+  return w === undefined ? 2.5 : w;
+}
+// how well one piece serves the whole itinerary, not just one event
+function occasionFit(i, targets){
+  if (!targets.length) return 0.5;
+  return targets.map(function(t){ return scoreItemFormality(i, t); })
+                .reduce(function(a,b){return a+b;},0) / targets.length;
+}
+function travelScore(i, targets, warmthNeed){
+  var mixes = (i.colorRole==='neutral' ? 1 : i.colorRole==='earth' ? 0.65 : 0.3)
+            + (i.pattern==='solid' ? 0.6 : 0.1);          // plain neutrals re-wear best
+  var warmthFit = 1 - Math.min(1, Math.abs((i.warmth||3) - warmthNeed)/2.5);
+  var spaceCost = (itemBulk(i) - 1) / 4;                  // 0 = packs flat, 1 = eats the bag
+  var creaseCost = (itemWrinkle(i) - 1) / 4;
+  return occasionFit(i, targets)*1.25 + mixes*0.55 + warmthFit*0.9
+       + styleMatch(i)*0.3 + feedbackBias(i)
+       - spaceCost*1.1 - creaseCost*0.45;
+}
+// why this piece earned its place. Reasons are relative to the rest of the packed set,
+// not absolute thresholds — otherwise half the list reads "neutral and plain" and the
+// user learns nothing about why THIS piece beat the alternatives.
+function packReason(i, targets, picked){
+  var sameCat = picked.filter(function(x){ return x.cat===i.cat; });
+  var fs = sameCat.map(function(x){ return x.formality; });
+  var maxT = Math.max.apply(null, targets);
+  var warmest = picked.slice().sort(function(a,b){ return (b.warmth||3)-(a.warmth||3); })[0];
+  var catWord = i.cat==='shoes' ? 'pair' : i.cat==='outerwear' ? 'layer' : i.cat;
+  // ties are common (two tops both at formality 3), so only the first item at the
+  // extreme claims the label — otherwise five rows all say "the dressiest".
+  function firstAt(val){ return sameCat.filter(function(x){ return x.formality===val; })[0]; }
+
+  if (i.cat==='outerwear')
+    return 'Your one layer — ' + ((i.warmth||3) >= 4 ? 'the warm option for the cold end of the trip' : 'light enough not to cost much space');
+  if (i.cat==='dress')
+    return 'One item, a whole outfit — the cheapest look in the bag, space-wise';
+  if (i === warmest && (i.warmth||3) >= 4)
+    return 'The warmest thing packed, for the cold end of the trip';
+  if (maxT >= 3.5 && sameCat.length > 1 && i === firstAt(Math.max.apply(null, fs)))
+    return 'The dressiest ' + catWord + ' packed — handles the smarter events';
+  if (sameCat.length > 1 && i === firstAt(Math.min.apply(null, fs)))
+    return 'The casual ' + catWord + ' — for the off-duty days';
+  if (itemBulk(i) <= 1.5) return 'Packs almost flat';
+  if (itemWrinkle(i) <= 1.5) return 'Comes out of the bag uncreased';
+  if (i.colorRole==='neutral' && i.pattern==='solid') return 'Neutral and plain — pairs with everything else packed';
+  return 'Rounds out the mix';
+}
+
+function planTrip(cfg){
+  var warmthNeed = warmthTargetFromTemp(cfg.temp);
+  var targets = cfg.occasions.map(function(o){ return OCCASIONS[o].target; });
+  var days = cfg.days;
+
+  // capsule sizing: tops turn over fastest, bottoms re-wear, shoes are the space hogs
+  var want = {
+    top:   Math.max(2, Math.min(6, Math.ceil(days * 0.7))),
+    bottom:Math.max(1, Math.min(4, Math.ceil(days / 2.5))),
+    shoes: days >= 4 ? 2 : 1,
+    outerwear: needsOuterwear(cfg.temp) ? 1 : (cfg.temp < 70 ? 1 : 0),
+    dress: 0
+  };
+  // a dress is one packed item that covers a whole look — worth it on dressier trips
+  var dressy = targets.some(function(t){ return t >= 3.5; });
+  if (dressy && byCatAll('dress').length) { want.dress = 1; want.top = Math.max(2, want.top - 1); }
+  if (cfg.carryOn) { want.top = Math.max(2, want.top - 1); want.shoes = Math.min(want.shoes, days >= 6 ? 2 : 1); }
+
+  var picked = [], skipped = [];
+  ['dress','top','bottom','outerwear','shoes'].forEach(function(cat){
+    var pool = byCatAll(cat).slice().sort(function(a,b){
+      return travelScore(b, targets, warmthNeed) - travelScore(a, targets, warmthNeed);
+    });
+    // in warm weather a heavy coat is dead weight — never let it win a slot
+    if (cat==='outerwear' && forbidsHeavy(cfg.temp)) pool = pool.filter(function(o){ return o.warmth < 4; });
+    pool.slice(0, want[cat]).forEach(function(i){ picked.push(i); });
+    pool.slice(want[cat]).forEach(function(i){ skipped.push(i); });
+  });
+
+  // prove it dresses you: run the real outfit engine against only what's packed
+  poolOverride = picked;
+  var looks = [];
+  cfg.occasions.forEach(function(o){
+    var ctx = { occ:o, target:OCCASIONS[o].target, temp:cfg.temp, weather:'clear',
+      impress:false, comfy:false, lowkey:false, wantWarm:false, mustInclude:null };
+    var built = buildOutfits(ctx);
+    if (built.length) looks.push({ occ:o, outfit:built[0], ctx:ctx });
+  });
+  poolOverride = null;
+
+  var totalBulk = picked.reduce(function(a,i){ return a + itemBulk(i); }, 0);
+  return { picked:picked, skipped:skipped, looks:looks, totalBulk:totalBulk,
+           capacity: cfg.carryOn ? 26 : 44, days:days, targets:targets };
+}
+// travel planning always considers the whole closet, never a narrowed pool
+function byCatAll(c){ return state.wardrobe.filter(function(i){return i.cat===c;}); }
+
+function renderPacking(plan){
+  var el = document.getElementById('packResults');
+  if (!plan.picked.length) {
+    el.innerHTML = !state.wardrobe.length
+      ? '<div class="results-empty"><div class="big">👗</div><div style="font-weight:700;color:var(--text-dim);font-size:16px">Your wardrobe is empty</div><div style="font-size:14px;margin-top:6px">StyleSync packs from clothes you already own — add a few first. <a href="#" class="go-closet" style="color:var(--accent)">Add your clothes →</a></div></div>'
+      : '<div class="results-empty"><div class="big">🧩</div><div style="font-weight:700;color:var(--text-dim);font-size:16px">Not enough to pack a trip yet</div><div style="font-size:14px;margin-top:6px">You still need ' + (missingEssentials().join(' and ') || 'a fuller wardrobe') + '. <a href="#" class="go-closet" style="color:var(--accent)">Add to your wardrobe →</a></div></div>';
+    bindGoCloset();
+    return;
+  }
+  var pct = Math.min(100, Math.round(plan.totalBulk / plan.capacity * 100));
+  var over = plan.totalBulk > plan.capacity;
+  var html = ''
+    + '<div class="pack-summary">'
+    + '<div class="pack-stats">'
+    + '<div class="pack-stat"><div class="n">' + plan.picked.length + '</div><div class="l">item' + (plan.picked.length===1?'':'s') + ' packed</div></div>'
+    + '<div class="pack-stat"><div class="n">' + plan.looks.length + '</div><div class="l">look' + (plan.looks.length===1?'':'s') + ' covered</div></div>'
+    + '<div class="pack-stat"><div class="n">' + plan.days + '</div><div class="l">day' + (plan.days===1?'':'s') + '</div></div>'
+    + '</div>'
+    + '<div class="fill-bar' + (over?' over':'') + '"><i style="width:' + pct + '%"></i></div>'
+    + '<div class="fill-note">' + (over
+        ? 'This is more than a carry-on comfortably takes — drop the bulkiest piece or turn carry-on mode off.'
+        : 'About ' + pct + '% of a ' + (plan.capacity===26?'carry-on':'checked bag') + ', by bulk.') + '</div>'
+    // a list that can't form one complete outfit is worse than useless — say so plainly
+    + (plan.looks.length === 0
+        ? '<div class="fill-note" style="color:var(--bad)">This won\'t dress you yet — you still need ' + (missingEssentials().join(' and ') || 'pieces that work together') + '.</div>'
+        : '')
+    + '</div>';
+
+  var groups = [['outerwear','Layers'],['top','Tops'],['dress','Dresses'],['bottom','Bottoms'],['shoes','Shoes']];
+  groups.forEach(function(g){
+    var rows = plan.picked.filter(function(i){ return i.cat===g[0]; });
+    if (!rows.length) return;
+    html += '<div class="pack-group"><h4>' + g[1] + '</h4>';
+    rows.forEach(function(i){
+      var b = Math.round(itemBulk(i));
+      var dots = '';
+      for (var k=1;k<=5;k++) dots += '<span class="bd' + (k<=b?' on':'') + '"></span>';
+      html += '<div class="pack-row">'
+        + '<div class="art">' + itemArt(i) + '</div>'
+        + '<div><div class="nm">' + i.name + '</div><div class="why">' + packReason(i, plan.targets, plan.picked) + '</div></div>'
+        + '<div class="bulk"><span class="dots">' + dots + '</span><span class="bl">bulk</span></div>'
+        + '</div>';
+    });
+    html += '</div>';
+  });
+
+  if (plan.looks.length) {
+    html += '<div class="pack-group"><h4>What it dresses you for</h4>';
+    plan.looks.forEach(function(l){
+      html += '<div class="trip-look"><div class="th"><span class="tag">' + OCCASIONS[l.occ].label.replace(/^an? /,'') + '</span>'
+        + '<span class="tt">' + outfitTitle(l.outfit) + '</span></div>'
+        + '<div class="ti">' + l.outfit.items.map(function(x){return x.name;}).join(' · ') + '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  if (plan.skipped.length) {
+    var worst = plan.skipped.slice().sort(function(a,b){ return itemBulk(b)-itemBulk(a); })[0];
+    html += '<div class="left-behind"><h4>Left at home</h4>'
+      + '<p>' + plan.skipped.length + ' items stayed behind. The bulkiest was <strong>' + worst.name + '</strong> ('
+      + (itemBulk(worst) >= 4 ? 'takes real space in the bag' : 'less versatile than what got picked') + ').</p>'
+      + '<p style="color:var(--muted);font-size:12px;margin-top:6px">Nothing here is a purchase suggestion — every item is already yours.</p></div>';
+  }
+  el.innerHTML = html;
+}
+
+function packTrip(){
+  var days = parseInt(document.getElementById('tripDays').value,10);
+  var temp = parseInt(document.getElementById('tripTemp').value,10);
+  var occasions = Array.prototype.map.call(document.querySelectorAll('#tripOccChips .chip.on'), function(c){return c.dataset.o;});
+  if (!occasions.length) { toast('Pick at least one thing on the itinerary.'); return; }
+  var plan = planTrip({ days:days, temp:temp, occasions:occasions,
+    carryOn: document.getElementById('carryOnToggle').checked });
+  renderPacking(plan);
+  document.getElementById('packResults').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ============================================================
+   WIRING
+   ============================================================ */
+// travel controls
+document.getElementById('tripDays').addEventListener('input', function(e){
+  document.getElementById('tripDaysVal').textContent = e.target.value;
+});
+document.getElementById('tripTemp').addEventListener('input', function(e){
+  var t = +e.target.value;
+  document.getElementById('tripTempVal').textContent = t;
+  document.getElementById('tripTempNote').textContent =
+    t < 40 ? 'Cold. A warm layer is worth the space.' :
+    t < 52 ? 'Chilly. Pack a proper coat.' :
+    t < 64 ? 'Cool. Pack one real layer.' :
+    t < 76 ? 'Mild. A light layer is plenty.' :
+             'Warm. Skip heavy layers entirely.';
+});
+document.querySelectorAll('#tripOccChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){ c.classList.toggle('on'); });
+});
+document.getElementById('packBtn').addEventListener('click', packTrip);
+
+// tabs
+document.querySelectorAll('#tabs button').forEach(function(b){
+  b.addEventListener('click', function(){ showView(b.dataset.view); });
+});
+function showView(v){
+  document.querySelectorAll('#tabs button').forEach(function(x){ x.classList.toggle('on', x.dataset.view===v); });
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.getElementById('toCloset').addEventListener('click', function(e){ e.preventDefault(); showView('closet'); });
+
+// temp slider
+var tempEl = document.getElementById('temp');
+tempEl.addEventListener('input', function(){
+  var t = +tempEl.value; document.getElementById('tempVal').textContent = t;
+  var n = t<40?'Cold. You\'ll want a real coat.':t<52?'Chilly. A warm layer is smart.':t<64?'Cool. A light layer will help.':t<76?'Mild. Layer optional.':'Warm. Keep it light.';
+  document.getElementById('weatherNote').textContent = n;
+});
+
+/* Auto weather: one location lookup fills in BOTH the temperature and the condition.
+   Open-Meteo needs no API key and no account, which is why it's used here rather than
+   Apple Weather (WeatherKit requires an Apple Developer membership and signed tokens,
+   so it can't be called from a static page). */
+
+// WMO weather codes → the conditions this app dresses for. Order matters: wet beats
+// windy, because rain changes footwear more than wind changes a layer.
+function conditionFromCode(code, windKph, humidity, uv){
+  var snowing = (code >= 71 && code <= 77) || (code >= 85 && code <= 86);
+  var raining = (code >= 51 && code <= 67) || (code >= 80 && code <= 82) || code >= 95;
+  if (snowing) return { w: 'snow', label: 'snow' };
+  if (raining) return { w: 'rain', label: 'rain' };
+  // UV 7+ is the WHO "high" band — the point where covering up actually matters.
+  // Ranked above wind because sunburn is the more consequential of the two.
+  if (uv >= 7 && code <= 2) return { w: 'sun', label: 'strong sun (UV ' + Math.round(uv) + ')' };
+  if (windKph >= 25) return { w: 'wind', label: 'windy' };
+  if (humidity >= 75) return { w: 'humid', label: 'humid' };
+  return { w: 'clear', label: code <= 1 ? 'clear' : 'mostly dry' };
+}
+function setWeatherChip(w){
+  document.querySelectorAll('#weatherChips .chip').forEach(function(c){
+    c.classList.toggle('on', c.dataset.w === w);
+  });
+}
+document.getElementById('autoWeatherBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  var btn = this, original = btn.textContent;
+  if (!navigator.geolocation) { toast('Geolocation is not available in this browser.'); return; }
+  btn.textContent = '📍 Checking…'; btn.disabled = true;
+  var done = function(){ btn.textContent = original; btn.disabled = false; };
+
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var lat = pos.coords.latitude, lon = pos.coords.longitude;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon
+        + '&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m,uv_index&timezone=auto')
+      .then(function(r){ if(!r.ok) throw new Error('bad response'); return r.json(); })
+      .then(function(d){
+        var cur = d.current || {};
+        var t = Math.round(cur.temperature_2m * 9/5 + 32);
+        tempEl.value = Math.max(25, Math.min(95, t));
+        tempEl.dispatchEvent(new Event('input'));
+
+        var cond = conditionFromCode(cur.weather_code, cur.wind_speed_10m || 0,
+                                     cur.relative_humidity_2m || 0, cur.uv_index || 0);
+        setWeatherChip(cond.w);
+
+        toast(t + '°F and ' + cond.label + ' where you are — updated.');
+        done();
+      })
+      .catch(function(){ toast('Could not reach the weather service. Keeping your manual setting.'); done(); });
+  }, function(err){
+    toast(err && err.code === 1
+      ? 'Location permission denied — set the temperature and weather manually.'
+      : 'Could not get your location. Keeping your manual setting.');
+    done();
+  }, { timeout: 10000, maximumAge: 600000 });
+});
+
+// Quick mode: show only top outfit
+var quickModeOn = false;
+document.getElementById('quickModeToggle').addEventListener('change', function(){
+  quickModeOn = this.checked;
+  if(lastResults.length) generate();
+});
+document.getElementById('shopToggle').addEventListener('change', function(){
+  if(lastResults.length) generate();
+});
+// chip groups
+document.querySelectorAll('#weatherChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){ document.querySelectorAll('#weatherChips .chip').forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); });
+});
+document.querySelectorAll('#prefChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){ c.classList.toggle('on'); });
+});
+document.getElementById('generate').addEventListener('click', generate);
+
+// wardrobe filters
+document.querySelectorAll('#filters .chip').forEach(function(c){
+  c.addEventListener('click', function(){ document.querySelectorAll('#filters .chip').forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); activeFilter=c.dataset.f; renderCloset(); });
+});
+document.getElementById('clearSamplesBtn').addEventListener('click', clearSamples);
+document.getElementById('addItemBtn').addEventListener('click', openAdd);
+document.getElementById('importZaraBtn').addEventListener('click', importZaraTestData);
+document.getElementById('addBulkBtn').addEventListener('click', openBulk);
+document.getElementById('modalX').addEventListener('click', closeAdd);
+overlay.addEventListener('click', function(e){ if(e.target===overlay) closeAdd(); });
+
+// profile chips
+document.querySelectorAll('#styleChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){ toggleArr(state.profile.style, c.dataset.s); persist(); renderProfile(); });
+});
+document.querySelectorAll('#colorChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){ toggleArr(state.profile.color, c.dataset.c); persist(); renderProfile(); });
+});
+document.getElementById('budget').addEventListener('change', function(e){ state.profile.budget=e.target.value; persist(); renderProfile(); });
+function toggleArr(arr,v){ var i=arr.indexOf(v); if(i>=0) arr.splice(i,1); else arr.push(v); }
+
+// theme
+var themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-theme');
+  var next = cur==='light'?'dark':cur==='dark'?'light':(window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('stylesync-theme', next); }catch(e){}
+});
+(function(){ try{ var t=localStorage.getItem('stylesync-theme'); if(t) document.documentElement.setAttribute('data-theme',t);}catch(e){} })();
+
+// toast
+var toastEl = document.getElementById('toast'); var toastTimer;
+function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('on'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){toastEl.classList.remove('on');},2200); }
+
+// init
+renderCloset();
+renderProfile();
+updateItemCount();
+</script>
+</body>
+</html>

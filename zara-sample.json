@@ -1,0 +1,3079 @@
+{
+  "schemaVersion": 1,
+  "source": "ZARA official public catalog",
+  "imagePolicy": "Remote official URLs only; null means use StyleSync placeholder.",
+  "collectedAt": "2026-08-13T17:31:50.246Z",
+  "count": 100,
+  "items": [
+    {
+      "id": "zara-001",
+      "name": "Gold top set with draped neckline and wide white pants.",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/fc79/6257/65dc420a9698/1a71c6f28da3/06236025303-p/06236025303-p.jpg?ts=1775657512409&w=1608",
+      "imageUrl": "https://static.zara.net/assets/public/fc79/6257/65dc420a9698/1a71c6f28da3/06236025303-p/06236025303-p.jpg?ts=1775657512409&w=1608",
+      "productUrl": "https://www.zara.com/us/en/metallic-knit-halter-top-p06236025.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-002",
+      "name": "ANIMAL PRINT TULLE TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Leopard / taupe brown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/d070/e0ce/19e7425d9db5/71b36d03bac8/05039405042-a1/05039405042-a1.jpg?ts=1779812388715&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/d070/e0ce/19e7425d9db5/71b36d03bac8/05039405042-a1/05039405042-a1.jpg?ts=1779812388715&w=774",
+      "productUrl": "https://www.zara.com/us/en/animal-print-tulle-top-p05039405.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-003",
+      "name": "EYELET EMBROIDERED TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Multicolored",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/embroidered-eyelet-top-p07890969.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-004",
+      "name": "RIBBED TANK TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Pastel pink",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/ribbed-tank-top-p03253301.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-005",
+      "name": "ROUNDED HEM HALTER TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "White",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/rounded-hem-halter-top-p04424332.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-006",
+      "name": "FLORAL CORSET TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Light yellow",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/6e5e/cd4e/79ef40f98116/50e74afe7ff8/04813368306-p/04813368306-p.jpg?ts=1783077114065&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/6e5e/cd4e/79ef40f98116/50e74afe7ff8/04813368306-p/04813368306-p.jpg?ts=1783077114065&w=774",
+      "productUrl": "https://www.zara.com/us/en/floral-corset-top-p04813368.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-007",
+      "name": "ZIP BUTTON TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Oyster-white",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zipper-button-top-p04341700.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-008",
+      "name": "ZW COLLECTION LACE CAMISOLE TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-lace-camisole-top-p01758204.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-009",
+      "name": "COVERED BUTTON TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Oyster-white",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/fabric-covered-button-top-p07755463.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-010",
+      "name": "SATIN HALTER TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/satin-halter-top-p08020566.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-011",
+      "name": "STRIPED KNIT POLO TOP",
+      "cat": "top",
+      "sub": "sweater",
+      "color": "#8892a6",
+      "colorName": "Multicolored",
+      "pattern": "striped",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/striped-knit-polo-p03653015.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-012",
+      "name": "ASYMMETRIC SATIN HALTER TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Oyster-white",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/423b/8cbe/ec7e4c319438/71a21fa8bde0/02748051251-a3/02748051251-a3.jpg?ts=1779440409394&w=1098",
+      "imageUrl": "https://static.zara.net/assets/public/423b/8cbe/ec7e4c319438/71a21fa8bde0/02748051251-a3/02748051251-a3.jpg?ts=1779440409394&w=1098",
+      "productUrl": "https://www.zara.com/us/en/asymmetric-satin-halter-top-p02748332.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-013",
+      "name": "GINGHAM RUCHED TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "White / Red",
+      "pattern": "checked",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/gingham-ruched-top-p03564105.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-014",
+      "name": "COTTON MODAL TANK TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Brown / Taupe",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/cotton-modal-tank-top-p03641328.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-015",
+      "name": "ZW COLLECTION ASYMMETRICAL TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-asymmetrical-top-p05919006.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-016",
+      "name": "SLEEVELESS FINE KNIT TOP",
+      "cat": "top",
+      "sub": "sweater",
+      "color": "#8892a6",
+      "colorName": "Light blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/bebe/7a30/205c420e8010/4d05e71b3eb3/02142083800-a1/02142083800-a1.jpg?ts=1782123883415&w=1098",
+      "imageUrl": "https://static.zara.net/assets/public/bebe/7a30/205c420e8010/4d05e71b3eb3/02142083800-a1/02142083800-a1.jpg?ts=1782123883415&w=1098",
+      "productUrl": "https://www.zara.com/us/en/sleeveless-fine-knit-top-p02142083.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-017",
+      "name": "FLOWY WRAP TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Oyster-white",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/flowy-wrap-top-p03897122.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-018",
+      "name": "BELTED TOP WITH BUCKLE",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Ecru",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/buckle-belt-top-p01478139.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-019",
+      "name": "PRINTED EMBROIDERED EYELET TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Multicolored",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/printed-embroidered-eyelet-top-p07078507.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-020",
+      "name": "STRIPED KNIT TOP",
+      "cat": "top",
+      "sub": "sweater",
+      "color": "#8892a6",
+      "colorName": "Blue / White",
+      "pattern": "striped",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/5957/7b1b/4f0f4b51ae01/4d2152a73ceb/00244003048-p/00244003048-p.jpg?ts=1783521025760&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/5957/7b1b/4f0f4b51ae01/4d2152a73ceb/00244003048-p/00244003048-p.jpg?ts=1783521025760&w=774",
+      "productUrl": "https://www.zara.com/us/en/striped-knit-top-p00244003.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-021",
+      "name": "SATIN-EFFECT HALTER TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Oyster-white",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/ea9e/0286/fb5a476fa876/9feb94c20137/07822071251-e1/07822071251-e1.jpg?ts=1782999533115&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/ea9e/0286/fb5a476fa876/9feb94c20137/07822071251-e1/07822071251-e1.jpg?ts=1782999533115&w=774",
+      "productUrl": "https://www.zara.com/us/en/satin-halter-top-p07822071.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-022",
+      "name": "WIDE STRAP TANK TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Red",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/7047/2c31/ea3645a4a378/85e0fc9a1cd4/02335150600-a1/02335150600-a1.jpg?ts=1780058844333&w=1098",
+      "imageUrl": "https://static.zara.net/assets/public/7047/2c31/ea3645a4a378/85e0fc9a1cd4/02335150600-a1/02335150600-a1.jpg?ts=1780058844333&w=1098",
+      "productUrl": "https://www.zara.com/us/en/wide-strap-tank-top-p02335150.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-023",
+      "name": "SATIN HALTER TOP",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Gray",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/satin-effect-halter-top-p09822342.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "tops"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-024",
+      "name": "Blue maxi dress set with thin straps, V-neckline, and matching fabric detail at the neck.",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/5c1c/5451/acd94bf89e98/7de857db98b9/07858109400-a3/07858109400-a3.jpg?ts=1786544807615&w=1608",
+      "imageUrl": "https://static.zara.net/assets/public/5c1c/5451/acd94bf89e98/7de857db98b9/07858109400-a3/07858109400-a3.jpg?ts=1786544807615&w=1608",
+      "productUrl": "https://www.zara.com/us/en/long-georgette-scarf-strap-dress-p07768109.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-025",
+      "name": "SATIN CUMMERBUND JUMPSUIT",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/satin-sash-long-jumpsuit-p07813071.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-026",
+      "name": "SATIN TIE-DETAIL MAXI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Emerald",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/satin-tie-detail-maxi-dress-p07823330.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-027",
+      "name": "HALTER MAXI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Pink",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/halter-maxi-dress-p04772206.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-028",
+      "name": "SHOULDER PAD BELTED SHORT JUMPSUIT",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Canvas",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/short-shoulder-pad-jumpsuit-with-belt-p07845524.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-029",
+      "name": "COMBINATION SLIP DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Chocolate",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/combination-slip-dress-p02938533.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-030",
+      "name": "BUCKLE HALTER MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Brown / Taupe",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/buckle-halter-midi-dress-p04772208.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-031",
+      "name": "GINGHAM MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Brown / Ecru",
+      "pattern": "checked",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/b4d5/8283/b1fd4fc1b7cb/4f7fffd4af4e/07953524087-h1/07953524087-h1.jpg?ts=1786018626645&w=1608",
+      "imageUrl": "https://static.zara.net/assets/public/b4d5/8283/b1fd4fc1b7cb/4f7fffd4af4e/07953524087-h1/07953524087-h1.jpg?ts=1786018626645&w=1608",
+      "productUrl": "https://www.zara.com/us/en/gingham-midi-dress-p07953524.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-032",
+      "name": "Taupe-colored long jumpsuit, halter neck, V-neck, wide legs, and puffed hem finished with buttoned cuffs.",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/e177/6d3a/817144fcb9ce/2c1191749616/02278560737-p/02278560737-p.jpg?ts=1786373363412&w=1098",
+      "imageUrl": "https://static.zara.net/assets/public/e177/6d3a/817144fcb9ce/2c1191749616/02278560737-p/02278560737-p.jpg?ts=1786373363412&w=1098",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-satin-halter-jumpsuit-p02278560.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-033",
+      "name": "ZW COLLECTION PRINTED MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Ocher",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-printed-midi-dress-p09079019.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-034",
+      "name": "ZW COLLECTION PRINTED MAXI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Mid-green",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-printed-maxi-dress-p09081018.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-035",
+      "name": "POLYAMIDE HALTER JUMPSUIT",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/halter-neck-polyamide-jumpsuit-p01131823.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-036",
+      "name": "STRETCH SLIT MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/stretch-midi-dress-with-slit-p06050814.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-037",
+      "name": "FROG FASTENING SHORT DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/frog-fastening-mini-dress-p03897164.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-038",
+      "name": "BELTED JUMPSUIT",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Ecru / Beige",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/belted-combined-jumpsuit-p03897159.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-039",
+      "name": "CONTRAST PLEATED MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Beige",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/contrast-pleated-midi-dress-p05029189.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-040",
+      "name": "POLKA DOT HALTER MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Beige-brown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/polka-dot-halter-midi-dress-p00387165.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-041",
+      "name": "LINEN HALTER MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Pink",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/linen-halter-midi-dress-p07894712.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-042",
+      "name": "ASYMMETRIC SLEEVE BELTED JUMPSUIT",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Navy blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/asymmetrical-sleeve-belted-jumpsuit-p03293151.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-043",
+      "name": "COMBINED WAIST MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/contrast-waist-midi-dress-p05029160.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-044",
+      "name": "SHORT SEQUIN DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Pale pink",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/sequin-mini-dress-p05770225.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-045",
+      "name": "EMBROIDERED HALTER MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Maroon",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/embroidered-halter-midi-dress-p07661703.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-046",
+      "name": "STRIPED MIDI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Pink / White",
+      "pattern": "striped",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/9154/a6e9/40dc4c4d893a/3569aaa01dc7/07501543046-e1/07501543046-e1.jpg?ts=1786448868900&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/9154/a6e9/40dc4c4d893a/3569aaa01dc7/07501543046-e1/07501543046-e1.jpg?ts=1786448868900&w=774",
+      "productUrl": "https://www.zara.com/us/en/striped-midi-dress-p07501543.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-047",
+      "name": "Z1975 DENIM MIDI HALTER DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Brown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/fab3/b182/32b543c088e0/902ab96f17a0/07957576700-a2/07957576700-a2.jpg?ts=1786018632199&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/fab3/b182/32b543c088e0/902ab96f17a0/07957576700-a2/07957576700-a2.jpg?ts=1786018632199&w=774",
+      "productUrl": "https://www.zara.com/us/en/z1975-midi-halter-denim-dress-p07957576.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-048",
+      "name": "COMBINED MIDI BELTED DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Pink / White",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/6886/278a/fe0f4f9ca387/445b25ec9e79/05029174046-p/05029174046-p.jpg?ts=1786450881059&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/6886/278a/fe0f4f9ca387/445b25ec9e79/05029174046-p/05029174046-p.jpg?ts=1786450881059&w=774",
+      "productUrl": "https://www.zara.com/us/en/mixed-midi-dress-with-belt-p05029174.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-049",
+      "name": "LONG KNIT DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/knit-maxi-dress-p01223724.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-050",
+      "name": "BEADED MINI DRESS",
+      "cat": "dress",
+      "sub": "dress",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/beaded-mini-dress-p04751101.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "dresses"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-051",
+      "name": "Ecru sleeveless draped-neck top and high-rise black pants set with front seams.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/c9ab/5d09/7baa471d90c6/037c2dfa16f4/01478462800-p/01478462800-p.jpg?ts=1786535896450&w=1608",
+      "imageUrl": "https://static.zara.net/assets/public/c9ab/5d09/7baa471d90c6/037c2dfa16f4/01478462800-p/01478462800-p.jpg?ts=1786535896450&w=1608",
+      "productUrl": "https://www.zara.com/us/en/high-waisted-pants-p01608262.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-052",
+      "name": "FLOWY CUFFED BALLOON PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/flowy-balloon-pants-with-cuff-p06929245.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-053",
+      "name": "FLOWY PLEATED PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Bluish",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/flowy-pleated-pants-p03152453.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-054",
+      "name": "100% LINEN BARREL TROUSERS ZW COLLECTION",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-100-linen-barrel-pants-p00340243.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-055",
+      "name": "ANIMAL PRINT WIDE LEG DRAWSTRING PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Tiger",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/animal-print-wide-leg-drawstring-pants-p06929210.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-056",
+      "name": "SATIN DRAWSTRING PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/8e92/508c/e0584fa7ad25/130112b26dae/05427443800-a2/05427443800-a2.jpg?ts=1786520741136&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/8e92/508c/e0584fa7ad25/130112b26dae/05427443800-a2/05427443800-a2.jpg?ts=1786520741136&w=774",
+      "productUrl": "https://www.zara.com/us/en/satin-drawstring-pants-p01255480.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-057",
+      "name": "STRIPED BELTED PAPERBAG TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Brown",
+      "pattern": "striped",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/striped-paperbag-belted-trousers-p07784493.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-058",
+      "name": "SATIN WIDE-LEG TROUSERS WITH BELT",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Brown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/satin-wide-leg-trousers-with-belt-p07803556.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-059",
+      "name": "BLOOMER PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Mink marl",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/bloomer-pants-p05644812.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-060",
+      "name": "EYELET EMBROIDERED WIDE-LEG TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Caramel",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/393f/c62d/c851493c969d/16c29bbf09ac/07830704732-p/07830704732-p.jpg?ts=1786460848852&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/393f/c62d/c851493c969d/16c29bbf09ac/07830704732-p/07830704732-p.jpg?ts=1786460848852&w=774",
+      "productUrl": "https://www.zara.com/us/en/embroidered-cutwork-trousers-p07830704.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-061",
+      "name": "FLORAL PRINT BALLOON TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Multicolored",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/91a8/194d/88924b26b096/ffb1d6980c3b/07836802330-p/07836802330-p.jpg?ts=1786460855430&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/91a8/194d/88924b26b096/ffb1d6980c3b/07836802330-p/07836802330-p.jpg?ts=1786460855430&w=774",
+      "productUrl": "https://www.zara.com/us/en/floral-print-balloon-pants-p07836802.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-062",
+      "name": "HIGH-RISE WIDE-LEG TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Beige",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/high-rise-wide-leg-trousers-p07787326.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-063",
+      "name": "ZW COLLECTION STRAIGHT-LEG TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/9f79/6941/6b184b709f96/fe6fa75ff137/03736244800-a3/03736244800-a3.jpg?ts=1786373373457&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/9f79/6941/6b184b709f96/fe6fa75ff137/03736244800-a3/03736244800-a3.jpg?ts=1786373373457&w=774",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-straight-leg-trousers-p03736244.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-064",
+      "name": "Model posing with a camel coat, printed shirt, wide-leg mustard pants, and sunglasses against a light background. Text: ZARA.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/3c54/419b/a2124e118cb0/c8cbb4174af5/09632267950-p/09632267950-p.jpg?ts=1786373400198&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/3c54/419b/a2124e118cb0/c8cbb4174af5/09632267950-p/09632267950-p.jpg?ts=1786373400198&w=774",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-pleated-trousers-p09632267.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-065",
+      "name": "INTERLOCK BUTTON TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/interlock-button-trousers-p05039466.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-066",
+      "name": "FITTED POCKET TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Ecru",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/fitted-pocket-trousers-p05584633.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-067",
+      "name": "Medium shot of baggy, low-rise black pants with a gathered hem and fitted cuffs, paired with white flats.",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/a707/7a70/0c1441cab204/90f38874446f/05644821800-a1/05644821800-a1.jpg?ts=1786462994841&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/a707/7a70/0c1441cab204/90f38874446f/05644821800-a1/05644821800-a1.jpg?ts=1786462994841&w=1280",
+      "productUrl": "https://www.zara.com/us/en/bloomer-pants-p05644821.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-068",
+      "name": "ZW COLLECTION STRAIGHT-LEG PLEATED TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Navy blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-tailored-straight-leg-trousers-p03736259.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-069",
+      "name": "POLYAMIDE CAPRI TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/polyamide-capri-pants-p01355462.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-070",
+      "name": "Z1975 HIGH-RISE WIDE-LEG JOGGER JEANS",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/z1975-high-rise-wide-leg-jogger-jeans-p07147229.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-071",
+      "name": "BELTED CULOTTES",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Navy blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/belted-culottes-p07807318.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-072",
+      "name": "BARREL PANTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Ecru",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/barrel-pants-p08372248.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-073",
+      "name": "STRIPED BELTED TROUSERS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "striped",
+      "pattern": "striped",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/e47a/3f5c/6b6e49cd9703/4c8e8e56561a/01478934104-a4/01478934104-a4.jpg?ts=1786459724308&w=774",
+      "imageUrl": "https://static.zara.net/assets/public/e47a/3f5c/6b6e49cd9703/4c8e8e56561a/01478934104-a4/01478934104-a4.jpg?ts=1786459724308&w=774",
+      "productUrl": "https://www.zara.com/us/en/belted-striped-trousers-p01478934.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-074",
+      "name": "PRINTED EMBROIDERED SKORT",
+      "cat": "bottom",
+      "sub": "skirt",
+      "color": "#8892a6",
+      "colorName": "Sea green",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 1,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer"
+      ],
+      "img": "https://static.zara.net/assets/public/9e41/c749/e4c64802b3a2/ddb0dc02cd32/01377700982-p/01377700982-p.jpg?ts=1786372848414&w=1098",
+      "imageUrl": "https://static.zara.net/assets/public/9e41/c749/e4c64802b3a2/ddb0dc02cd32/01377700982-p/01377700982-p.jpg?ts=1786372848414&w=1098",
+      "productUrl": "https://www.zara.com/us/en/embroidered-printed-skort-p01377700.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "bottoms"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-075",
+      "name": "LEATHER SLINGBACK HEELS",
+      "cat": "shoes",
+      "sub": "heels",
+      "color": "#8892a6",
+      "colorName": "Multi-color",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/92f8/95ed/dbaf4db7ad1c/4a343754d141/62c1dfc06f7dfde08070a38874d4f6a2/62c1dfc06f7dfde08070a38874d4f6a2.jpg?ts=1786457228328&w=1160",
+      "imageUrl": "https://static.zara.net/assets/public/92f8/95ed/dbaf4db7ad1c/4a343754d141/62c1dfc06f7dfde08070a38874d4f6a2/62c1dfc06f7dfde08070a38874d4f6a2.jpg?ts=1786457228328&w=1160",
+      "productUrl": "https://www.zara.com/us/en/leather-slingback-heels-p11203810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-076",
+      "name": "METALLIC LEATHER SLINGBACKS",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Silver",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/metallic-leather-slingback-shoes-p11508810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-077",
+      "name": "SUEDE LOAFERS WITH METALLIC APPLIQUÉ",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Beige",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/suede-loafers-with-metallic-applique-p11516810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-078",
+      "name": "SUEDE SLINGBACK SHOES",
+      "cat": "shoes",
+      "sub": "heels",
+      "color": "#8892a6",
+      "colorName": "Dark tan",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/suede-slingback-shoes-p11532810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-079",
+      "name": "SLINGBACK HEELS",
+      "cat": "shoes",
+      "sub": "heels",
+      "color": "#8892a6",
+      "colorName": "Red",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/slingback-shoes-p12213810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-080",
+      "name": "LEATHER COWBOY BOOTS",
+      "cat": "shoes",
+      "sub": "boots",
+      "color": "#8892a6",
+      "colorName": "Khaki Green",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/leather-cowboy-boots-p12054810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-081",
+      "name": "SUEDE BALLET FLATS",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Sandy Brown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/7a7a/eb56/4a14434694ba/d9b4be153ecd/12533711107-p/12533711107-p.jpg?ts=1786449784318&w=1160",
+      "imageUrl": "https://static.zara.net/assets/public/7a7a/eb56/4a14434694ba/d9b4be153ecd/12533711107-p/12533711107-p.jpg?ts=1786449784318&w=1160",
+      "productUrl": "https://www.zara.com/us/en/suede-ballet-flats-p12533710.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-082",
+      "name": "LEATHER HEELED BALLET FLATS",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/leather-heeled-ballet-flats-p13205810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-083",
+      "name": "METALLIC LEATHER HEELED BALLET FLATS",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Golden",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/metallic-leather-heeled-ballet-flats-p13210810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-084",
+      "name": "FUR LEATHER MULE HEELS",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Brown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/hair-on-leather-mules-p13223810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-085",
+      "name": "RUCHED SUEDE ANKLE BOOTS",
+      "cat": "shoes",
+      "sub": "boots",
+      "color": "#8892a6",
+      "colorName": "Dark tan",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/gathered-suede-ankle-boots-p13100610.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-086",
+      "name": "BLUCHER SNEAKERS WITH HEEL DETAIL",
+      "cat": "shoes",
+      "sub": "sneakers",
+      "color": "#8892a6",
+      "colorName": "Navy Blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/dbcc/39bb/2a2c4d7898ea/2a9a5ac0b3ab/15012810407-ult21/15012810407-ult21.jpg?ts=1786105666324&w=1160",
+      "imageUrl": "https://static.zara.net/assets/public/dbcc/39bb/2a2c4d7898ea/2a9a5ac0b3ab/15012810407-ult21/15012810407-ult21.jpg?ts=1786105666324&w=1160",
+      "productUrl": "https://www.zara.com/us/en/blucher-sneakers-with-heel-detail-p15012810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-087",
+      "name": "SOFT RUCHED LOAFERS",
+      "cat": "shoes",
+      "sub": "loafers",
+      "color": "#8892a6",
+      "colorName": "Black",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/soft-ruched-loafers-p12515610.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-088",
+      "name": "VINYL HIGH HEEL SHOES",
+      "cat": "shoes",
+      "sub": "heels",
+      "color": "#8892a6",
+      "colorName": "Beige",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/vinyl-heeled-shoes-p13832810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-089",
+      "name": "FLORAL PRINT HEELED SANDALS",
+      "cat": "shoes",
+      "sub": "heels",
+      "color": "#8892a6",
+      "colorName": "Multi-color",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/floral-print-heeled-sandals-p11329810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "shoes"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-090",
+      "name": "Model wearing an unbuttoned dark patterned shirt, olive green pants, and a brown belt. AR text visible on the left against a light background.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/4f37/ca43/9c5048248dcb/c5a1735b0467/da1407db5b2df1923a9b7dbded79fd3f/da1407db5b2df1923a9b7dbded79fd3f.jpg?ts=1786468288011&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/4f37/ca43/9c5048248dcb/c5a1735b0467/da1407db5b2df1923a9b7dbded79fd3f/da1407db5b2df1923a9b7dbded79fd3f.jpg?ts=1786468288011&w=1280",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-printed-shirt-p01326017.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-091",
+      "name": "ZW COLLECTION RELAXED LOW-RISE WIDE LEG JEANS",
+      "cat": "bottom",
+      "sub": "jeans",
+      "color": "#8892a6",
+      "colorName": "Mid-blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-low-rise-relaxed-wide-leg-jeans-p09632268.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-092",
+      "name": "100% LEATHER METALLIC BUCKLE BELT",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Chocolate",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/100-leather-belt-with-metallic-buckle-p02495202.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-093",
+      "name": "ZW COLLECTION 100% LEATHER BELTED COAT",
+      "cat": "outerwear",
+      "sub": "coat",
+      "color": "#8892a6",
+      "colorName": "Light camel",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 3,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-100-leather-belted-coat-p01966245.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-094",
+      "name": "Outfit consisting of a brown jacket, a beige sweater, and dark beige wide-leg pants with a black floral print and front pockets.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/b650/3ec4/3e70477b8a61/f961ce90ba7d/09632271731-p/09632271731-p.jpg?ts=1786373407908&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/b650/3ec4/3e70477b8a61/f961ce90ba7d/09632271731-p/09632271731-p.jpg?ts=1786373407908&w=1280",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-mid-rise-floral-barrel-jeans-p09632271.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-095",
+      "name": "Mid-shot of an ecru jacket featuring a high neck, long sleeves, a button-up front, side pockets, and a gathered hem.",
+      "cat": "outerwear",
+      "sub": "jacket",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 3,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/8878/67f9/c0df4537b9d1/f5cb47be7d8a/06539244712-a4/06539244712-a4.jpg?ts=1786373384630&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/8878/67f9/c0df4537b9d1/f5cb47be7d8a/06539244712-a4/06539244712-a4.jpg?ts=1786373384630&w=1280",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-nylon-jacket-p06539244.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-096",
+      "name": "Black long-sleeve jacket set with a lapel collar, front button closure, and front flap pockets.",
+      "cat": "outerwear",
+      "sub": "jacket",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 3,
+      "warmth": 3,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/9668/c6bd/e82c4bfda12c/1d53e3898c85/03736242800-a1/03736242800-a1.jpg?ts=1786373370026&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/9668/c6bd/e82c4bfda12c/1d53e3898c85/03736242800-a1/03736242800-a1.jpg?ts=1786373370026&w=1280",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-pocket-jacket-p03736242.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-097",
+      "name": "Set featuring a dark floral print shirt and green patterned wide-leg pants with side pockets, front seams, and a belt.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/7cfb/2977/6f734c9ebcf2/2ba3f7d184bd/09632270092-1-p/09632270092-1-p.jpg?ts=1786374841982&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/7cfb/2977/6f734c9ebcf2/2ba3f7d184bd/09632270092-1-p/09632270092-1-p.jpg?ts=1786374841982&w=1280",
+      "productUrl": "https://www.zara.com/us/en/zw-collection-low-rise-floral-barrel-jeans-p09632270.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-098",
+      "name": "ZW COLLECTION MID-RISE DENIM SHORTS",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Mid-blue",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 1,
+      "style": [
+        "street",
+        "casual"
+      ],
+      "season": [
+        "spring",
+        "summer"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/zw-collection-mid-rise-denim-shorts-p09632244.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-099",
+      "name": "BEADED HANDBAG",
+      "cat": "top",
+      "sub": "shirt",
+      "color": "#8892a6",
+      "colorName": "Gray",
+      "pattern": "solid",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "dressy"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": null,
+      "imageUrl": null,
+      "productUrl": "https://www.zara.com/us/en/beaded-handbag-p16305810.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    },
+    {
+      "id": "zara-100",
+      "name": "Asymmetric yellow top set with a crew neck and flowy long sleeves, and wide-leg pants with a dark print and front pockets.",
+      "cat": "bottom",
+      "sub": "trousers",
+      "color": "#8892a6",
+      "colorName": "Unknown",
+      "pattern": "printed",
+      "colorRole": "color",
+      "formality": 2,
+      "warmth": 2,
+      "style": [
+        "modern",
+        "minimal"
+      ],
+      "season": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "img": "https://static.zara.net/assets/public/d335/913e/59d74738922d/7dcacedaaf17/05644819300-a4/05644819300-a4.jpg?ts=1786373381143&w=1280",
+      "imageUrl": "https://static.zara.net/assets/public/d335/913e/59d74738922d/7dcacedaaf17/05644819300-a4/05644819300-a4.jpg?ts=1786373381143&w=1280",
+      "productUrl": "https://www.zara.com/us/en/fluid-asymmetrical-top-p05644819.html",
+      "source": {
+        "brand": "ZARA",
+        "site": "zara.com",
+        "collectedAt": "2026-08-13",
+        "category": "new-in"
+      },
+      "isTestData": true
+    }
+  ]
+}
