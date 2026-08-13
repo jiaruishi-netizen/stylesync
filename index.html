@@ -1649,12 +1649,15 @@ function saveDraft(isEdit){
   draftItem.warmth = +document.getElementById('e-warmth').value;
   draftItem.formality = +document.getElementById('e-formality').value;
   delete draftItem._aiTagged;
+  // closeAdd() nulls draftItem, so read the name before calling it — otherwise the
+  // save succeeds but the confirmation toast throws and never appears.
+  var savedName = draftItem.name;
   if (isEdit) {
     state.wardrobe = state.wardrobe.map(function(x){ return x.id===draftItem.id ? draftItem : x; });
-    persist(); closeAdd(); renderCloset(); toast('Updated “'+draftItem.name+'”.');
+    persist(); closeAdd(); renderCloset(); toast('Updated “'+savedName+'”.');
   } else {
     state.wardrobe.push(draftItem);
-    persist(); closeAdd(); renderCloset(); toast('Added “'+draftItem.name+'” to your wardrobe.');
+    persist(); closeAdd(); renderCloset(); toast('Added “'+savedName+'” to your wardrobe.');
   }
 }
 
